@@ -1,0 +1,75 @@
+\section{Related work}
+\label{sec:related}
+
+\paragraph{Selective labels.} \citet{lakkaraju2017selective} named the problem
+and proposed \emph{contraction}, which uses variation in decision-maker leniency
+to construct a quasi-random subsample and estimate a model's failure rate at a
+target acceptance rate; \citet{kleinberg2018human} applied the idea at scale to
+bail. Contraction estimates a \emph{point} and requires the most lenient decision
+maker to accept at least the target rate; it is silent about what happens outside
+that decision maker's accepted set. \citet{dearteaga2018learning} exploit expert
+consistency. Our contribution is orthogonal and complementary: we do not
+estimate a point but characterise everything the data cannot rule out, and we
+use leniency variation not to identify a risk but to \emph{falsify} a sensitivity
+parameter (\cref{prop:falsify}).
+
+\paragraph{Sensitivity analysis and partial identification.} $\dcsm(\Gamma)$ is
+a decision-censoring form of Rosenbaum's bounds
+\citep{rosenbaum1983assessing, rosenbaum2002observational} and is equivalent
+(\cref{lem:msm}) to Tan's marginal sensitivity model
+\citep{tan2006distributional}, for which sharp bounds and inference have been
+developed for weighted averages and treatment effects
+\citep{zhao2019sensitivity, yadlowsky2018bounds, dorn2023sharp}. Manski's
+assumption-free bounds \citep{manski1990nonparametric, manski2003partial} are the
+$\Gamma\to\infty$ endpoint. \citet{kallus2018confounding, kallus2021minimax}
+develop confounding-robust \emph{policy} learning under the same model, which is
+the closest antecedent to \cref{sec:learning}; their target is policy value under
+a treatment assignment, ours is predictive risk under label censoring, and the
+resulting objective --- midpoint risk plus a width-weighted margin penalty with a
+closed-form Bayes act --- is different and, as we show, exactly convex without
+relaxation. \citet{coston2021characterizing} and
+\citet{rambachan2022counterfactual} study fairness and risk assessment under
+selective labels and unmeasured confounding; \citet{jung2020algorithmic} give
+related bounds for decision making. To our knowledge none of this literature
+bounds a \emph{ranking} metric sharply, which is the gap \cref{thm:sharp-auc}
+fills.
+
+\paragraph{Missing data and sample selection.} Selective labels is
+missing-not-at-random \citep{little2019statistical}. IPW and doubly robust
+estimation \citep{robins1994estimation, chernozhukov2018double} require
+missing-at-random --- exactly $\Gamma=1$ --- and we include both as baselines to
+show what that costs when it fails. Parametric selection models
+\citep{heckman1979sample, greene2012econometric} do permit selection on
+unobservables, and we include the bivariate probit with partial observability as
+the classical econometric comparator. The contrast is the point: it buys
+identification with joint normality, an assumption that is untestable and not
+indexed by any interpretable notion of strength, whereas $\Gamma$ is
+interpretable, monotone, and --- with leniency variation --- falsifiable from
+below.
+
+\paragraph{Distributionally robust optimisation.} DRO minimises worst-case risk
+over a ball around the empirical distribution
+\citep{namkoong2016stochastic, duchi2021learning, sagawa2020distributionally}.
+Formally \eqref{eq:dcl} is a DRO problem, but the ambiguity set is not a
+modelling choice made for tractability: it is \emph{exactly what the observed
+data fail to determine}, and its radius has a substantive interpretation. That
+changes both the mathematics --- the inner supremum has a closed form and needs
+no duality (\cref{rem:dro}) --- and the practice, since $\Gamma$ can be elicited
+from domain experts and bounded below from data, whereas a divergence radius
+cannot.
+
+\paragraph{Ranking metrics.} The rank identity \eqref{eq:rank-identity} is a
+population form of the Mann--Whitney representation of AUROC
+\citep{mann1947test, hanley1982meaning}. Its use here --- to linearise AUROC in
+the outcome regression at fixed prevalence, and thereby reduce a non-convex
+bilinear-fractional optimisation over an identified set to a knapsack plus a
+line search --- appears to be new.
+
+\paragraph{Uncertainty quantification.} The aleatoric/epistemic decomposition
+\citep{depeweg2018decomposition, hullermeier2021aleatoric} and deep ensembles
+\citep{lakshminarayanan2017simple} assume the training labels are a sample from
+the deployment law. \Cref{cor:uq} shows what breaks when a decision chose which
+labels exist, and the credal-set decomposition we adopt follows
+\citet{abellan2005difference}. The specific finding that the naive estimate is
+\emph{never refutable} --- because $p_1(x)$ always lies inside the identified set
+--- has, to our knowledge, not been noted.

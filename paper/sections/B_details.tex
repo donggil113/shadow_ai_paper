@@ -1,0 +1,110 @@
+\section{Additional details}
+\label{app:details}
+
+\subsection{A three-point counterexample to corner evaluation}
+\label{app:counterexample}
+
+Let $\mu$ be uniform on three points with scores $f=(0,1,2)$, so the mid-ranks
+\eqref{eq:midrank} are $R = (\tfrac16,\tfrac12,\tfrac56)$. Take the identified
+box
+\[
+  \plo = (0.59,\;0.85,\;0.48),
+  \qquad
+  \pup = (0.98,\;0.98,\;0.97).
+\]
+Evaluating AUROC at the three natural corners gives
+\[
+  \AUC(\plo)=0.4470,\qquad \AUC(\tilde p)=0.4570,\qquad \AUC(\pup)=0.4512,
+\]
+so the corner recipe reports the interval $[0.4470,\,0.4570]$, of width $0.010$.
+But the sharp interval of \cref{thm:sharp-auc} is $[0.1341,\,0.8252]$, of width
+$0.691$. The witness for the upper end is the \emph{mixed} vertex
+\[
+  p^\star = (0.59,\;0.98,\;0.97) \in \I_\Gamma,
+  \qquad \AUC(p^\star) = 0.8252,
+\]
+which takes $\plo$ at the lowest-ranked unit and $\pup$ at the two highest ---
+precisely the greedy pattern of \cref{thm:sharp-auc}(i), and a point no corner
+evaluation visits. The corner interval therefore misses an admissible law by
+$0.368$ in AUROC. This is the mechanism behind the $10\%$ coverage reported in
+\cref{sec:experiments}: corner evaluation is not a loose bound, it is not a
+bound at all.
+
+\subsection{Budgeted \texorpdfstring{$\dcsm$}{DCSM}}
+\label{app:budget}
+
+Under the additional constraint $\E|\log a(X)|\le B$ the inner supremum of
+\eqref{eq:dcl} no longer decouples. Writing $t(x)=\log a(x)\in[-\log\Gamma,\log\Gamma]$
+and $r(x,t)$ for the pointwise risk contribution at tilt $t$,
+\[
+  \sup_{\substack{|t|\le\log\Gamma\\ \E|t|\le B}} \E[r(X,t(X))]
+  \;=\;
+  \min_{\lambda\ge0}\ \Big\{\lambda B
+  + \E\Big[\sup_{|t|\le\log\Gamma}\big\{r(X,t)-\lambda|t|\big\}\Big]\Big\},
+\]
+which decouples given $\lambda$; $\lambda$ is recovered by bisection on the
+budget constraint. Strong duality holds because the primal is a supremum of a
+linear objective over a convex compact set with the Slater point $a\equiv1$
+(strictly feasible whenever $B>0$). The inner one-dimensional problem is solved
+on a fixed grid of $t$, vectorised across units. The resulting worst-case risk
+interpolates monotonically between the $\Gamma=1$ value and the pointwise
+$\Gamma$ value as $B$ ranges over $[0,\log\Gamma]$.
+
+\subsection{Worst-case-AUROC training}
+\label{app:ranking-alg}
+
+\begin{algorithm}[h]
+\caption{\textsc{DCLRanker} --- worst-case AUROC by exact best response}
+\label{alg:ranker}
+\begin{algorithmic}[1]
+\State \textbf{input} features $X$, identified box $[\plo,\pup]$, temperature
+  $\tau$, steps $T$, oracle period $k$
+\State initialise $\theta$ at the ridge fit to the midpoint $\tilde p$, normalised
+\For{$t=1,\dots,T$}
+  \If{$t \equiv 0 \pmod k$}
+    \State $p \gets \textsc{SharpAUCInterval}(X\theta,\plo,\pup).p_{\text{lower}}$
+      \Comment{exact inner argmin, \cref{thm:sharp-auc}}
+  \EndIf
+  \State sample pairs $(i,j)$; $s \gets \sigma\big((x_i-x_j)^\top\theta/\tau\big)$
+  \State $g \gets \overline{p_i(1-p_j)\,s(1-s)(x_i-x_j)}/\tau - \lambda\theta$
+  \State $\theta \gets \Pi_{\|\theta\|=1}\big(\theta + \alpha\, g/\|g\|\big)$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+Because line 4 solves the inner minimisation \emph{exactly} rather than
+approximately, Danskin's theorem makes the gradient in line 6 a valid
+supergradient of $\min_{p\in\I_\Gamma}\AUC(\cdot,p)$ wherever the argmin is
+unique, and the iterates converge to a stationary point of \eqref{eq:dcl}'s
+ranking analogue.
+
+\subsection{Estimation of the nuisances}
+\label{app:nuisance}
+
+The bounds live on the probability scale, so \emph{calibration matters more than
+discrimination}. We fit $\hat e$ and $\hat p_1$ with gradient-boosted trees
+wrapped in isotonic calibration, using $K$-fold cross-fitting so that no unit's
+identified set is built from a model that saw its own label --- the same reason
+cross-fitting is standard in double machine learning
+\citep{chernozhukov2018double}. $\hat p_1$ is fit on the selected units and
+predicted for all units; for selected units we use out-of-fold predictions and
+for censored units the average across folds. Propensities are clipped to
+$[10^{-3},1-10^{-3}]$.
+
+\Cref{thm:generalization}'s nuisance term is stated on the \emph{logit} scale for
+$p_1$, which is what keeps the dependence on $\Gamma$ logarithmic; in the
+implementation the bounds are likewise formed by translating
+$\logit\hat p_1$ by $\pm\log\Gamma$ rather than by multiplying odds, for the same
+numerical reason.
+
+\subsection{Reproducibility}
+\label{app:repro}
+
+All public data are fetched by \texttt{scripts/download\_data.py} from the
+Rdatasets archive and ProPublica's repository; the script prints SHA-256 digests.
+MIMIC-IV is credentialed and is not redistributed: \texttt{dcl/data/mimic.py}
+implements the full cohort-building pipeline against the real PhysioNet file
+layout and documents the download, and \texttt{make\_mimic\_sim} provides the
+simulator used for the numbers reported here. Every experiment script writes its
+raw table and a JSON summary to \texttt{results/}. Random seeds are fixed and
+reported; all figures regenerate from the saved tables.

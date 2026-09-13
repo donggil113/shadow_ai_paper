@@ -1,0 +1,9 @@
+{
+  "epistemic_first": 0.18426153670954054,
+  "epistemic_last": 0.21197372081314028,
+  "censoring_first": 0.15375874286575983,
+  "censoring_last": 0.13457541233059506,
+  "naive_always_inside": false,
+  "true_always_inside": false,
+  "mean_aleatoric_bias": -0.3040592274826957
+}

@@ -1,0 +1,110 @@
+\section{Introduction}
+\label{sec:intro}
+
+A credit model is trained on loans that were granted. A diagnostic model is
+trained on patients who were tested. A recidivism model is trained on defendants
+who were released. In each case an incumbent decision maker --- a loan officer, a
+clinician, a judge --- chose who would be labelled, and chose using information
+that never entered the training set: the applicant's demeanour, the patient's
+presentation, the case file. Call that private information $S$. Because $S$
+drives both the decision $T$ and the outcome $Y$, the labelled sub-population is
+not a random sample of the deployment population, and the quantity every
+practitioner reports --- test-set accuracy, AUROC, calibration --- measures
+performance on a population the model will never face.
+
+This is the \emph{selective labels} problem \citep{lakkaraju2017selective,
+kleinberg2018human}. It is not a corner case: it is the default structure of
+prediction in medicine, credit, criminal justice, content moderation, hiring and
+fraud. Its consequence is stark. The deployment risk of a model is not merely
+hard to estimate; under selective labels it is \emph{not identified}. No amount
+of data fixes it, because the missing labels are missing for reasons the data
+cannot see.
+
+The field's usual responses each assume the problem away. Training on the
+labelled units (empirical risk minimisation on the selected sample) silently
+optimises the wrong risk. Inverse-propensity and doubly-robust weighting
+\citep{robins1994estimation, chernozhukov2018double} correct for selection on
+\emph{observables} and are exactly valid when $S$ does not exist. Parametric
+selection models \citep{heckman1979sample} do allow selection on unobservables,
+but buy identification with a joint-normality assumption that is untestable and
+not indexed by any interpretable notion of strength. Assumption-free Manski
+bounds \citep{manski1990nonparametric} are valid but, as we confirm, typically
+too wide to support any decision.
+
+\paragraph{This paper.} We take the middle road that has proved productive in
+causal inference --- a \emph{sensitivity model} --- and develop the machine
+learning that goes with it. Our sensitivity model, $\dcsm(\Gamma)$, says that the
+censored units' outcome log-odds differ from the labelled units' by at most
+$\log\Gamma$, at every covariate value. $\Gamma=1$ is selection on observables;
+$\Gamma=\infty$ is Manski. In between, the identified set for the outcome
+regression is an axis-aligned box, and everything becomes computable.
+
+Our contributions are the following.
+
+\begin{itemize}
+\item \textbf{Sharp bounds for a ranking metric} (\cref{sec:ranking}).
+  Existing sensitivity analysis bounds metrics defined at a \emph{fixed
+  threshold} --- sensitivity, specificity, PPV --- which are linear-fractional in
+  the outcome regression and therefore easy. AUROC is not: it is a ratio of a
+  bilinear form to a product of linear forms, and is neither convex nor concave
+  over the identified set. \Cref{thm:rank-identity} resolves this with an exact
+  identity: writing $R(x)$ for the mid-rank of $x$ under the score,
+  $\AUC(p) = (\langle p, R\rangle - \pi^2/2)/(\pi(1-\pi))$ with
+  $\pi = \E[p]$. \emph{Given the prevalence, AUROC is linear in the outcome
+  regression.} \Cref{thm:sharp-auc} turns this into an exact $O(n\log n)$
+  algorithm for the sharp interval: a continuous knapsack inside, a
+  ratio-of-quadratics line search outside. \Cref{prop:unified} extends it to a
+  class of functionals that recovers every fixed-threshold metric as a special
+  case. We also show the natural heuristic --- evaluate at the corners of the
+  identified set --- is \emph{not valid}, because it ignores the coupling through
+  the prevalence.
+
+\item \textbf{A learning algorithm, not an audit} (\cref{sec:learning}).
+  \Cref{thm:dcl} minimises the worst-case risk over the identified set. The
+  inner supremum has a closed form: the risk at the midpoint model plus a margin
+  penalty weighted by the local identification width. Contrary to what one might
+  expect, \emph{no convex relaxation is required} --- the exact objective is a
+  supremum of convex functions and hence convex, which is a strictly stronger
+  statement than tractability via relaxation and distinguishes the problem from
+  $f$-divergence and Wasserstein DRO, where the inner problem needs duality. A
+  saddle point exists, the least-favourable member of the identified set is
+  explicit, and the Bayes act is an \emph{interval-shrunk logit} with an
+  abstention band. \Cref{prop:regret} gives the companion minimax-\emph{regret}
+  rule in closed form as a difference quotient of the binary entropy.
+
+\item \textbf{$\Gamma$ is unavoidable, but falsifiable}
+  (\cref{sec:impossibility}). \Cref{thm:impossible} is a finite-sample two-point
+  argument: for \emph{every} $n$, no estimator of deployment risk can be
+  accurate uniformly over censoring mechanisms, and $\Gamma$ itself is not
+  identified from $(X, T, TY)$ alone. \Cref{prop:falsify} is the constructive
+  complement: when several decision makers with differing leniency handle
+  comparable cases, $\dcsm(\Gamma)$ acquires testable implications and a
+  \emph{lower} bound $\Gamma_{\min}$ is identified. In simulation the test
+  recovers the true $\Gamma_0$ to three decimals.
+
+\item \textbf{Generalisation, linear in $\log\Gamma$}
+  (\cref{sec:generalization}). \Cref{thm:generalization} bounds the excess
+  worst-case risk of the empirical minimiser; the complexity term grows like
+  $\log\Gamma$, not like $\Gamma$, because $\Gamma$ acts as a \emph{translation}
+  on the log-odds scale. The empirical scaling matches.
+
+\item \textbf{Uncertainty quantification is biased, undetectably}
+  (\cref{sec:uncertainty}). \Cref{cor:uq} shows the observed-data regression
+  $p_1(x)$ always lies \emph{inside} the identified set, so the naive
+  aleatoric/epistemic split can never be refuted by a calibration or
+  goodness-of-fit check --- it is not wrong on the data, it answers a different
+  question. Meanwhile the epistemic term vanishes with $n$ while the
+  identification width does not, so any two-way decomposition is asymptotically
+  overconfident by a non-vanishing amount.
+\end{itemize}
+
+\paragraph{Empirical study.} We evaluate on four testbeds
+(\cref{sec:experiments}): a synthetic benchmark whose oracle quantities are
+exact by quadrature, so sharpness can be verified numerically; real Lending Club
+applications in which the hidden signal is the underwriter's own assigned
+interest rate; a simulated MIMIC-IV emergency-department cohort standing in for
+credentialed data we document how to obtain; and COMPAS, the rare selective
+labels instance in which the censored labels \emph{were} recorded, so the bounds
+can be checked against the truth on genuinely real decisions. There, coverage is
+$0\%$ under missing-at-random, and $100\%$ exactly at the $\Gamma$ implied by the
+data's own detained-versus-released odds ratio.

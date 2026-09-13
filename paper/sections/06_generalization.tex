@@ -1,0 +1,78 @@
+\section{Generalisation under decision censoring}
+\label{sec:generalization}
+
+We now bound the excess worst-case risk of the empirical minimiser. Let
+$\F$ be a class of scores with $\|f\|_\infty\le B$, let
+\[
+  \hat{\Rbar}_\Gamma(f) = \frac1n\sum_{i=1}^{n}
+  \max_{p\in[\hat{\plo}(x_i),\hat{\pup}(x_i)]}
+  \big\{ p\,\ell(f(x_i),1) + (1-p)\,\ell(f(x_i),0) \big\},
+  \qquad
+  \hat f \in \argmin_{f\in\F}\hat{\Rbar}_\Gamma(f),
+\]
+and write $\Rad_n(\F)$ for the Rademacher complexity of $\F$.
+
+\begin{theorem}[Excess worst-case risk]
+\label{thm:generalization}
+Assume $\ell$ is $L$-Lipschitz in its first argument with
+$\sup_{|z|\le B,y}\ell(z,y)\le \ell_{\max}(B)$. Then with probability at least
+$1-\delta$ over the sample,
+\begin{equation}
+  \Rbar_\Gamma(\hat f) - \inf_{f\in\F}\Rbar_\Gamma(f)
+  \;\le\;
+  4L\,\Rad_n(\F)
+  \;+\;
+  2\,\ell_{\max}(B)\sqrt{\frac{\log(2/\delta)}{2n}}
+  \;+\;
+  2\,\kappa(B)\Big(\|\hat e - e\|_{L^1(\mu)}
+  + \tfrac14\|\hat\eta_1-\eta_1\|_{L^1(\mu)}\Big),
+  \label{eq:gen-bound}
+\end{equation}
+where $\eta_1 = \logit p_1$ and $\kappa(B)=\sup_{|z|\le B} g_\ell(z)$.
+For the logistic loss $L=1$, $\ell_{\max}(B)\le\log 2 + B$ and $\kappa(B)=B$.
+\end{theorem}
+
+\paragraph{Where $\log\Gamma$ enters, and why linearly.} The bound
+\eqref{eq:gen-bound} is stated for a fixed score range $B$. The range is not
+free: to contain the population optimum \eqref{eq:bayes-act} the class must
+reach $|\logit \pup|$, and
+\[
+  \logit \pup(x) \;\le\; \logit p_1(x) + \log\Gamma .
+\]
+So taking $B = B_0 + \log\Gamma$ with $B_0 \ge \sup_x|\logit p_1(x)|$ is both
+necessary and sufficient, and substituting into \eqref{eq:gen-bound} gives
+
+\begin{corollary}[$\log\Gamma$ scaling]
+\label{cor:loggamma}
+With $B=B_0+\log\Gamma$ and the logistic loss,
+\begin{equation}
+  \Rbar_\Gamma(\hat f) - \inf_{f\in\F_\Gamma}\Rbar_\Gamma(f)
+  \;\le\;
+  4\,\Rad_n(\F_\Gamma)
+  \;+\;
+  2\big(\log 2 + B_0 + \log\Gamma\big)\sqrt{\frac{\log(2/\delta)}{2n}}
+  \;+\;
+  2\big(B_0+\log\Gamma\big)\,\varepsilon_{\mathrm{nuis}},
+  \label{eq:loggamma}
+\end{equation}
+i.e.\ the complexity term is \textbf{linear in $\log\Gamma$}, not in $\Gamma$.
+\end{corollary}
+
+This is the payoff of \cref{lem:box}'s second consequence. Had we parameterised
+the sensitivity model on the probability scale, the map from $p_1$ to the bounds
+would have Lipschitz constant $\Gamma$ and the bound would degrade
+\emph{multiplicatively}. On the log-odds scale $\Gamma$ acts as a translation,
+the map is $1$-Lipschitz, and only the \emph{range} of the score --- hence
+$\log\Gamma$ --- is affected.
+
+\begin{proposition}[The $\log\Gamma$ dependence is necessary]
+\label{prop:lower-gen}
+There is a family of instances and a class $\F_\Gamma$ of constant scores with
+$\|f\|_\infty\le B_0+\log\Gamma$ for which every estimator suffers excess
+worst-case risk $\Omega\big(\log\Gamma\cdot n^{-1/2}\big)$. Hence
+\eqref{eq:loggamma} is tight in its $\Gamma$-dependence up to constants.
+\end{proposition}
+
+Empirically (\cref{sec:experiments}) the excess worst-case risk decays at the
+predicted $n^{-1/2}$ rate, and its coefficient is far better explained by
+$\log\Gamma$ than by $\Gamma$.

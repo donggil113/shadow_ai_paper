@@ -1,0 +1,164 @@
+\section{Decision-censored learning}
+\label{sec:learning}
+
+We now stop auditing and start training. Rather than minimising the observed
+risk --- the risk on whichever sub-population the incumbent policy chose to
+label --- we minimise the worst case over everything the data cannot rule out:
+\begin{equation}
+  \hat f
+  \;\in\;
+  \argmin_{f\in\F}\;
+  \sup_{P\in\I_\Gamma(P_{\mathrm{obs}})} R_P(f),
+  \qquad
+  R_P(f) = \E_P\big[\ell(f(X),Y)\big].
+  \label{eq:dcl}
+\end{equation}
+
+\subsection{The inner supremum, in closed form}
+
+Because $R_P(f)$ is \emph{affine} in $p(x)$ and $\I_\Gamma$ is a product of
+intervals (\cref{lem:box}), the supremum decouples across $x$ and is attained at
+a vertex. Writing $\ell_1 = \ell(f(x),1)$, $\ell_0 = \ell(f(x),0)$ and using
+$\max(a,b)=\tfrac{a+b}{2}+\tfrac{|a-b|}{2}$:
+
+\begin{theorem}[Decision-censored ERM]
+\label{thm:dcl}
+Let $\ell(\cdot,y)$ be convex for each $y$ and define the \emph{label gap}
+$g_\ell(z) = |\ell(z,1)-\ell(z,0)|$. Then:
+\begin{enumerate}
+\item[(a)] \textup{(Exact reduction.)}
+\begin{equation}
+  \Rbar_\Gamma(f)
+  \;:=\;
+  \sup_{P\in\I_\Gamma} R_P(f)
+  \;=\;
+  \underbrace{\E\Big[\tilde p(X)\,\ell_1 + \big(1-\tilde p(X)\big)\ell_0\Big]}
+             _{\text{risk at the midpoint model}}
+  \;+\;
+  \underbrace{\tfrac12\,\E\Big[\delta(X)\,g_\ell\big(f(X)\big)\Big]}
+             _{\text{margin penalty $\times$ identification width}} .
+  \label{eq:wc-decomp}
+\end{equation}
+For the logistic loss $\ell(z,1)-\ell(z,0) = -z$ exactly, so the penalty is
+$\tfrac12\E[\delta(X)\,|f(X)|]$: an $L_1$ penalty on the \emph{score}, weighted
+by how censored each region of covariate space is.
+
+\item[(b)] \textup{(Exact convexity --- no relaxation needed.)} $\Rbar_\Gamma$
+is a pointwise supremum of functions convex in $z$, hence convex in $z$; over
+any convex class $\F$ of real-valued scores, \eqref{eq:dcl} is an exactly convex
+program. Separately, the penalty term of \eqref{eq:wc-decomp} is convex on its
+own \emph{iff} $g_\ell$ is convex --- true for the logistic, squared and
+exponential losses, false for the hinge. The distinction matters only for
+modular implementation, not for tractability.
+
+\item[(c)] \textup{(Saddle point.)} $R_P(f)$ is convex in $f$ and linear, hence
+concave, in $p$, over a convex compact set, so by Sion's theorem
+\citep{sion1958general} $\inf_f\sup_P = \sup_P\inf_f$ and a saddle point
+$(\hat f, P^\star)$ exists. The adversary's best response is the explicit vertex
+\[
+  p^\star(x) \;=\; \pup(x)\ \text{ if } \ell(f(x),1)\ge\ell(f(x),0),
+  \qquad \plo(x) \text{ otherwise,}
+\]
+--- for the logistic loss, $\pup$ exactly where the model predicts negative.
+$\hat f$ is thus the Bayes predictor for the least-favourable member of the
+identified set.
+
+\item[(d)] \textup{(Bayes act.)} For the logistic loss the pointwise minimiser
+of \eqref{eq:wc-decomp} is
+\begin{equation}
+  f^\star_\Gamma(x)
+  \;=\;
+  \begin{cases}
+    \logit \plo(x), & \plo(x) > \tfrac12,\\[2pt]
+    \logit \pup(x), & \pup(x) < \tfrac12,\\[2pt]
+    0, & \text{otherwise.}
+  \end{cases}
+  \label{eq:bayes-act}
+\end{equation}
+\end{enumerate}
+\end{theorem}
+
+\Cref{eq:bayes-act} is the \emph{interval-shrunk logit}: log-odds pulled toward
+the decision boundary by exactly the identification width, and pinned at $0$ on
+the \emph{abstention band} $\{x : \plo(x)\le\tfrac12\le\pup(x)\}$ where the data
+cannot resolve the sign of the optimal decision. At $\Gamma=1$ it degenerates to
+$\logit p(x)$, as it must.
+
+\begin{remark}[Contrast with distributional robustness]
+\label{rem:dro}
+In $f$-divergence and Wasserstein DRO \citep{namkoong2016stochastic,
+duchi2021learning, sagawa2020distributionally} the ambiguity set is a ball
+around the empirical distribution, chosen for analytical convenience, and the
+inner supremum is tractable only after a duality step. Here the ambiguity set is
+not chosen --- it is \emph{exactly what the data fail to determine} --- and the
+inner supremum has a closed form. \Cref{thm:dcl}(b) is therefore a stronger
+statement than "admits a convex relaxation": there is nothing to relax.
+\end{remark}
+
+\subsection{Minimax regret, also in closed form}
+
+Minimax risk is conservative by design: it is dominated by how hard the problem
+is, not by how much worse the model is than it needed to be. The decision-theoretic
+alternative is \emph{regret} --- excess risk relative to the best predictor for
+whichever member of $\I_\Gamma$ turns out to be true. For the logistic loss
+$R_p(f) - \inf_g R_p(g) = \E[\KL(p\,\|\,\sigma(f))]$, so the objective becomes
+$\min_q \max_{p\in[\plo,\pup]}\KL(p\|q)$ pointwise.
+
+\begin{proposition}[Minimax-regret rule]
+\label{prop:regret}
+Let $H(u) = -u\log u - (1-u)\log(1-u)$. The pointwise minimax-regret score is
+\begin{equation}
+  \boxed{\;
+  \logit q^\star(x)
+  \;=\;
+  \frac{H\big(\plo(x)\big) - H\big(\pup(x)\big)}{\pup(x)-\plo(x)}\;}
+  \label{eq:regret-rule}
+\end{equation}
+with the convention $q^\star = p$ when $\plo=\pup=p$. The value of the game is
+$\KL(\plo\|q^\star) = \KL(\pup\|q^\star)$.
+\end{proposition}
+
+\Cref{eq:regret-rule} is a difference quotient of the binary entropy --- a
+discrete version of $-H'(u) = \logit u$, to which it degenerates as the box
+collapses. Unlike \eqref{eq:bayes-act} it has \emph{no abstention band}: it
+remains a genuine probability estimate, which is what a downstream decision rule
+usually wants. In our experiments it gives up almost nothing in realised
+deployment accuracy while cutting certified regret several-fold, and on real
+COMPAS decisions it beats every baseline on realised risk \emph{and} certified
+regret simultaneously.
+
+\subsection{Two safety properties}
+
+\begin{corollary}[Validity of the certificate]
+\label{cor:validity}
+If the true law satisfies $\dcsm(\Gamma)$ then
+$R_{P}(f) \le \Rbar_\Gamma(f)$ for every $f$. The certified number is therefore
+an upper bound on the risk actually incurred at deployment --- something no
+observed-data metric provides.
+\end{corollary}
+
+\begin{remark}[Budgeted $\dcsm$]
+\label{rem:budget}
+Pointwise $\Gamma$ permits \emph{every} unit to be maximally tilted at once,
+which can be pessimistic. Adding an average-tilt budget
+$\E|\log a(X)|\le B$ breaks the decoupling; the supremum is then recovered by
+its one-dimensional dual,
+$\min_{\lambda\ge0}\{\lambda B + \E[\sup_t\{r(X,t)-\lambda|t|\}]\}$, with
+$\lambda$ found by bisection. Strong duality holds ($a\equiv 1$ is a Slater
+point). The resulting risk interpolates smoothly between $\Gamma=1$ and
+pointwise $\Gamma$; see \cref{app:budget}.
+\end{remark}
+
+\subsection{Ranking-robust learning is genuinely harder}
+
+\Cref{thm:dcl} makes robust \emph{risk} minimisation convex. Robust
+\emph{ranking} is not: maximising $\min_{p\in\I_\Gamma}\AUC(f,p)$ is a max-min
+over the fractional objective of \cref{sec:ranking}, and the inner problem is
+neither concave nor separable. What rescues it is that \cref{thm:sharp-auc}
+supplies an \emph{exact} $O(n\log n)$ oracle for that inner problem, which can
+be used as a best-response step: alternate (i) the exact adversarial $p$ from
+\cref{thm:sharp-auc} with (ii) a gradient step on a smoothed pairwise surrogate
+weighted by $p(x)(1-p(x'))$. Because step (i) is exact, Danskin's theorem makes
+the step-(ii) gradient a valid supergradient of the inner minimum wherever the
+argmin is unique. We implement this as \texttt{DCLRanker}; see
+\cref{app:ranking-alg}.

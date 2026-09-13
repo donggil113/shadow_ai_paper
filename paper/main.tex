@@ -1,0 +1,130 @@
+% Decision-Censored Learning
+% Target: ICML / NeurIPS main track.  Compiles with a standard LaTeX
+% distribution; swap \documentclass for the venue style file at submission.
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,multirow,array}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,
+            urlcolor=blue!50!black]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+\usepackage{natbib}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\odds}{odds}
+\DeclareMathOperator{\logit}{logit}
+\DeclareMathOperator{\AUC}{AUC}
+\DeclareMathOperator{\KL}{KL}
+\DeclareMathOperator{\Rad}{\mathfrak{R}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prb}{\mathbb{P}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\plo}{\underline{p}}
+\newcommand{\pup}{\overline{p}}
+\newcommand{\Rbar}{\overline{R}}
+\newcommand{\dcsm}{\textup{DCSM}}
+
+\title{\bf Decision-Censored Learning:\\
+Sharp Ranking Bounds and Minimax Prediction under Selective Labels}
+
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In a large class of consequential prediction problems the label is produced only
+where a human or incumbent policy decided to look. Loans are repaid only if
+granted, diagnoses are recorded only if a test was ordered, recidivism is
+observed only for defendants who were released. The decision maker acts on
+private information $S$ that never reaches the training set, so the labelled
+sub-population is not a random sample of the deployment population and the
+deployment risk of a model is \emph{not identified}. We study learning in this
+regime, which we call \emph{decision-censored}, under a sensitivity model
+$\dcsm(\Gamma)$ that bounds by $\log\Gamma$ how far the censored units' outcome
+log-odds may differ from the labelled units'.
+%
+Our first result is an exact rank identity showing that AUROC, though a
+non-convex bilinear-fractional functional of the outcome regression, becomes
+\emph{linear} once the prevalence is fixed. This yields the first \emph{sharp}
+partial-identification interval for a ranking metric under a sensitivity model,
+computable exactly in $O(n\log n)$; prior work bounds only fixed-threshold
+metrics, which we recover as a special case. The recipe a practitioner would
+reach for --- evaluating AUROC at the corners of the identified set --- turns out
+not merely to be loose but to be \emph{invalid}, covering the truth in $10\%$ of
+our benchmark cells against $100\%$ for the sharp interval.
+%
+Our second result turns the identified set into a learning algorithm. The worst
+case over the identified set admits a closed form --- the risk at the midpoint
+model plus a margin penalty weighted by the local identification width --- which
+is \emph{exactly convex}, so no relaxation is needed, and which has a saddle
+point and a closed-form Bayes act: an interval-shrunk logit with an abstention
+band. A companion minimax-\emph{regret} rule has its own closed form, a
+difference quotient of the binary entropy, and in experiments costs almost
+nothing in realised accuracy while cutting certified regret several-fold.
+%
+Third, we show $\Gamma$ is unavoidable: no estimator is consistent for
+deployment risk uniformly over censoring mechanisms, for any sample size. But
+the news is not purely negative --- with leniency variation across decision
+makers, $\Gamma$ becomes \emph{falsifiable} from below, and our test recovers the
+true $\Gamma_0$ essentially exactly in simulation.
+%
+Fourth, a generalisation bound whose complexity term is linear in $\log\Gamma$,
+matching the empirical scaling.
+%
+Finally, a corollary for uncertainty quantification: under decision censoring
+the aleatoric/epistemic decomposition is biased, the bias is \emph{undetectable}
+from observed data, and the epistemic term vanishes with $n$ while identification
+uncertainty does not --- in our experiments the reported epistemic uncertainty is
+two orders of magnitude smaller than the censoring term it omits.
+%
+We evaluate on a synthetic benchmark with exact oracle quantities, real Lending
+Club credit data with the underwriter's own risk assessment held out, a
+simulated MIMIC-IV emergency-department cohort, and --- as the one case where the
+censored labels were recorded anyway --- real pretrial release decisions from
+COMPAS, where the sharp interval attains $100\%$ coverage exactly at the
+$\Gamma$ implied by the data's own odds ratio while the missing-at-random
+assumption covers $0\%$.
+\end{abstract}
+
+\input{sections/01_intro}
+\input{sections/02_setup}
+\input{sections/03_ranking}
+\input{sections/04_learning}
+\input{sections/05_impossibility}
+\input{sections/06_generalization}
+\input{sections/07_uncertainty}
+\input{sections/08_experiments}
+\input{sections/09_related}
+\input{sections/10_discussion}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\appendix
+\input{sections/A_proofs}
+\input{sections/B_details}
+
+\end{document}

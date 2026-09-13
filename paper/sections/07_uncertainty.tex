@@ -1,0 +1,73 @@
+\section{Uncertainty quantification is biased, and the bias is invisible}
+\label{sec:uncertainty}
+
+Modern predictive systems report uncertainty, usually split into an
+\emph{aleatoric} part (irreducible noise) and an \emph{epistemic} part (reducible
+by more data) \citep{depeweg2018decomposition, hullermeier2021aleatoric}. For an
+ensemble or posterior $\{p_m(x)\}_{m\le M}$ the standard decomposition is
+\[
+  \underbrace{H\big(\bar p(x)\big)}_{\text{total}}
+  \;=\;
+  \underbrace{\tfrac1M\sum_m H\big(p_m(x)\big)}_{\text{aleatoric}}
+  \;+\;
+  \underbrace{H(\bar p) - \tfrac1M\textstyle\sum_m H(p_m)}_{\text{epistemic}},
+  \qquad \bar p = \tfrac1M\textstyle\sum_m p_m .
+\]
+Under decision censoring every term is computed from models fit to the
+\emph{selected} units, so they concentrate on $p_1(x)$, not on $p(x)$. Two things
+follow, and the second is the uncomfortable one.
+
+\begin{corollary}[Decision censoring and the uncertainty decomposition]
+\label{cor:uq}
+Assume $\dcsm(\Gamma)$ with $\Gamma>1$ and $e(x)<1$ on a set of positive measure.
+Then:
+\begin{enumerate}
+\item[(i)] \textup{(The naive answer is never refuted.)}
+  $p_1(x)\in[\plo(x),\pup(x)]$ for every $x$. Hence the observed-data
+  regression --- and every functional of it, including the naive aleatoric term ---
+  lies \emph{inside} the identified set, and no calibration check, coverage test
+  or goodness-of-fit statistic computed on observed data can detect the bias.
+  The naive decomposition is not wrong on the data; it answers a different
+  question.
+\item[(ii)] \textup{(Sharp interval for the aleatoric term.)} The identified set
+  for $\E[H(p(X))]$ is $[\,\E\,\underline{h}(X),\ \E\,\overline{h}(X)\,]$ with
+  $\overline{h} = H(\mathrm{clip}_{[\plo,\pup]}(\tfrac12))$ and
+  $\underline{h} = \min\{H(\plo),H(\pup)\}$; both endpoints are attained.
+\item[(iii)] \textup{(Asymptotic overconfidence.)} Let $\{C_n(x)\}$ be any credal
+  set derived from observed data that contracts to $\{p_1(x)\}$ --- as a
+  consistent posterior or an ensemble does. Then the reported epistemic term
+  $\to 0$, while the identification-induced uncertainty
+  \begin{equation}
+    \mathrm{Cens}(x)
+    \;=\;
+    \max_{p\in[\plo,\pup]}H(p) - \min_{p\in[\plo,\pup]}H(p)
+    \label{eq:cens}
+  \end{equation}
+  is bounded away from $0$ uniformly in $n$; when
+  $\tfrac12\notin[\plo(x),\pup(x)]$,
+  $\mathrm{Cens}(x)\ \ge\ \delta(x)\cdot\min_{p\in[\plo,\pup]}|\logit p|$. Any
+  two-way decomposition is therefore asymptotically overconfident by at least
+  $\mathrm{Cens}(x)$.
+\end{enumerate}
+\end{corollary}
+
+\paragraph{A three-way decomposition.} The fix is to build the credal set from
+the union of sampling spread and the identified box and to use the
+imprecise-probability decomposition \citep{abellan2005difference}, splitting the
+epistemic term into the part that shrinks with data and the part that does not:
+\[
+  \underbrace{\max_{p\in C}H(p)}_{\text{total}}
+  \;=\;
+  \underbrace{\min_{p\in C}H(p)}_{\text{aleatoric}}
+  \;+\;
+  \underbrace{\mathrm{Cens}(x)}_{\text{censoring}}
+  \;+\;
+  \underbrace{\big[\text{epistemic} - \mathrm{Cens}(x)\big]_{+}}_{\text{sampling}},
+  \qquad
+  C = \mathrm{hull}\big(\{p_m\}\cup[\plo,\pup]\big).
+\]
+In our experiments (\cref{sec:experiments}) the reported epistemic term falls by
+an order of magnitude as $n$ grows from $2{,}000$ to $30{,}000$ while the
+censoring term is flat, and the two differ by roughly two orders of magnitude
+throughout --- so essentially all of the uncertainty that matters at deployment
+is the component the standard decomposition omits.

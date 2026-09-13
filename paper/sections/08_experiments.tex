@@ -1,0 +1,219 @@
+\section{Experiments}
+\label{sec:experiments}
+
+\paragraph{Testbeds.} \textbf{SL-Bench} is synthetic with exact oracle
+quantities: covariates, a latent decision-maker signal $S$ entering both the
+outcome and the decision, and several decision makers with randomly assigned
+leniency. All population quantities --- $p$, $e$, $p_1$, $p_0$ and the realised
+$\Gamma_0$ --- are computed by Gauss--Hermite quadrature, and the confounding
+scale is bisected \emph{on the instance} so that the realised $\Gamma_0$ matches
+its target. \textbf{Lending Club} uses real applicant features and real
+repayment outcomes ($n=9{,}857$, $5.2\%$ adverse); the hidden signal $S$ is the
+\emph{underwriter's own assigned interest rate and sub-grade}, a real variable
+that genuinely predicts default and is genuinely absent from application data, so
+the confounding is real rather than invented; the funding decision is drawn from
+a $\Gamma_0$-calibrated policy in $(X,S)$. \textbf{MIMIC-sim} is a simulated
+emergency-department cohort in which troponin ordering censors the ACS label.
+\textbf{COMPAS} ($n=6{,}054$ after ProPublica's cohort filter) is the one testbed
+with \emph{real decisions and real censored outcomes}: judges' pretrial release
+decisions are real, and two-year rearrest is recorded for detained and released
+defendants alike, so we hide the detained defendants' labels from every method
+and still evaluate against the truth. \textbf{AER-CreditCard} has fully real
+accept/reject decisions and an outcome that is structurally unobservable for
+rejected applicants --- bounds are the only reportable object there.
+
+\begin{quote}\small
+\textbf{On the medical testbed.} MIMIC-IV is a credentialed PhysioNet resource
+and \texttt{physionet.org} was unreachable from the environment in which this
+work was produced. \texttt{dcl/data/mimic.py} implements the full cohort-building
+pipeline against the real file layout and documents the download; the numbers
+reported under ``MIMIC-sim'' come from the accompanying \emph{simulator} and
+should be read as a demonstration of the pipeline, not as a clinical result.
+\end{quote}
+
+Every number is out of sample: methods are fit on a training split and evaluated
+on a disjoint test split, with cross-fitted, isotonically calibrated nuisances
+(\cref{app:nuisance}). Results are averaged over three seeds.
+
+\subsection{Theorem 2: the bounds are sharp, valid, and cheap}
+
+\begin{table}[t]
+\centering\small
+\caption{\textbf{Sharpness and validity of the AUROC interval} (SL-Bench, $72$
+cells across $\Gamma_0\in\{1.5,2,3,5\}$, $\Gamma\in\{1,\dots,8\}$, 3 seeds).
+Coverage is of the true \emph{deployment} AUROC on held-out units. Corner
+evaluation is narrow because it is wrong.}
+\label{tab:sharpness}
+\begin{tabular}{lccc}
+\toprule
+ & sharp (\cref{thm:sharp-auc}) & separate bounds & corner evaluation \\
+\midrule
+coverage when $\Gamma\ge\Gamma_0$ & $\mathbf{100\%}$ & $100\%$ & $10\%$ \\
+mean interval width               & $0.277$ & $0.883$ & $0.019$ \\
+coverage when $\Gamma<\Gamma_0$   & $71\%$ & --- & --- \\
+\midrule
+\multicolumn{4}{l}{\emph{agreement with an independent projected-gradient search over the box}}\\
+max $|$analytic $-$ brute force$|$ & \multicolumn{3}{c}{$3.6\times10^{-6}$}\\
+max $|\AUC(p^\star) - \text{bound}|$ (attainment) & \multicolumn{3}{c}{$1.2\times10^{-15}$}\\
+brute force ever outside the interval & \multicolumn{3}{c}{never}\\
+\midrule
+\multicolumn{4}{l}{\emph{runtime of the exact $O(n\log n)$ algorithm}}\\
+$n=20{,}000$ / $100{,}000$ / $400{,}000$ & \multicolumn{3}{c}{$0.16$s / $0.85$s / $3.4$s}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\Cref{tab:sharpness} and \cref{fig:sharpness} report three things. First,
+\emph{sharpness}: an independent projected-gradient search over the identified
+box never escapes the analytic interval and matches it to $3.6\times10^{-6}$,
+while the extremal $p^\star$ returned by \cref{thm:sharp-auc} lies in the box and
+attains the bound to machine precision. Second, \emph{validity}: whenever
+$\Gamma\ge\Gamma_0$ the sharp interval covers the true deployment AUROC in
+$100\%$ of cells, and degrades to $71\%$ --- gracefully, not catastrophically ---
+when the assumed $\Gamma$ is too small. Corner evaluation covers in $10\%$ of
+cells: it is $14\times$ narrower than the sharp interval and, as
+\cref{prop:corner} predicts and \cref{app:counterexample} exhibits explicitly,
+narrow for the wrong reason. Bounding numerator and denominator separately is
+valid but $3.2\times$ wider, which is what sharpness buys. Third, \emph{cost}:
+$400{,}000$ units in $3.4$ seconds.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig1_sharpness}
+\caption{\textbf{Identified intervals for the deployment AUROC.} (a) One
+SL-Bench instance family with $\Gamma_0=3$; the shaded region marks assumed
+$\Gamma$ below the truth, where no guarantee is claimed. (b) Coverage and mean
+width aggregated over all instances with $\Gamma\ge\Gamma_0$.}
+\label{fig:sharpness}
+\end{figure}
+
+\subsection{Real decisions: COMPAS}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.62\linewidth]{figures/fig2_compas}
+\caption{\textbf{Real pretrial release decisions with real censored outcomes.}
+Intervals that contain the true deployment AUROC are drawn in colour, those that
+miss it in grey. Assuming missing-at-random ($\Gamma=1$) collapses the interval
+to a point that misses; coverage begins exactly at the $\Gamma$ implied by the
+data's own detained-versus-released odds ratio, $1.885$.}
+\label{fig:compas}
+\end{figure}
+
+COMPAS lets us check the bounds against ground truth on decisions no one
+simulated (\cref{fig:compas}). The empirical odds ratio between the detained and
+released groups' rearrest rates is $1.885$. At $\Gamma=1$ --- the
+missing-at-random assumption that IPW and AIPW require --- the interval collapses
+to a point and covers the truth in $0\%$ of splits. Coverage reaches $100\%$
+exactly at $\Gamma = 1.885$, where the interval has width $0.099$: narrow enough
+to be useful, wide enough to be honest. Corner evaluation covers in $0\%$ of
+splits at every $\Gamma$ we tried. We read this as the strongest available
+evidence that $\dcsm(\Gamma)$ with a $\Gamma$ anchored to observable leniency or
+odds-ratio structure is the right object to report --- while repeating the caveat
+of \cref{sec:setup}: pretrial detention is partly incapacitating, so $1.885$
+should be read as an anchor, not an estimate of $\Gamma_0$.
+
+\subsection{Theorem 6: learning}
+
+\begin{table}[t]
+\centering\small
+\caption{\textbf{Out-of-sample deployment metrics and certificates}, averaged
+over 3 seeds. \emph{Risk} and \emph{AUROC} are on ground truth for \emph{all}
+units (available only in the benchmark); \emph{observed AUROC} is what a
+practitioner would report; \emph{worst-case risk} and \emph{regret} are the
+certified quantities, evaluated at the true $\Gamma_0$. Best in each column in
+bold; the oracle is not attainable.}
+\label{tab:learning}
+\begin{tabular}{llccccc}
+\toprule
+& method & risk $\downarrow$ & AUROC $\uparrow$ & obs.\ AUROC & w.c.\ risk $\downarrow$ & regret $\downarrow$\\
+\midrule
+\multirow{6}{*}{\rotatebox{90}{Lending Club}}
+& ERM-observed        & 0.2492 & 0.6099 & 0.5921 & 0.3015 & 0.0743\\
+& IPW                 & 0.2550 & 0.5977 & 0.5820 & 0.3064 & 0.0789\\
+& AIPW                & 0.2668 & 0.5879 & 0.5716 & 0.3182 & 0.0977\\
+& Heckman probit      & 0.1990 & \textbf{0.6688} & 0.6529 & 0.2458 & 0.0255\\
+& DCL, minimax risk   & 0.1974 & 0.6446 & 0.6308 & \textbf{0.2299} & 0.0076\\
+& DCL, minimax regret & \textbf{0.1967} & 0.6352 & 0.6215 & 0.2319 & \textbf{0.0021}\\
+& \emph{oracle}       & \emph{0.2213} & \emph{0.6047} & --- & \emph{0.2688} & \emph{0.0428}\\
+\midrule
+\multirow{6}{*}{\rotatebox{90}{MIMIC-sim}}
+& ERM-observed        & 0.3058 & 0.8159 & 0.7991 & 0.3878 & 0.1126\\
+& IPW                 & 0.3164 & 0.8094 & 0.7867 & 0.3986 & 0.1233\\
+& AIPW                & 0.3187 & 0.7640 & 0.7190 & 0.3764 & 0.1080\\
+& Heckman probit      & 0.2439 & \textbf{0.8588} & 0.8568 & 0.3291 & 0.0518\\
+& DCL, minimax risk   & 0.2448 & 0.8379 & 0.8215 & \textbf{0.2830} & 0.0346\\
+& DCL, minimax regret & \textbf{0.2431} & 0.8347 & 0.8178 & 0.2900 & \textbf{0.0089}\\
+& \emph{oracle}       & \emph{0.2520} & \emph{0.8331} & --- & \emph{0.3351} & \emph{0.0703}\\
+\midrule
+\multirow{6}{*}{\rotatebox{90}{SL-Bench}}
+& ERM-observed        & 0.5633 & 0.6479 & 0.6540 & 0.7805 & 0.1414\\
+& IPW                 & 0.5673 & 0.6459 & 0.6505 & 0.7939 & 0.1551\\
+& AIPW                & 0.5434 & 0.6593 & 0.6679 & 0.7337 & 0.0903\\
+& Heckman probit      & \textbf{0.5232} & \textbf{0.6851} & 0.6882 & 0.7706 & 0.1234\\
+& DCL, minimax risk   & 0.6035 & 0.6267 & 0.6531 & \textbf{0.6622} & 0.0990\\
+& DCL, minimax regret & 0.5482 & 0.6558 & 0.6647 & 0.6904 & \textbf{0.0316}\\
+& \emph{oracle}       & \emph{0.5264} & \emph{0.6688} & --- & \emph{0.7761} & \emph{0.1230}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\Cref{tab:learning} and \cref{fig:learning} report the trade-off honestly.
+
+\emph{The certificates.} DCL attains the best worst-case risk on every testbed,
+by construction --- but the margin is what matters: $0.2299$ against ERM's
+$0.3015$ on Lending Club, $0.2830$ against $0.3878$ on MIMIC-sim. Certified
+regret separates the methods far more sharply still: the minimax-regret rule
+\eqref{eq:regret-rule} cuts it by $35\times$ against ERM on Lending Club,
+$13\times$ on MIMIC-sim and $4.5\times$ on SL-Bench. Notably the \emph{oracle} ---
+fit on the uncensored labels --- has poor certified regret ($0.0428$, $0.0703$,
+$0.1230$): it is tuned to one member of the identified set and is not robust to
+the others. Being right about the truth and being robust are different
+properties.
+
+\emph{The realised metrics.} On two of three testbeds the minimax-regret rule
+also has the \emph{lowest realised deployment risk of any method}, the oracle
+included ($0.1967$ vs.\ $0.2213$ on Lending Club; $0.2431$ vs.\ $0.2520$ on
+MIMIC-sim) --- not because it knows more, but because shrinking a calibrated
+estimate toward the decision boundary is a better-conditioned estimator than
+fitting flexibly to labels. On SL-Bench, where the latent signal is strong and
+the Heckman model's normality assumption happens to hold by construction, the
+parametric selection model attains the best realised risk and DCL pays a small
+price for not assuming a functional form. The minimax-\emph{risk} rule is
+uniformly more conservative: it buys the tightest certificate and gives up
+realised accuracy, which is the robustness trade-off stated plainly. Manski
+($\Gamma=\infty$) is valid and useless everywhere, with realised risk roughly
+double ERM's.
+
+\emph{The blind spot.} The observed AUROC --- the number a practitioner would put
+in a paper --- differs from the true deployment AUROC by $-0.018$ on Lending Club
+and $-0.017$ on MIMIC-sim. The gap is not always in the flattering direction, and
+that is precisely the point: without a sensitivity analysis one cannot know its
+sign.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig3_learning}
+\caption{\textbf{Realised deployment risk against certified minimax regret}
+(log scale). Each point is a method; DCL variants are shown at several $\Gamma$.
+The minimax-regret rule occupies the lower-left corner on every testbed.}
+\label{fig:learning}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig7_rules}
+\caption{\textbf{The two closed-form DCL rules.} Shaded: the identified set at
+$e(x)=0.5$. The minimax-risk rule \eqref{eq:bayes-act} flattens to the decision
+boundary on the abstention band; the minimax-regret rule \eqref{eq:regret-rule}
+stays inside the identified set and remains a probability estimate throughout.}
+\label{fig:rules}
+\end{figure}
+
+\subsection{Falsifying $\Gamma$, and break-even analysis}
+
+\input{sections/08b_gamma}
+
+\subsection{Generalisation and uncertainty}
+
+\input{sections/08c_scaling}

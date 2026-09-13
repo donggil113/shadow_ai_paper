@@ -1,0 +1,52 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{What changes in practice.} Three things. First, a model evaluated on
+selectively labelled data should report an \emph{interval}, and
+\cref{thm:sharp-auc} makes the sharp one cheap enough ($400{,}000$ units in
+$3.4$ seconds) that there is no excuse for the corner heuristic, which we show is
+not a bound at all. Second, a model \emph{trained} on such data can be trained
+against the identified set instead of against the labelled sub-population, at the
+cost of one closed-form transformation of the nuisances --- and the
+minimax-regret rule \eqref{eq:regret-rule} makes that nearly free in realised
+performance. Third, reported uncertainty should carry a censoring component;
+without it, more data makes a system more confident about a question it is not
+answering.
+
+\paragraph{Choosing $\Gamma$.} \Cref{thm:impossible} says this cannot be
+avoided, so it should be done in the open. We suggest three inputs used
+together: a lower bound from leniency variation where several decision makers
+handle comparable cases (\cref{prop:falsify}); an anchor from any setting where
+the censored outcomes happen to be recorded --- on COMPAS the realised odds ratio
+between detained and released defendants is $1.9$, which is the order of
+magnitude we would defend as a default in criminal justice; and a break-even
+report saying at which $\Gamma$ each conclusion flips, which lets a reader who
+disagrees with the analyst's number see immediately whether the disagreement
+matters.
+
+\paragraph{Limitations.} $\dcsm(\Gamma)$ is a bound on the \emph{worst} unit; it
+permits every unit to be maximally tilted at once, which is conservative. The
+budgeted variant (\cref{rem:budget}) and the directional variant
+(\cref{rem:directional}) both relax this, and in our experiments the directional
+version is where DCL improves realised deployment metrics rather than merely
+certifying them --- but both require the analyst to supply more structure. The
+bounds inherit whatever error is in $\hat e$ and $\hat p_1$; \cref{sec:experiments}
+shows this is not negligible, and coverage guarantees are asymptotic in the
+nuisance error even when exact in the identification. Our medical testbed is a
+simulator, because MIMIC-IV is credentialed and could not be accessed from the
+environment in which this work was produced; the loader against the real file
+layout is implemented and documented, but the medical numbers reported here
+should be read as a demonstration of the pipeline rather than as a clinical
+finding. Finally, \cref{prop:falsify} needs random case assignment, which holds
+in some courts and queues and not in others.
+
+\paragraph{Outlook.} The rank identity \eqref{eq:rank-identity} is not specific
+to selective labels: it linearises AUROC in the outcome regression under
+\emph{any} constraint set, so sharp AUROC bounds should follow for covariate
+shift, label noise and fairness-constrained model classes by substituting the
+corresponding set for the box of \cref{lem:box}. On the learning side, the most
+interesting open question is adaptive $\Gamma$: the identification width
+$\delta(x)$ is a per-unit signal of how much the incumbent policy could be hiding
+at $x$, and using it to direct \emph{data collection} --- deliberately labelling
+where the identified set is widest --- turns the sensitivity model into an
+acquisition function.

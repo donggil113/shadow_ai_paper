@@ -1,0 +1,381 @@
+\section{Proofs}
+\label{app:proofs}
+
+\subsection{Setup}
+\label{app:setup}
+
+\begin{proof}[Proof of \cref{lem:msm}]
+Fix $x$. By a standard reduction (see e.g.\ \citealp{dorn2023sharp}), for the
+purpose of bounding functionals of $\Prb(Y\mid X, T=0)$ the latent $S$ may be
+replaced by $Y$ itself: the marginal sensitivity model with arbitrary latent $S$
+and the model stated with $e(x,y)=\Prb(T=1\mid X=x, Y=y)$ generate the same set
+of admissible observed-data-compatible laws. So assume
+\begin{equation}
+  \Lambda^{-1}
+  \;\le\;
+  \frac{\odds\big(e(x)\big)}{\odds\big(e(x,y)\big)}
+  \;\le\;\Lambda,
+  \qquad y\in\{0,1\}.
+  \label{eq:msm-y}
+\end{equation}
+By Bayes' rule,
+\[
+  \odds\big(p_1(x)\big)
+  = \frac{\Prb(Y=1\mid x)\,e(x,1)}{\Prb(Y=0\mid x)\,e(x,0)}
+  = \odds\big(p(x)\big)\cdot\frac{e(x,1)}{e(x,0)},
+  \qquad
+  \odds\big(p_0(x)\big)
+  = \odds\big(p(x)\big)\cdot\frac{1-e(x,1)}{1-e(x,0)} .
+\]
+Dividing,
+\[
+  \frac{\odds\big(p_0(x)\big)}{\odds\big(p_1(x)\big)}
+  = \frac{(1-e(x,1))/e(x,1)}{(1-e(x,0))/e(x,0)}
+  = \frac{\odds\big(e(x,0)\big)}{\odds\big(e(x,1)\big)} .
+\]
+By \eqref{eq:msm-y} each of $\odds(e(x,0))$, $\odds(e(x,1))$ lies in
+$[\Lambda^{-1}\odds(e(x)),\,\Lambda\,\odds(e(x))]$, so their ratio lies in
+$[\Lambda^{-2},\Lambda^{2}]$, which is \eqref{eq:dcsm} with $\Gamma=\Lambda^2$.
+Attainment: take $e(x,1)$ at one end of its range and $e(x,0)$ at the other; both
+choices are compatible with \eqref{eq:msm-y} and with the observed $e(x)$, so
+every value in $[\Lambda^{-2},\Lambda^2]$ is realised.
+\end{proof}
+
+\begin{proof}[Proof of \cref{lem:box}]
+Write $\eta_1(x)=\logit p_1(x)$. Given a tilt $a(\cdot)$, the induced regression
+is \eqref{eq:tilt}, which is continuous and strictly increasing in $a(x)$ for
+each $x$ with $e(x)<1$ (and constant, equal to $p_1(x)$, when $e(x)=1$). Hence
+the image of $[\Gamma^{-1},\Gamma]$ under $a(x)\mapsto p^{a}(x)$ is exactly the
+interval $[\plo(x),\pup(x)]$. Since $\dcsm(\Gamma)$ constrains $a$ only
+\emph{pointwise} and $a$ is otherwise an arbitrary measurable function, the set of
+achievable regressions is the product $\prod_x[\plo(x),\pup(x)]$, i.e.\ the
+stated box. It is non-empty ($a\equiv1$ gives $p=p_1$), convex and compact
+(a product of compact intervals, in the $L^\infty$ or weak topology as
+appropriate). Nestedness and the two limits are immediate from monotonicity of
+$\sigma$ and $\sigma(\pm\infty)=\{0,1\}$.
+\end{proof}
+
+\subsection{Ranking metrics}
+\label{app:ranking}
+
+\begin{proof}[Proof of \cref{thm:rank-identity}]
+Let $(X,Y)$, $(X',Y')$ be independent with $X,X'\sim\mu$ and
+$\Prb(Y=1\mid X)=p(X)$. From \eqref{eq:auc-def} the numerator is
+\[
+  N(p)=\iint \psi\big(f(x),f(x')\big)\,p(x)\,\big(1-p(x')\big)\,d\mu(x)\,d\mu(x').
+\]
+Define the operator $(\mathcal{K}h)(x)=\int\psi(f(x),f(x'))h(x')\,d\mu(x')$ on
+$L^2(\mu)$, so $N(p)=\langle p, \mathcal{K}(\one-p)\rangle
+= \langle p, \mathcal{K}\one\rangle - \langle p,\mathcal{K}p\rangle$ and
+$\mathcal{K}\one = R$ by \eqref{eq:midrank}. Since
+$\psi(u,v)+\psi(v,u)=1$ for all $u,v$ (including $u=v$, where both sides are
+$\tfrac12+\tfrac12$), for any $g,h$
+\[
+  \langle g,\mathcal{K}h\rangle + \langle h,\mathcal{K}g\rangle
+  = \iint\big[\psi(f(x),f(x'))+\psi(f(x'),f(x))\big]g(x)h(x')\,d\mu\,d\mu
+  = \Big(\int g\,d\mu\Big)\Big(\int h\,d\mu\Big),
+\]
+i.e.\ $\mathcal{K}+\mathcal{K}^{*}=\one\otimes\one$. Taking $g=h=p$ gives
+$2\langle p,\mathcal{K}p\rangle = \pi^{2}$, so
+$\langle p,\mathcal{K}p\rangle = \pi^{2}/2$ for \emph{every} $p$. Hence
+$N(p) = \langle p,R\rangle - \pi^2/2$, and dividing by
+$\Prb(Y=1)\Prb(Y'=0)=\pi(1-\pi)$ gives \eqref{eq:rank-identity}.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:sharp-auc}]
+\emph{Reduction.} By \cref{lem:box} the identified set is the box $\I_\Gamma$.
+Write $\Pi(p)=\E_\mu[p]$. For fixed $\pi\in(0,1)$ the denominator of
+\eqref{eq:rank-identity} is a positive constant, so on the slice
+$\{p\in\I_\Gamma : \Pi(p)=\pi\}$ the map $p\mapsto\AUC(p)$ is an increasing
+affine function of $\E_\mu[pR]$. Therefore
+\[
+  \sup_{p\in\I_\Gamma}\AUC(p)
+  = \sup_{\pi\in[\pi_-,\pi_+]}\ \sup_{\substack{p\in\I_\Gamma\\ \Pi(p)=\pi}}\AUC(p)
+  = \sup_{\pi\in[\pi_-,\pi_+]}\frac{V^{+}(\pi)-\pi^2/2}{\pi(1-\pi)},
+\]
+and symmetrically for the infimum. The outer range is exactly $[\pi_-,\pi_+]$:
+$\Pi$ is continuous on the connected set $\I_\Gamma$ with
+$\Pi(\plo)=\pi_-$, $\Pi(\pup)=\pi_+$, so by the intermediate value theorem every
+intermediate $\pi$ is attained, and no other value is.
+
+\emph{(i) Structure of $V^{\pm}$.} Substituting $p=\plo + u$ with
+$0\le u(x)\le \delta(x)$ turns the inner problem into a continuous
+(fractional) knapsack: maximise $\E_\mu[uR]$ subject to $\E_\mu[u]=\pi-\pi_-$ and
+$0\le u\le\delta$. The greedy solution --- saturate $u=\delta$ in decreasing
+order of $R$ until the budget is spent, with at most one fractional unit ---
+is optimal by the standard exchange argument. Its value as a function of the
+budget is piecewise linear with slopes equal to the sorted $R$ values, which are
+decreasing; hence $V^{+}$ is concave with at most $n$ breakpoints. For
+$V^{-}$ the order is reversed and the slopes increase, giving convexity.
+
+\emph{(ii) Stationary points.} On a linear piece write
+$V^{\pm}(\pi)=\alpha+\beta\pi$ and $h(\pi)=N(\pi)/D(\pi)$ with
+$N=\alpha+\beta\pi-\pi^2/2$ and $D=\pi-\pi^2$. Then
+\[
+  N'D-ND'
+  = (\beta-\pi)(\pi-\pi^2) - \big(\alpha+\beta\pi-\tfrac{\pi^2}{2}\big)(1-2\pi)
+  = \big(\beta-\tfrac12\big)\pi^{2} + 2\alpha\pi - \alpha,
+\]
+the $\pi^3$ terms cancelling identically. Setting this to zero gives the stated
+quadratic. (The general form in \cref{prop:unified} follows by the same
+expansion with $N=n_0+n_1\pi+n_2\pi^2$, $D=d_0+d_1\pi+d_2\pi^2$, yielding
+$N'D-ND' = (n_1d_0-n_0d_1) + 2(n_2d_0-n_0d_2)\pi + (n_2d_1-n_1d_2)\pi^2$.)
+
+\emph{(iii) Complexity.} Computing $R$ is a sort, $O(n\log n)$. Sorting by $R$
+and forming the cumulative sums gives both profiles in $O(n\log n)$. Each of the
+$\le n$ pieces contributes $O(1)$ candidate points (two endpoints, at most two
+roots), each evaluated in $O(1)$, so the outer scan is $O(n)$.
+
+\emph{Attainment.} The optimising $\pi^\star$ is attained (the objective is
+continuous on the compact $[\pi_-,\pi_+]\cap(0,1)$ after the usual convention at
+the degenerate ends), and the greedy construction returns an explicit
+$p^\star\in\I_\Gamma$ with $\Pi(p^\star)=\pi^\star$ and
+$\E_\mu[p^\star R]=V^{\pm}(\pi^\star)$. By \cref{lem:box} that $p^\star$
+corresponds to an admissible tilt and hence to an admissible law.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:corner}]
+$\plo$, $\pup$ and $\tilde p$ all belong to $\I_\Gamma$, so their AUROC values
+lie in the sharp interval and $\mathcal{C}$ is contained in it. For strictness,
+consider the upper end. By the greedy characterisation, the maximiser at the
+optimal prevalence sets $p=\pup$ on $\{R > r^\star\}$ and $p=\plo$ on
+$\{R<r^\star\}$ for a pivot $r^\star$. If $R$ is non-constant on
+$\{\delta>0\}$ this differs from $\plo$, $\pup$ and $\tilde p$ on a set of
+positive measure; since $\E_\mu[pR]$ is strictly increasing in $p$ where $R>0$
+and the objective is strictly increasing in $\E_\mu[pR]$ at fixed prevalence,
+the maximum strictly exceeds all three corner values unless the optimal
+prevalence coincides with one corner's prevalence \emph{and} the corner already
+solves the knapsack, which requires $R$ constant on $\{\delta>0\}$. An explicit
+three-point counterexample is given in \cref{app:counterexample}.
+\end{proof}
+
+\subsection{Learning}
+\label{app:learning}
+
+\begin{proof}[Proof of \cref{thm:dcl}]
+\emph{(a)} By \cref{lem:box}, $\I_\Gamma$ is a product of intervals and
+$R_P(f)=\E_\mu[p\,\ell_1+(1-p)\ell_0]$ is affine in $p(x)$ pointwise with slope
+$\ell_1-\ell_0$. The supremum therefore decouples and is attained at
+$\pup(x)$ where $\ell_1\ge\ell_0$ and at $\plo(x)$ otherwise:
+\[
+  \sup_{p\in\I_\Gamma}R_P(f)
+  = \E_\mu\Big[\max\big\{\pup\ell_1+(1-\pup)\ell_0,\ \plo\ell_1+(1-\plo)\ell_0\big\}\Big].
+\]
+Apply $\max(A,B)=\tfrac{A+B}{2}+\tfrac{|A-B|}{2}$ with
+$A-B=(\pup-\plo)(\ell_1-\ell_0)=\delta\,(\ell_1-\ell_0)$ to get
+\eqref{eq:wc-decomp}. For the logistic loss
+$\ell(z,1)-\ell(z,0)=\log(1+e^{-z})-\log(1+e^{z})=-z$, so $g_\ell(z)=|z|$.
+
+\emph{(b)} For each fixed $p\in[0,1]$ the map
+$z\mapsto p\,\ell(z,1)+(1-p)\ell(z,0)$ is a non-negative combination of convex
+functions, hence convex. A pointwise supremum of convex functions is convex, so
+$z\mapsto\max_{p\in[\plo,\pup]}\{\cdot\}$ is convex, and
+$\Rbar_\Gamma(f)=\E_\mu[\cdot]$ is convex in $f$ as an element of any convex
+class. For the second claim, subtracting the (convex) midpoint term from a
+convex function leaves $\tfrac12\delta\,g_\ell$, which is convex iff $g_\ell$ is,
+whenever $\delta$ may be taken constant and positive on a set of positive
+measure. For the hinge loss $g_\ell(z)=2|z|$ on $|z|\le1$ and $1+|z|$ outside,
+whose one-sided slopes at $z=1$ are $2$ then $1$: not convex.
+
+\emph{(c)} $R_P(f)$ is convex in $f$ over the convex set $\F$ and affine --- hence
+concave and continuous --- in $p$ over the convex compact $\I_\Gamma$. Sion's
+minimax theorem \citep{sion1958general} gives $\inf\sup=\sup\inf$ and existence
+of a saddle point; the adversary's best response is the vertex rule from part
+(a). At a saddle point $\hat f$ minimises $R_{P^\star}(\cdot)$, i.e.\ it is the
+Bayes predictor for $P^\star$.
+
+\emph{(d)} Minimise $J(z)=\tilde p\,\zeta(-z)+(1-\tilde p)\zeta(z)
++\tfrac{\delta}{2}|z|$ pointwise, $\zeta(u)=\log(1+e^{u})$. For $z\neq0$,
+$J'(z)=\sigma(z)-\tilde p+\tfrac{\delta}{2}\operatorname{sign}(z)$. On $z>0$,
+$J'=0$ gives $\sigma(z)=\tilde p-\tfrac{\delta}{2}=\plo$, so
+$z=\logit\plo$, admissible iff $\plo>\tfrac12$. On $z<0$, $J'=0$ gives
+$\sigma(z)=\tilde p+\tfrac{\delta}{2}=\pup$, so $z=\logit\pup$, admissible iff
+$\pup<\tfrac12$. Otherwise $0$ is a minimiser because the subdifferential at $0$
+is $[\tfrac12-\pup,\ \tfrac12-\plo]$, which contains $0$ exactly when
+$\plo\le\tfrac12\le\pup$. The three cases are exhaustive and mutually exclusive,
+and $J$ is strictly convex, so the minimiser is unique.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:regret}]
+For the logistic loss and $q=\sigma(z)$,
+$\E[\ell(z,Y)\mid p] - \inf_{z'}\E[\ell(z',Y)\mid p] = \KL(p\|q)$, so the
+pointwise problem is $\min_{q}\max_{p\in[\plo,\pup]}\KL(p\|q)$. For fixed $q$,
+$p\mapsto\KL(p\|q)$ is convex, so its maximum over an interval is attained at an
+endpoint; the objective is thus
+$\Psi(q)=\max\{\KL(\plo\|q),\KL(\pup\|q)\}$. Each branch is strictly convex in
+$q$ with minimum $0$ at $q=\plo$ and $q=\pup$ respectively, the first increasing
+in $q$ on $q>\plo$ and the second decreasing on $q<\pup$; hence on $(\plo,\pup)$
+the two branches cross exactly once and $\Psi$ is minimised where they are equal
+(for $\plo<\pup$). Setting $\KL(\plo\|q)=\KL(\pup\|q)$ and writing
+$H(u)=-u\log u-(1-u)\log(1-u)$,
+\[
+  -H(\plo)-\plo\log q-(1-\plo)\log(1-q)
+  \;=\;
+  -H(\pup)-\pup\log q-(1-\pup)\log(1-q),
+\]
+so $H(\pup)-H(\plo) = (\plo-\pup)\log q + (\pup-\plo)\log(1-q)
+= -(\pup-\plo)\logit q$, giving \eqref{eq:regret-rule}. As $\pup\downarrow\plo=p$
+the right-hand side tends to $-H'(p)=\logit p$, recovering the precise case.
+\end{proof}
+
+\begin{proof}[Proof of \cref{cor:validity}]
+Immediate: $P\in\I_\Gamma$ and $\Rbar_\Gamma(f)$ is the supremum of $R_{P'}(f)$
+over $P'\in\I_\Gamma$.
+\end{proof}
+
+\subsection{Impossibility}
+\label{app:impossibility}
+
+\begin{proof}[Proof of \cref{thm:impossible}]
+It suffices to exhibit two laws in $\mathcal{P}_{\Gamma,\eta}$ with identical
+observed-data distributions and deployment risks differing by $\Delta$.
+
+Let $P_X$ be arbitrary, let $e(x)=1-\eta$ so $\Prb(T=0)=\eta$, and fix any
+$p_1(\cdot)$. Define two laws $P_{\pm}$ that agree on $(P_X, e, p_1)$ --- hence
+on $P_{\mathrm{obs}}$, since the observed-data law is a function of exactly
+$(P_X,e,p_1)$ and nothing else --- and differ in the censored branch:
+\[
+  \odds\big(p_0^{\pm}(x)\big) \;=\; \Gamma^{\pm1}\,\odds\big(p_1(x)\big).
+\]
+Both satisfy $\dcsm(\Gamma)$ with equality, so both lie in
+$\mathcal{P}_{\Gamma,\eta}$. Their deployment risks satisfy
+\[
+  R_{P_+}(f)-R_{P_-}(f)
+  = \E\Big[(1-e(X))\big(p_0^{+}(X)-p_0^{-}(X)\big)
+    \big(\ell(f(X),1)-\ell(f(X),0)\big)\Big],
+\]
+whose absolute value is $\Delta$ as stated after noting that for
+$p_1=\tfrac12$, $p_0^{+}-p_0^{-}=\tfrac{\Gamma}{\Gamma+1}-\tfrac{1}{\Gamma+1}
+=\tfrac{\Gamma-1}{\Gamma+1}$ (for general $p_1$, replace this factor by the
+corresponding difference, which is what the conditional expectation in
+\eqref{eq:impossible} records).
+
+Now let $\hat R_n$ be any estimator and set
+$A=\{|\hat R_n - R_{P_-}(f)| < \Delta/2\}$. On $A^{c}$ the estimator errs by at
+least $\Delta/2$ under $P_-$; on $A$, the triangle inequality gives
+$|\hat R_n - R_{P_+}(f)| \ge \Delta - \Delta/2 = \Delta/2$, so it errs by at
+least $\Delta/2$ under $P_+$. Because $P_{\mathrm{obs}}$ is the same under both
+laws and $\hat R_n$ is a measurable function of the observed sample,
+$\Prb_{P_-}(A)=\Prb_{P_+}(A)$. Hence
+\[
+  \max_{\pm}\Prb_{P_\pm}\!\big(|\hat R_n - R_{P_\pm}(f)|\ge\Delta/2\big)
+  \;\ge\;
+  \max\big\{1-\Prb_{P_-}(A),\ \Prb_{P_-}(A)\big\}
+  \;\ge\;\tfrac12 .
+\]
+The argument uses no asymptotics, so the conclusion holds at every $n$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{cor:gamma-unidentified}]
+The observed-data law is determined by $(P_X, e, p_1)$, and $\dcsm(\Gamma)$
+constrains only $p_0$, which does not enter it. So for every $\Gamma\ge1$ and
+every observed-data law there exists a compatible $P$ (take $a\equiv1$). The
+compatible sets coincide, and no test can have power.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:falsify}]
+Under \cref{ass:iv}, $Z\perp(Y,S)\mid X$ implies $\Prb(Y=1\mid X=x,Z=z)=p(x)$
+for every $z$; applying \cref{lem:box} within each level $z$ gives
+$p(x)\in[\plo_z^\Gamma(x),\pup_z^\Gamma(x)]$, hence membership in the
+intersection. Each interval is continuous and nested increasing in $\Gamma$
+(monotonicity of $\sigma$), so $\Gamma\mapsto\one\{\bigcap_z\neq\emptyset\}$ is
+non-decreasing and the infimum defining $\Gamma_{\min}$ is attained and found by
+bisection. Since the true $\Gamma_0$ makes the intersection non-empty (it
+contains $p(x)$), $\Gamma_{\min}(x)\le\Gamma_0$. Finally, if
+$\Gamma<\Gamma_{\min}(x)$ the intersection is empty, so no law satisfying
+$\dcsm(\Gamma)$ conditionally on each $z$ can have generated the data, i.e.\
+$\dcsm(\Gamma)$ is refuted.
+\end{proof}
+
+\subsection{Generalisation}
+\label{app:generalization}
+
+\begin{proof}[Proof of \cref{thm:generalization}]
+Write $\bar\ell(z;x)=\max_{p\in[\plo(x),\pup(x)]}\{p\ell(z,1)+(1-p)\ell(z,0)\}$.
+
+\emph{Lipschitzness.} For fixed $x$ the maximising $p$ is a vertex, and
+$\partial_z[p\ell(z,1)+(1-p)\ell(z,0)]$ is a convex combination of
+$\partial_z\ell(z,1)$ and $\partial_z\ell(z,0)$, each bounded by $L$; by Danskin's
+theorem $\bar\ell(\cdot;x)$ is $L$-Lipschitz. For the logistic loss
+$\partial_z\ell(z,1)=-\sigma(-z)\in[-1,0]$ and
+$\partial_z\ell(z,0)=\sigma(z)\in[0,1]$, so $L=1$.
+
+\emph{Uniform deviation.} $\bar\ell$ takes values in $[0,\ell_{\max}(B)]$ on
+$\|f\|_\infty\le B$. By symmetrisation and Talagrand's contraction inequality
+\citep{bartlett2002rademacher}, with probability $\ge1-\delta$,
+\[
+  \sup_{f\in\F}\big|\hat{\Rbar}^{\,\mathrm{oracle}}_\Gamma(f)-\Rbar_\Gamma(f)\big|
+  \;\le\; 2L\,\Rad_n(\F)
+  \;+\;\ell_{\max}(B)\sqrt{\tfrac{\log(2/\delta)}{2n}},
+\]
+where $\hat{\Rbar}^{\,\mathrm{oracle}}$ uses the true $(\plo,\pup)$. The standard
+argument $\Rbar_\Gamma(\hat f) - \inf_\F\Rbar_\Gamma
+\le 2\sup_\F|\hat{\Rbar}-\Rbar|$ doubles both terms.
+
+\emph{Nuisance error.} $\bar\ell$ depends on $(\plo,\pup)$ through the affine
+coefficient $\ell_1-\ell_0$, so
+$|\bar\ell(z;\hat{\plo},\hat{\pup})-\bar\ell(z;\plo,\pup)|
+\le \max(|\hat{\plo}-\plo|,|\hat{\pup}-\pup|)\cdot g_\ell(z)
+\le \kappa(B)\max(|\hat{\plo}-\plo|,|\hat{\pup}-\pup|)$.
+Both bounds are of the form $e\,p_1+(1-e)\sigma(\eta_1\mp\log\Gamma)$; the map
+$(e,\eta_1)\mapsto\plo$ has partial derivatives bounded by
+$|p_1-\sigma(\eta_1-\log\Gamma)|\le1$ in $e$ and by
+$\sup|\sigma'|=\tfrac14$ in $\eta_1$, so
+$|\hat{\plo}-\plo|\le|\hat e-e|+\tfrac14|\hat\eta_1-\eta_1|$, and likewise for
+$\pup$. Taking expectations and doubling (again for the excess-risk argument)
+gives the third term of \eqref{eq:gen-bound}. Note the bound is on the
+\emph{logit} scale in $p_1$: this is where the $1$-Lipschitz behaviour of
+$\Gamma$ as a translation is used.
+\end{proof}
+
+\begin{proof}[Proof of \cref{cor:loggamma}]
+By \eqref{eq:bayes-act} the population optimum has
+$|f^\star_\Gamma(x)|\le\max\{|\logit\plo(x)|,|\logit\pup(x)|\}$. Since
+$\plo\ge e p_1 + (1-e)\sigma(\eta_1-\log\Gamma)$ and
+$\pup\le e p_1 + (1-e)\sigma(\eta_1+\log\Gamma)$, monotonicity of $\logit$ and
+$\logit\sigma(u)=u$ give $|\logit\pup|\le|\eta_1|+\log\Gamma\le B_0+\log\Gamma$
+and symmetrically for $\plo$. Substituting $B=B_0+\log\Gamma$ and
+$\ell_{\max}(B)\le\log2+B$, $\kappa(B)=B$ for the logistic loss into
+\eqref{eq:gen-bound} gives \eqref{eq:loggamma}.
+\end{proof}
+
+\begin{proof}[Sketch of \cref{prop:lower-gen}]
+Take $\X$ a single point, so $\F_\Gamma$ is the set of constants
+$|z|\le B_0+\log\Gamma$, and let the identified set be
+$[\plo,\pup]$ with $\pup<\tfrac12$ and $\logit\pup\asymp-(B_0+\log\Gamma)$. The
+empirical objective is an average of $n$ i.i.d.\ terms whose range is
+$\Theta(B_0+\log\Gamma)$ and whose minimiser must be located to accuracy
+$\varepsilon$ in a loss that is locally quadratic with curvature bounded below;
+a two-point argument on the Bernoulli parameter (Le Cam) then shows that
+distinguishing the two candidate optima requires
+$n = \Omega\big((\log\Gamma)^2/\varepsilon^2\big)$, i.e.\
+$\varepsilon = \Omega(\log\Gamma\cdot n^{-1/2})$.
+\end{proof}
+
+\subsection{Uncertainty}
+\label{app:uq}
+
+\begin{proof}[Proof of \cref{cor:uq}]
+\emph{(i)} $\plo = e p_1 + (1-e)\sigma(\eta_1-\log\Gamma)
+\le e p_1 + (1-e)\sigma(\eta_1) = p_1$ since $\log\Gamma\ge0$ and $\sigma$ is
+increasing; symmetrically $\pup\ge p_1$. So $p_1\in[\plo,\pup]$ always, with
+strict interiority whenever $\Gamma>1$ and $e<1$.
+
+\emph{(ii)} $H$ is concave on $[0,1]$ with maximum at $\tfrac12$, so on an
+interval its maximum is at the point closest to $\tfrac12$ --- namely
+$\mathrm{clip}_{[\plo,\pup]}(\tfrac12)$ --- and its minimum at whichever endpoint
+is farther from $\tfrac12$, i.e.\ $\min\{H(\plo),H(\pup)\}$. Because
+$\E_\mu[H(p)]$ is separable in $p(x)$ and the box is a product, the pointwise
+extremes are simultaneously attainable, so the sharp interval for the mean is
+the mean of the pointwise sharp interval.
+
+\emph{(iii)} If $C_n(x)\to\{p_1(x)\}$ then both
+$\max_{C_n}H$ and $\min_{C_n}H$ converge to $H(p_1(x))$, so the reported
+epistemic term $\to0$. The censoring term \eqref{eq:cens} does not depend on $n$
+and is positive whenever $\plo<\pup$, i.e.\ whenever $\Gamma>1$ and $e(x)<1$. For
+the explicit bound, if $\tfrac12\notin[\plo,\pup]$ then $H$ is monotone there and
+by the mean value theorem
+$|H(\pup)-H(\plo)| = \delta\,|H'(\xi)| = \delta\,|\logit\xi|$
+for some $\xi\in(\plo,\pup)$, which is at least
+$\delta\cdot\min_{p\in[\plo,\pup]}|\logit p|$.
+\end{proof}

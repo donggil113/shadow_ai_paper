@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+# Public raw data is re-fetched by scripts/download_data.py; credentialed data
+# (MIMIC-IV) must never be committed.
+data/raw/
+results/*.log
+results/*.done

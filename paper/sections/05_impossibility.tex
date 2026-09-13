@@ -1,0 +1,91 @@
+\section{$\Gamma$ is unavoidable --- and falsifiable}
+\label{sec:impossibility}
+
+A reader may hope that a sufficiently clever estimator could sidestep the
+sensitivity parameter. It cannot, and the obstruction is not asymptotic.
+
+\begin{theorem}[Impossibility]
+\label{thm:impossible}
+Fix $\eta\in(0,1)$, a loss $\ell$, a score $f$ and $\Gamma>1$. Let
+$\mathcal{P}_{\Gamma,\eta}$ be the set of laws satisfying $\dcsm(\Gamma)$ with
+$\Prb(T=0)\ge\eta$. Then for \emph{every} sample size $n$ and every estimator
+$\hat R_n$ measurable with respect to $\{O_i\}_{i\le n}$,
+\begin{equation}
+  \sup_{P\in\mathcal{P}_{\Gamma,\eta}}
+  \Prb_P\!\left(\big|\hat R_n - R_P(f)\big| \;\ge\; \tfrac{\Delta}{2}\right)
+  \;\ge\; \tfrac12,
+  \qquad
+  \Delta \;=\; \eta\,\frac{\Gamma-1}{\Gamma+1}\,
+  \E\big[g_\ell(f(X))\,\big|\,T=0\big],
+  \label{eq:impossible}
+\end{equation}
+where $g_\ell(z)=|\ell(z,1)-\ell(z,0)|$. Consequently no estimator is
+consistent for the deployment risk uniformly over
+$\bigcup_{\Gamma\ge1}\mathcal{P}_{\Gamma,\eta}$, and the error cannot be made
+smaller than a constant depending on $\Gamma$ and the censoring rate.
+\end{theorem}
+
+The proof (\cref{app:impossibility}) is a Le Cam two-point argument
+\citep{lecam1973convergence, tsybakov2009introduction} made trivial by the
+structure of the problem: two laws in $\mathcal{P}_{\Gamma,\eta}$ can be
+constructed with \emph{identical} observed-data distributions --- $p_0$ never
+enters $P_{\mathrm{obs}}$ --- yet deployment risks differing by $\Delta$. Since
+$\hat R_n$ has the same law under both, it cannot be close to both.
+
+\begin{corollary}[$\Gamma$ is not identified]
+\label{cor:gamma-unidentified}
+For any $1\le\Gamma<\Gamma'$, the set of observed-data laws compatible with
+$\dcsm(\Gamma)$ equals the set compatible with $\dcsm(\Gamma')$ --- namely all of
+them. No test based on $(X,T,TY)$ has power against $\dcsm(\Gamma)$.
+\end{corollary}
+
+Together these say $\Gamma$ is a \emph{fundamental parameter}: it must come from
+outside the data, it indexes a nested, exhaustive family of well-posed problems
+(\cref{lem:box}), and for each fixed $\Gamma$ every quantity we report is
+consistently estimable. The analyst's job is not to estimate $\Gamma$ but to
+make the map from $\Gamma$ to conclusions explicit --- which is what the
+break-even analysis of \cref{sec:experiments} does.
+
+\subsection{The constructive half: falsification from leniency}
+
+\Cref{cor:gamma-unidentified} is a statement about data of the form $(X,T,TY)$.
+Many of the applications that motivate this paper have more structure: several
+decision makers --- judges, clinicians, loan officers, moderation queues --- handle
+comparable cases and differ in leniency for reasons unrelated to the outcome
+\citep{kleinberg2018human, arnold2022measuring}. That variation is a classical
+instrument \citep{imbens1994identification}, and under it $\dcsm(\Gamma)$
+acquires testable content.
+
+\begin{assumption}[Leniency instrument]
+\label{ass:iv}
+$Z$ indexes decision makers, $Z \perp (Y,S)\mid X$ (random assignment and
+exclusion), and $\dcsm(\Gamma)$ holds conditionally on each $Z=z$.
+\end{assumption}
+
+\begin{proposition}[Identified lower bound on $\Gamma$]
+\label{prop:falsify}
+Under \cref{ass:iv}, $p(x)$ does not depend on $z$ while $e_z(x)$ and
+$p_{1,z}(x)$ do, so
+\[
+  p(x) \;\in\; \bigcap_{z}\;\big[\plo^{\,\Gamma}_z(x),\ \pup^{\,\Gamma}_z(x)\big].
+\]
+The intervals are nested increasing and continuous in $\Gamma$, hence
+\[
+  \Gamma_{\min}(x)
+  \;=\;
+  \inf\Big\{\Gamma\ge1 \;:\; \textstyle\bigcap_z
+  \big[\plo^{\,\Gamma}_z(x),\pup^{\,\Gamma}_z(x)\big] \neq \emptyset \Big\}
+\]
+is well defined, identified, computable by bisection, and satisfies
+$\Gamma_{\min}(x)\le\Gamma_0$. $\dcsm(\Gamma)$ is \emph{refuted} for every
+$\Gamma < \sup_x \Gamma_{\min}(x)$.
+\end{proposition}
+
+\Cref{prop:falsify} converts \cref{thm:impossible} from a dead end into a
+workflow: leniency variation pins down how much hidden judgement there must be
+\emph{at least}, the analyst supplies a defensible upper value, and the
+break-even analysis reports which conclusions survive in between. In
+\cref{sec:experiments} the test recovers the true $\Gamma_0$ to three decimals
+when reliance on private information is homogeneous across decision makers, and
+degrades gracefully to a strict lower bound when it is not --- while never once
+exceeding $\Gamma_0$, as \cref{prop:falsify} requires.
