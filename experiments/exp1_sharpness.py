@@ -27,7 +27,6 @@ from dcl.auc_bounds import (auc_direct, auc_from_regression, bruteforce_auc_inte
                             midrank, naive_corner_interval, separate_bounds_interval,
                             sharp_auc_interval)
 from dcl.data import make_sl_bench
-from dcl.nuisance import CrossFitNuisance
 from dcl.sensitivity import outcome_bounds
 
 

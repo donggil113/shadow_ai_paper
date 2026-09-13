@@ -39,8 +39,8 @@ the sharpness experiments.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Callable, Sequence, Tuple
+from dataclasses import dataclass
+from typing import Tuple
 
 import numpy as np
 
@@ -222,6 +222,7 @@ class _Profile:
     order: np.ndarray      # unit ordering used by the greedy fill
     lo: np.ndarray
     cap: np.ndarray        # w_i * (hi_i - lo_i)
+    gap: np.ndarray        # hi_i - lo_i
 
     def argmin_p(self, pi: float) -> np.ndarray:
         """Reconstruct the extremal ``p`` achieving the profile at prevalence ``pi``."""
@@ -234,16 +235,12 @@ class _Profile:
             take = min(c, budget)
             if take > 0:
                 # cap = w * (hi - lo); take/cap is the fraction of the gap used.
-                p[idx] = self.lo[idx] + (take / c) * self._gap(idx)
+                p[idx] = self.lo[idx] + (take / c) * self.gap[idx]
                 budget -= take
             if budget <= 1e-15:
                 break
         return p
 
-    _gap_arr: np.ndarray | None = field(default=None, repr=False)
-
-    def _gap(self, idx: int) -> float:
-        return float(self._gap_arr[idx])
 
 
 def _build_profile(
@@ -257,11 +254,8 @@ def _build_profile(
     gains = caps * phi[order]
     pis = np.concatenate([[pi0], pi0 + np.cumsum(caps)])
     vals = np.concatenate([[v0], v0 + np.cumsum(gains)])
-    prof = _Profile(
-        pis=pis, vals=vals, slopes=phi[order], order=order, lo=lo, cap=cap
-    )
-    prof._gap_arr = hi - lo
-    return prof
+    return _Profile(pis=pis, vals=vals, slopes=phi[order], order=order,
+                    lo=lo, cap=cap, gap=hi - lo)
 
 
 # --------------------------------------------------------------------------- #

@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 from _common import FIGURES, RESULTS
-from _style import C, DASHES, GRID, INK, INK2, MARKERS, MUTED, SLOTS, apply_style, grid, sequential
+from _style import C, DASHES, INK, INK2, MARKERS, MUTED, SLOTS, apply_style, grid, sequential
 
 import matplotlib.pyplot as plt
 
@@ -212,59 +212,73 @@ def fig4_uq():
                 ls=DASHES[2], lw=1.2, zorder=3,
                 label="reported epistemic (fixed-budget deep ensemble)")
     ax.set_xscale("log"); ax.set_yscale("log")
+    ax.set_xticks(list(log.n.values))
+    ax.set_xticklabels([f"{int(v):,}" for v in log.n.values], fontsize=7.5)
+    ax.minorticks_off()
     ax.set_xlabel("training units $n$"); ax.set_ylabel("nats")
     ax.set_title("More data cannot shrink what censoring hides")
     grid(ax, axis="both")
-    ax.legend(loc="lower left", fontsize=6.8)
+    ax.legend(loc="lower left", fontsize=6.8, bbox_to_anchor=(-0.01, -0.02))
     _save(fig, "fig4_uq")
 
 
 def fig5_generalization():
-    """Theorem 4: n^{-1/2} decay, coefficient linear in log Gamma."""
-    raw = _load("exp5_generalization_raw")
+    """Theorem 11: n^{-1/2} decay of the uniform deviation, coefficient ~ log Gamma."""
+    dev = _load("exp5a_deviation")
     sc = _load("exp5_scaling")
-    if raw is None or sc is None:
+    if dev is None or sc is None:
         return
-    fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.75))
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 2.8))
     ax = axes[0]
-    gammas = sorted(raw.gamma.unique())
+    gammas = sorted(dev.gamma.unique())
     ramp = sequential(len(gammas))
+    n = np.array(sorted(dev.n.unique()), dtype=float)
+    # Six nearly-coincident curves: label only the extremes of the ramp and say
+    # which way it runs, rather than crowding six end labels together.
     for col, gm in zip(ramp, gammas):
-        s = raw[raw.gamma == gm].groupby("n").excess.mean()
-        ax.plot(s.index, s.values, color=col, marker="o", ms=3.2, lw=1.5, zorder=4)
-        ax.annotate(rf"$\Gamma={gm:g}$", (s.index[-1], s.values[-1]),
-                    xytext=(4, 0), textcoords="offset points", va="center",
-                    fontsize=7, color=INK2)
-    n = np.array(sorted(raw.n.unique()), dtype=float)
-    ref = raw[raw.gamma == gammas[-1]].groupby("n").excess.mean().values[0]
+        s = dev[dev.gamma == gm].groupby("n").deviation.mean()
+        ax.plot(s.index, s.values, color=col, marker="o", ms=3.2, lw=1.5,
+                zorder=4 if gm in (gammas[0], gammas[-1]) else 3)
+        if gm in (gammas[0], gammas[-1]):
+            ax.annotate(rf"$\Gamma={gm:g}$", (s.index[-1], s.values[-1]),
+                        xytext=(5, -3 if gm == gammas[0] else 3),
+                        textcoords="offset points", va="center", fontsize=7,
+                        color=INK2)
+    ref = dev[dev.gamma == gammas[-1]].groupby("n").deviation.mean().values[0]
     ax.plot(n, ref * (n / n[0]) ** -0.5, color=MUTED, ls=":", lw=1.1, zorder=2)
-    ax.annotate(r"$n^{-1/2}$", (n[-1], ref * (n[-1] / n[0]) ** -0.5),
-                xytext=(4, -8), textcoords="offset points", fontsize=7, color=MUTED)
+    ax.annotate(r"$n^{-1/2}$", (n[len(n) // 2], ref * (n[len(n) // 2] / n[0]) ** -0.5),
+                xytext=(2, -11), textcoords="offset points", fontsize=7.5, color=MUTED)
     ax.set_xscale("log"); ax.set_yscale("log")
-    ax.set_xlabel("training units $n$")
-    ax.set_ylabel("excess worst-case risk")
-    ax.set_title("a  Decay rate matches theory")
-    ax.set_xlim(right=n[-1] * 2.4)
+    ax.set_xticks(list(n)); ax.set_xticklabels([f"{int(v):,}" for v in n], fontsize=7)
+    ax.minorticks_off()
+    ax.set_xlabel(r"training units $n$   (lighter $=$ smaller $\Gamma$)")
+    ax.set_ylabel(r"$\sup_{f}|\hat{R}_\Gamma(f)-\bar{R}_\Gamma(f)|$")
+    ax.set_title("a  deviation vs $n$", loc="left")
+    ax.set_xlim(right=n[-1] * 3.0)
     grid(ax, axis="both")
 
     ax = axes[1]
-    ax.scatter(sc.log_gamma, sc.coefficient, s=34, color=SLOTS[0],
-               linewidths=0, zorder=4)
-    b, a = np.polyfit(sc.log_gamma, sc.coefficient, 1)
+    b, a_ = np.polyfit(sc.log_gamma, sc.coefficient, 1)
     xs = np.linspace(sc.log_gamma.min(), sc.log_gamma.max(), 50)
-    ax.plot(xs, a + b * xs, color=SLOTS[0], lw=1.2, ls="--", zorder=3)
+    ax.plot(xs, a_ + b * xs, color=SLOTS[0], lw=1.3, ls="--", zorder=3)
+    ax.scatter(sc.log_gamma, sc.coefficient, s=36, color=SLOTS[0],
+               linewidths=0, zorder=4)
+    for _, r in sc.iterrows():
+        ax.annotate(rf"${r.gamma:g}$", (r.log_gamma, r.coefficient),
+                    xytext=(3, -8), textcoords="offset points",
+                    fontsize=6.5, color=INK2)
     import json
-    p = os.path.join(RESULTS, "exp5_summary.json")
-    if os.path.exists(p):
-        s = json.load(open(p))
-        ax.annotate(rf"$R^2$ vs $\log\Gamma$ = {s['r2_vs_log_gamma']:.3f}"
+    p_ = os.path.join(RESULTS, "exp5_summary.json")
+    if os.path.exists(p_):
+        j = json.load(open(p_))
+        ax.annotate(rf"vs $\log\Gamma$:  $R^2={j['r2_vs_log_gamma']:.2f}$"
                     "\n"
-                    rf"$R^2$ vs $\Gamma$ = {s['r2_vs_gamma']:.3f}",
-                    (0.04, 0.95), xycoords="axes fraction", va="top",
+                    rf"vs $\Gamma$:  $R^2={j['r2_vs_gamma']:.2f}$",
+                    (0.04, 0.96), xycoords="axes fraction", va="top",
                     fontsize=7.5, color=INK2)
-    ax.set_xlabel(r"$\log \Gamma$")
-    ax.set_ylabel("fitted coefficient")
-    ax.set_title(r"b  Coefficient is linear in $\log\Gamma$")
+    ax.set_xlabel(r"$\log \Gamma$   (point labels give $\Gamma$)")
+    ax.set_ylabel(r"coefficient of $n^{-1/2}$")
+    ax.set_title(r"b  coefficient vs $\log\Gamma$", loc="left")
     grid(ax, axis="both")
     _save(fig, "fig5_generalization")
 
@@ -280,22 +294,27 @@ def fig6_falsification():
         s = df[df.kappa_heterogeneity == het]
         ax.scatter(s.gamma0_cond, s.gamma_min, s=30, color=SLOTS[i],
                    marker=MARKERS[i], linewidths=0, alpha=.85, zorder=4,
-                   label=rf"reliance on $S$ {'homogeneous' if het == 0 else 'heterogeneous'} across DMs")
+                   label=("homogeneous" if het == 0 else "heterogeneous")
+                         + " reliance on $S$")
     lim = [1.0, max(df.gamma0_cond.max(), df.gamma_min.max()) * 1.05]
     ax.plot(lim, lim, color=MUTED, ls=":", lw=1.1, zorder=2)
-    ax.annotate(r"$\Gamma_{\min}=\Gamma_0$ (exact recovery)", (lim[1], lim[1]),
-                xytext=(-4, -10), textcoords="offset points", ha="right",
-                fontsize=7, color=MUTED)
+    mid = 0.55 * lim[1]
+    ax.annotate(r"$\Gamma_{\min}=\Gamma_0$", (mid, mid), xytext=(-3, 6),
+                textcoords="offset points", ha="right", rotation=45,
+                rotation_mode="anchor", fontsize=7, color=MUTED)
     ax.fill_between(lim, lim, [lim[1] * 1.3] * 2, color=C["red"], alpha=.05,
                     zorder=1, linewidth=0)
-    ax.annotate("infeasible:\nnot a lower bound", (1.15, lim[1] * .92),
-                fontsize=7, color=MUTED, va="top")
+    ax.annotate("infeasible region:\n$\\Gamma_{\\min}$ would not be a lower bound",
+                (0.05, 0.94), xycoords="axes fraction", fontsize=7,
+                color=MUTED, va="top")
     ax.set_xlim(lim); ax.set_ylim(lim)
     ax.set_xlabel(r"true conditional $\Gamma_0$")
     ax.set_ylabel(r"identified lower bound $\Gamma_{\min}$")
-    ax.set_title("Leniency variation falsifies small $\\Gamma$")
+    ax.set_title(r"Leniency variation falsifies small $\Gamma$")
     grid(ax, axis="both")
-    ax.legend(loc="upper left", fontsize=6.8)
+    # The upper-left is empty by construction (it is the infeasible region), so
+    # the legend costs no data ink there.
+    ax.legend(loc="upper left", fontsize=6.8, bbox_to_anchor=(0.02, 0.84))
     _save(fig, "fig6_falsification")
 
 

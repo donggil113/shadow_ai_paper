@@ -40,7 +40,7 @@ axis-aligned box, and everything becomes computable.
 | **Decision-censored ERM** — worst case = midpoint risk + width-weighted margin penalty; *exactly convex*, no relaxation | `dcl/objectives.py` | convexity probe over all four losses; Sion saddle point matches closed form |
 | **Interval-shrunk logit** (minimax risk) and the **entropy-difference-quotient rule** (minimax regret), both closed form | `dcl/objectives.py` | match grid minimisation to grid resolution |
 | **Impossibility** — no estimator is consistent for deployment risk, at any `n` | `paper/sections/A_proofs.tex` | two-point construction |
-| **Γ is falsifiable from below** given leniency variation | `dcl/falsify.py` | recovers the true `Γ₀` to 3 decimals in the ideal case; never exceeds it |
+| **Γ is falsifiable from below** given leniency variation | `dcl/falsify.py` | valid in all 30 benchmark configs; exact in the idealised two-decision-maker case; recovers 34–61% of `log Γ₀` on SL-Bench |
 | **Three-way uncertainty decomposition** (aleatoric / epistemic / *censoring*) | `dcl/uq.py` | `p₁(x)` proved and tested to lie inside the identified set always |
 
 ## Install and run

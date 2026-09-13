@@ -25,11 +25,10 @@ iterates converge to a stationary point of (5).
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Callable
 
 import numpy as np
 
-from .auc_bounds import auc_from_regression, midrank, sharp_auc_interval
+from .auc_bounds import sharp_auc_interval
 
 __all__ = ["DCLRanker", "soft_auc", "worst_case_auc"]
 

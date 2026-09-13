@@ -61,7 +61,7 @@ inner supremum no longer decouples and is solved by its one-dimensional dual.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Callable, Tuple
+from typing import Callable
 
 import numpy as np
 

@@ -1,0 +1,130 @@
+\begin{table}[t]
+\centering\small
+\caption{\textbf{Uniform deviation over the score class} --- the quantity
+\cref{thm:generalization} bounds --- on SL-Bench, $8$ seeds per cell,
+$400$ score directions per class, $n$ from $250$ to $8{,}000$.
+$B = B_0 + \log\Gamma$ is the score range the class must reach to contain the
+population optimum.}
+\label{tab:scaling}
+\begin{tabular}{lcccccc}
+\toprule
+$\Gamma$ & $1.5$ & $2$ & $3$ & $6$ & $12$ & $24$\\
+\midrule
+$B = B_0+\log\Gamma$ & $5.37$ & $5.66$ & $6.06$ & $6.76$ & $7.45$ & $8.14$\\
+rate exponent in $n$ & $-0.519$ & $-0.514$ & $-0.490$ & $-0.534$ & $-0.491$ & $-0.491$\\
+coefficient of $n^{-1/2}$ & $2.243$ & $2.377$ & $2.468$ & $2.687$ & $2.804$ & $2.775$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{The rate.} \Cref{tab:scaling} and \cref{fig:scaling} report the two
+panels. Averaged over $\Gamma$, the uniform deviation decays with
+exponent $-0.507$ against the $-0.5$ the bound predicts, and every individual
+cell lies in $[-0.534, -0.490]$. This is the term \cref{thm:generalization}
+controls, and it behaves exactly as stated.
+
+\paragraph{The $\Gamma$-dependence is logarithmic.} Regressing the fitted
+$n^{-1/2}$ coefficient on $\log\Gamma$ gives $R^{2} = 0.89$; regressing it on
+$\Gamma$ gives $R^{2} = 0.60$. Over a $16$-fold range of $\Gamma$ the coefficient
+grows by only $24\%$ --- consistent with the $\log\Gamma$ of
+\cref{cor:loggamma} and not with a linear dependence on $\Gamma$, which would
+have predicted more than an order of magnitude. This is the payoff of
+parameterising the sensitivity model on the log-odds scale, where $\Gamma$ acts
+as a translation rather than a multiplicative blow-up (\cref{lem:box}).
+
+\paragraph{A caveat we will not paper over.} The \emph{excess risk of the
+empirical minimiser} --- what a practitioner would measure --- decays much faster
+than $n^{-1/2}$, with exponent $-1.08$ across all $\Gamma$. That is the familiar
+fast-rate phenomenon for a strongly convex, well-specified objective, and it is
+\emph{consistent with} \cref{thm:generalization} (an upper bound) without being
+evidence \emph{for} its rate. Reporting the excess risk as a confirmation of the
+$n^{-1/2}$ rate would be a mistake, which is why we measure the uniform
+deviation instead.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig5_generalization}
+\caption{\textbf{Theorem 11 in practice.} (a) The uniform deviation decays at
+$n^{-1/2}$ for every $\Gamma$ (single-hue ramp, light to dark). (b) Its
+coefficient is well explained by $\log\Gamma$ and poorly by $\Gamma$.}
+\label{fig:scaling}
+\end{figure}
+
+\subsubsection*{Uncertainty quantification}
+
+\begin{table}[t]
+\centering\small
+\caption{\textbf{The uncertainty decomposition under decision censoring}
+(SL-Bench, $\Gamma_0\approx2.5$, in nats). Panel A uses oracle nuisances and is a
+check on \cref{cor:uq}; Panel C uses a $20$-member bagged ensemble. The
+``converged'' ensemble is calibrated logistic regression run to convergence; the
+``fixed-budget'' one is a deep ensemble of MLPs trained for a set number of
+epochs, the way they are usually built.}
+\label{tab:uq}
+\begin{tabular}{lcccc}
+\toprule
+$n$ & $2{,}000$ & $5{,}000$ & $12{,}000$ & $30{,}000$\\
+\midrule
+\multicolumn{5}{l}{\emph{Panel A: identification, oracle nuisances}}\\
+$p_1(x)$ inside the identified set & $100\%$ & $100\%$ & $100\%$ & $100\%$\\
+true $\E[H(p)]$ inside its interval & yes & yes & yes & yes\\
+naive $\E[H(p_1)]$ inside it        & yes & yes & yes & yes\\
+naive aleatoric bias                & $+0.046$ & $+0.060$ & $+0.056$ & $+0.041$\\
+\midrule
+\multicolumn{5}{l}{\emph{Panel C: reported epistemic vs.\ the censoring term}}\\
+epistemic, converged ensemble    & $0.0168$ & $0.0068$ & $0.0031$ & $\mathbf{0.0016}$\\
+epistemic, fixed-budget ensemble & $0.2012$ & $0.2925$ & $0.2768$ & $0.2218$\\
+censoring term \eqref{eq:cens}   & $0.1278$ & $0.1324$ & $0.1367$ & $\mathbf{0.1345}$\\
+calibration error, converged     & $0.060$ & $0.025$ & $0.028$ & $0.012$\\
+calibration error, fixed-budget  & $0.172$ & $0.150$ & $0.136$ & $0.110$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\Cref{tab:uq} and \cref{fig:uq} separate three things that are easy to conflate.
+
+\emph{Identification (Panel A).} With oracle nuisances every claim of
+\cref{cor:uq} holds exactly: $p_1(x)$ lies inside the identified set for
+$100\%$ of units at every sample size, and both the true and the naive mean
+aleatoric entropies fall inside the sharp identified interval. The naive
+estimate overstates aleatoric uncertainty by $0.05$ nats --- about $10\%$ of the
+true value --- and, being inside the identified set, it cannot be refuted by any
+test on observed data. That is the corollary's uncomfortable half, confirmed.
+
+\emph{Asymptotic overconfidence (Panel C).} For the converged ensemble the
+reported epistemic term falls by $10.5\times$ between $n=2{,}000$ and
+$n=30{,}000$ and by $23\times$ at $n=70{,}000$ (fitted exponent $-0.87$, i.e.\
+roughly $n^{-1}$), while the censoring term moves by $13\%$ in total and with no
+trend. At the largest sample the ratio is $0.005$: \emph{the uncertainty a modern
+system reports is two orders of magnitude smaller than the identification
+uncertainty it omits.}
+
+\emph{A different pathology, and a detectable one.} The fixed-budget deep
+ensemble's ``epistemic'' term does not contract at all (fitted exponent $-0.12$)
+and exceeds the censoring term throughout --- but that is optimisation noise, not
+posterior concentration, and its calibration error is $5$--$10\times$ larger.
+Unlike the bias \cref{cor:uq} describes, this failure \emph{is} visible from
+observed data: a calibration check catches it. We report it because the two are
+easy to confuse, and only one of them is the paper's point.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.58\linewidth]{figures/fig4_uq}
+\caption{\textbf{More data cannot shrink what censoring hides.} The reported
+epistemic term of a converged ensemble collapses; the censoring term
+\eqref{eq:cens} does not. A fixed-budget deep ensemble's epistemic term does not
+collapse either, but for an unrelated reason --- optimisation noise --- which a
+calibration check detects.}
+\label{fig:uq}
+\end{figure}
+
+\paragraph{Estimated nuisances are the binding constraint.} One caveat is
+important enough to state separately. All of the above is \emph{identification}:
+it assumes $e$ and $p_1$ are known. With cross-fitted gradient-boosted estimates
+(mean absolute error $0.05$--$0.09$ on this benchmark) the identified set
+contains the true $p(x)$ for only $45$--$58\%$ of units. Aggregate functionals
+are far more forgiving --- the AUROC intervals of \cref{tab:sharpness} still cover
+$100\%$ of the time, because pointwise errors average out --- but \emph{pointwise}
+guarantees inherit the full nuisance error. Tightening that, most plausibly via
+a Neyman-orthogonal version of the bound map, is the most valuable piece of
+follow-up work we can identify.

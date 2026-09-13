@@ -23,7 +23,6 @@ what lets us calibrate ``Gamma_0`` to a target and report it exactly.
 
 from __future__ import annotations
 
-from typing import Optional, Tuple
 
 import numpy as np
 

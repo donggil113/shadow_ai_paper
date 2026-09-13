@@ -28,7 +28,6 @@ exclude spells longer than ``max_custody_days`` where incapacitation dominates.
 from __future__ import annotations
 
 import os
-from typing import Optional
 
 import numpy as np
 import pandas as pd

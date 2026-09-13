@@ -20,15 +20,12 @@ from typing import Dict, List, Optional
 
 import numpy as np
 
-from .auc_bounds import sharp_auc_interval
 from .baselines import (AIPWLearner, ERMObserved, HeckmanProbit,
-                        ImputationLearner, IPWLearner, ManskiLearner,
-                        OracleLearner)
+                        ImputationLearner, IPWLearner, OracleLearner)
 from .data.base import SelectiveLabelsDataset
 from .evaluation import bounds_report, deployment_metrics, observed_metrics
 from .nuisance import CrossFitNuisance, NuisanceEstimates
-from .objectives import dcl_bayes_score, minimax_regret, worstcase_risk
-from .sensitivity import identified_set
+from .objectives import dcl_bayes_score, minimax_regret
 
 __all__ = ["Fold", "prepare_fold", "run_methods", "DEFAULT_GAMMAS"]
 

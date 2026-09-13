@@ -23,8 +23,7 @@ import numpy as np
 import pandas as pd
 
 from _common import Timer, save, save_table
-from dcl.auc_bounds import (auc_from_regression, midrank, naive_corner_interval,
-                            sharp_auc_interval)
+from dcl.auc_bounds import (naive_corner_interval, sharp_auc_interval)
 from dcl.baselines import ERMObserved
 from dcl.data import make_compas, make_creditcard
 from dcl.harness import run_methods

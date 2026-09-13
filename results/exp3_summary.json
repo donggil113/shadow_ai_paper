@@ -1,9 +1,16 @@
 {
-  "epistemic_first": 0.18426153670954054,
-  "epistemic_last": 0.21197372081314028,
-  "censoring_first": 0.15375874286575983,
-  "censoring_last": 0.13457541233059506,
-  "naive_always_inside": false,
-  "true_always_inside": false,
-  "mean_aleatoric_bias": -0.3040592274826957
+  "oracle_p1_always_in_box": 1.0,
+  "oracle_naive_always_inside": true,
+  "oracle_true_always_inside": true,
+  "oracle_mean_aleatoric_bias": 0.050604651218850966,
+  "est_p_in_box_min": 0.446,
+  "epistemic_decay_exponent_logistic": -0.866238690841281,
+  "epistemic_decay_exponent_mlp": -0.11720753302470842,
+  "epistemic_first_logistic": 0.016795891725103203,
+  "epistemic_last_logistic": 0.0007349707803148721,
+  "censoring_first_logistic": 0.12783112471002706,
+  "censoring_last_logistic": 0.14383627524356785,
+  "ratio_last_logistic": 0.0051097734495021896,
+  "mlp_inside_identified": false,
+  "logistic_inside_identified": false
 }

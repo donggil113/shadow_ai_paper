@@ -1,0 +1,5 @@
+{
+  "falsification_always_valid": true,
+  "refutes_MAR_when_confounded": 1.0,
+  "false_alarm_when_MAR": 0.0
+}

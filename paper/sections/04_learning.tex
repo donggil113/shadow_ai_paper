@@ -78,7 +78,7 @@ of \eqref{eq:wc-decomp} is
 \end{enumerate}
 \end{theorem}
 
-\Cref{eq:bayes-act} is the \emph{interval-shrunk logit}: log-odds pulled toward
+\Cref{eq:bayes-act} is the \emph{interval-shrunk logit} (\cref{fig:rules}): log-odds pulled toward
 the decision boundary by exactly the identification width, and pinned at $0$ on
 the \emph{abstention band} $\{x : \plo(x)\le\tfrac12\le\pup(x)\}$ where the data
 cannot resolve the sign of the optimal decision. At $\Gamma=1$ it degenerates to
@@ -159,7 +159,7 @@ neither concave nor separable in $p$. What makes it approachable at all is that
 problem, so one can run a Danskin best-response scheme: alternate the exact
 adversarial $p$ with a gradient step on a smoothed pairwise surrogate weighted by
 $p(x)(1-p(x'))$. We implement this as \textsc{DCLRanker}
-(\cref{app:ranking-alg}), with fictitious-play averaging of the adversary --
+(\cref{alg:ranker}), with fictitious-play averaging of the adversary --
 best-responding to the \emph{latest} adversary oscillates, because the exact
 inner argmin inverts the soft labels relative to the current ranking -- and with
 best-iterate selection under the exact oracle, so the returned model is never

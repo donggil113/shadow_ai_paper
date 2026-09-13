@@ -353,7 +353,7 @@ def test_dcl_ranker_never_worse_than_warm_start():
 
 def test_dcl_parametric_matches_closed_form_on_a_rich_class():
     """A flexible parametric fit should approach the pointwise optimum (Thm 6d)."""
-    torch = pytest.importorskip("torch")
+    pytest.importorskip("torch")
     from dcl.models import DCLParametric
     rng = np.random.default_rng(0)
     n = 3000

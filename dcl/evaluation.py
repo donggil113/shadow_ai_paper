@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict
 
 import numpy as np
 
@@ -27,12 +27,15 @@ def deployment_metrics(scores: np.ndarray, y_full: np.ndarray,
     """Ground truth on **all** units -- the target, available only in benchmarks."""
     L = get_loss(loss)
     scores = np.asarray(scores, float); y = np.asarray(y_full, float)
+    pos, neg = y == 1, y == 0
+    bal = float("nan")
+    if pos.any() and neg.any():
+        bal = float(0.5 * (np.mean(scores[pos] > 0) + np.mean(scores[neg] <= 0)))
     return {
         "risk": float(np.mean(L(scores, y))),
         "auroc": _auc(scores, y),
         "accuracy": float(np.mean((scores > 0).astype(float) == y)),
-        "balanced_accuracy": float(0.5 * (
-            np.mean((scores[y == 1] > 0)) + np.mean((scores[y == 0] <= 0)))) ,
+        "balanced_accuracy": bal,
         "brier": float(np.mean((expit(scores) - y) ** 2)),
     }
 

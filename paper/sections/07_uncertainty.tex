@@ -67,7 +67,8 @@ epistemic term into the part that shrinks with data and the part that does not:
   C = \mathrm{hull}\big(\{p_m\}\cup[\plo,\pup]\big).
 \]
 In our experiments (\cref{sec:experiments}) the reported epistemic term falls by
-an order of magnitude as $n$ grows from $2{,}000$ to $30{,}000$ while the
-censoring term is flat, and the two differ by roughly two orders of magnitude
-throughout --- so essentially all of the uncertainty that matters at deployment
-is the component the standard decomposition omits.
+$23\times$ as $n$ grows from $2{,}000$ to $70{,}000$ while the censoring term
+moves by $13\%$ with no trend, so their ratio falls from $0.13$ to $0.005$. By
+the largest sample essentially all of the uncertainty that matters at deployment
+is the component the standard decomposition omits --- and, unlike the epistemic
+term, it will not shrink with more data.

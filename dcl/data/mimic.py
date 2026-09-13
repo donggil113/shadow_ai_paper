@@ -39,15 +39,13 @@ Download (after credentialing) with, e.g.::
 from __future__ import annotations
 
 import os
-from typing import Optional
 
 import numpy as np
 import pandas as pd
 
-from ..sensitivity import expit, logit
+from ..sensitivity import expit
 from .base import SelectiveLabelsDataset
 from .semisynthetic import censor_with_hidden_signal
-from .synthetic import _gauss_hermite
 
 __all__ = ["make_mimic", "make_mimic_sim", "MIMIC_FILES"]
 

@@ -19,14 +19,13 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Optional
+from dataclasses import dataclass
 
 import numpy as np
 
 from .nuisance import NuisanceEstimates
 from .objectives import dcl_bayes_score
-from .sensitivity import expit, identified_set, logit
+from .sensitivity import identified_set, logit
 
 __all__ = ["ERMObserved", "IPWLearner", "AIPWLearner", "ImputationLearner",
            "HeckmanProbit", "ManskiLearner", "OracleLearner", "bvn_cdf"]

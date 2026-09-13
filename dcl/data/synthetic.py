@@ -22,7 +22,7 @@ quadrature over ``S``, so experiments can separate *identification* error from
 
 from __future__ import annotations
 
-from typing import Optional, Sequence, Tuple
+from typing import Tuple
 
 import numpy as np
 

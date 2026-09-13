@@ -24,8 +24,8 @@ from typing import Optional
 import numpy as np
 
 from .nuisance import CrossFitNuisance, NuisanceEstimates
-from .objectives import dcl_bayes_score, get_loss, worstcase_risk
-from .sensitivity import IdentifiedSet, identified_set, logit
+from .objectives import dcl_bayes_score
+from .sensitivity import IdentifiedSet
 
 __all__ = ["DCLPlugin", "DCLParametric"]
 

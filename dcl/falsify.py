@@ -27,11 +27,11 @@ Gamma, so bisection is exact.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Sequence, Tuple
+from typing import Sequence
 
 import numpy as np
 
-from .sensitivity import outcome_bounds
+from .sensitivity import expit, logit, outcome_bounds
 
 __all__ = ["gamma_lower_bound", "GammaFalsification", "falsification_curve"]
 
@@ -77,21 +77,19 @@ def gamma_lower_bound(
     lo = np.ones(n)
     hi = np.full(n, gamma_hi)
     feasible_at_hi = _intersection_nonempty(p1_by_z, e_by_z, gamma_hi)
+    etas = [logit(p1) for p1 in p1_by_z]
     for _ in range(n_bisect):
         mid = np.sqrt(lo * hi)                       # geometric bisection
-        # evaluate the feasibility for each unit at its own mid
-        ok = np.empty(n, dtype=bool)
-        # vectorise by computing bounds with a per-unit gamma
+        # Each unit is evaluated at its OWN current midpoint, so the bounds are
+        # formed here with a per-unit Gamma rather than through outcome_bounds.
+        lg = np.log(mid)
         los, his = [], []
-        for p1, e in zip(p1_by_z, e_by_z):
-            lg = np.log(mid)
-            from .sensitivity import expit, logit
-            eta = logit(p1)
+        for eta, p1, e in zip(etas, p1_by_z, e_by_z):
             los.append(e * p1 + (1 - e) * expit(eta - lg))
             his.append(e * p1 + (1 - e) * expit(eta + lg))
         ok = np.max(np.stack(los, 0), 0) <= np.min(np.stack(his, 0), 0) + 1e-12
-        hi = np.where(ok, mid, hi)
-        lo = np.where(ok, lo, mid)
+        hi = np.where(ok, mid, hi)       # feasible -> search lower
+        lo = np.where(ok, lo, mid)       # infeasible -> search higher
     gmin = np.where(feasible_at_hi, hi, np.inf)
     finite = gmin[np.isfinite(gmin)]
     if finite.size == 0:

@@ -18,7 +18,6 @@ the generalisation bound linear (rather than exponential) in ``log Gamma``.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional, Tuple
 
 import numpy as np
 

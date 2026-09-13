@@ -21,8 +21,8 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from _common import Timer, save, save_table
-from dcl.data import make_compas, make_lending_club, make_mimic_sim, make_sl_bench
+from _common import Timer, save_table
+from dcl.data import make_lending_club, make_mimic_sim, make_sl_bench
 from dcl.harness import run_methods
 
 TESTBEDS = {

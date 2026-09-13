@@ -27,7 +27,7 @@ from _common import Timer, save, save_table
 from dcl.auc_bounds import sharp_auc_interval
 from dcl.baselines import ERMObserved
 from dcl.data import make_lending_club, make_mimic_sim, make_sl_bench
-from dcl.falsify import falsification_curve, gamma_lower_bound
+from dcl.falsify import falsification_curve
 from dcl.nuisance import CrossFitNuisance
 from dcl.objectives import dcl_bayes_score, worstcase_risk
 from dcl.sensitivity import outcome_bounds
