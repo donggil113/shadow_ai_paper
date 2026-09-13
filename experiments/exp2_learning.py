@@ -1,4 +1,4 @@
-"""Experiment 2 -- Theorem 2: decision-censored learning against the field.
+"""Experiment 2 -- decision-censored learning against the field.
 
 Every number is out of sample.  For each testbed we report, per method:
 
@@ -13,7 +13,7 @@ Every number is out of sample.  For each testbed we report, per method:
 
 The expected pattern, and the honest trade-off: the minimax-*risk* rule buys the
 best certificate at some cost in realised performance (that is what robustness
-costs); the minimax-*regret* rule of Proposition 3 gives up almost nothing
+costs); the minimax-*regret* rule gives up almost nothing
 realised while still cutting the certified regret several-fold.
 """
 from __future__ import annotations

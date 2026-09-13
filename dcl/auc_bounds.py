@@ -1,4 +1,4 @@
-"""Theorem 1: sharp partial identification of *ranking* metrics under DCSM(Gamma).
+"""Sharp partial identification of *ranking* metrics under DCSM(Gamma).
 
 Why ranking metrics are harder than threshold metrics
 -----------------------------------------------------
@@ -152,7 +152,7 @@ class MetricSpec:
 
     with ``pi = <p, 1>_mu`` and ``phi`` identified.  AUROC, Somers' D, and every
     fixed-threshold confusion-matrix metric are members (see the constructors
-    below), so Theorem 1 subsumes the known threshold-metric bounds.
+    below), so the sharp-interval theorem subsumes the known threshold-metric bounds.
     """
 
     phi: np.ndarray
@@ -402,7 +402,7 @@ def sharp_auc_interval(
     weights: np.ndarray | None = None,
     pi_margin: float = 1e-6,
 ) -> BoundResult:
-    """Theorem 1: the sharp identified interval for the deployment AUROC of ``f``."""
+    """The sharp identified interval for the deployment AUROC of ``f``."""
     return sharp_bounds(AUROC_SPEC(scores, weights), lo, hi, weights, pi_margin)
 
 

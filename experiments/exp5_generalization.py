@@ -1,4 +1,4 @@
-"""Experiment 5 -- Theorem 11 and its log-Gamma scaling.
+"""Experiment 5 -- the generalisation bound and its log-Gamma scaling.
 
 What the theorem actually bounds.  \\Cref{thm:generalization} controls the excess
 worst-case risk through the *uniform deviation*
@@ -45,7 +45,7 @@ def _score_class(X, rng, n_draws, B):
 def panel_a_deviation(ns=(250, 500, 1000, 2000, 4000, 8000),
                       gammas=(1.5, 2.0, 3.0, 6.0, 12.0, 24.0),
                       n_seeds=8, d=10, n_pop=60000, n_draws=400, seed=0):
-    """Uniform deviation over the score class -- the object Theorem 11 bounds."""
+    """Uniform deviation over the score class -- the object the generalisation bound covers."""
     pop = make_sl_bench(n=n_pop, d=d, target_gamma=3.0, seed=seed)
     o = pop.oracle
     B0 = float(np.max(np.abs(np.log(o["p1"] / (1 - o["p1"])))))
@@ -146,7 +146,7 @@ if __name__ == "__main__":
     exc_sc = pd.DataFrame(exc_rows)
     save_table("exp5b_excess_scaling", exc_sc)
 
-    print("\n=== Panel A: uniform deviation (what Theorem 11 bounds) ===")
+    print("\n=== Panel A: uniform deviation (what the generalisation bound covers) ===")
     print(sc.to_string(index=False, float_format=lambda x: f"{x:9.5f}"))
     print(f"\n  mean rate exponent in n : {sc.rate_exponent.mean():.3f}   (theory -0.5)")
     print(f"  coefficient vs log Gamma: slope {b_log:.4f}  R^2 {r2_log:.4f}")

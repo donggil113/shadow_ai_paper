@@ -3,7 +3,7 @@
 Three panels, deliberately separated, because an earlier version of this script
 conflated them and produced a misleading answer.
 
-**Panel A (identification, oracle nuisances).**  The parts of Corollary 6 that
+**Panel A (identification, oracle nuisances).**  The parts of the uncertainty corollary that
 are theorems: with the true ``e`` and ``p1``, the observed-data regression
 ``p1(x)`` lies inside the identified set for every ``x``, and the true mean
 aleatoric entropy lies inside its sharp identified interval.  Both must hold
@@ -27,7 +27,7 @@ The second is a cautionary panel: its "epistemic" term does *not* contract,
 because it is dominated by optimisation noise rather than posterior
 concentration, and its aleatoric term can fall outside the identified interval
 entirely because the ensemble is overconfident.  That is a *different* pathology
-from the one Corollary 6 describes -- and, unlike Corollary 6's, it is
+from the one the uncertainty corollary describes -- and, unlike that one, it is
 detectable from observed data by a calibration check.
 """
 from __future__ import annotations

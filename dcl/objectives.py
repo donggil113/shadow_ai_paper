@@ -1,4 +1,4 @@
-"""Theorem 2: the decision-censored minimax learning objective.
+"""The decision-censored minimax learning objective.
 
 We do not want to minimise the *observed* risk -- the risk on the sub-population
 the incumbent policy happened to label.  We want the risk on the deployment
@@ -27,7 +27,7 @@ convex class ``F`` (linear models, RKHS balls, convex combinations) problem (2)
 is therefore an *exactly convex* program.  This is in sharp contrast to
 f-divergence / Wasserstein DRO, where the inner supremum is tractable only after
 a duality step, and to the non-convexity that appears as soon as the metric is a
-*ranking* metric (Theorem 1 / :mod:`dcl.ranking`).
+*ranking* metric (see :mod:`dcl.auc_bounds` and :mod:`dcl.ranking`).
    What is *not* convex in general is the penalty term of (3) taken on its own:
 that term is convex iff the label gap ``g_l`` is convex.  Logistic, squared and
 exponential losses have convex gaps (so (3) can be implemented modularly as
@@ -93,7 +93,7 @@ def _weights(w, n):
 # --------------------------------------------------------------------------- #
 @dataclass(frozen=True)
 class Loss:
-    """A margin loss ``l(z, y)`` together with metadata used by Theorem 2."""
+    """A margin loss ``l(z, y)`` together with metadata used by the DCL objective."""
 
     name: str
     l1: Callable[[np.ndarray], np.ndarray]    # l(z, 1)
@@ -201,7 +201,7 @@ def dcl_bayes_score(lo, hi, criterion: str = "risk") -> np.ndarray:
     true.  Since ``R_p(f) - min_g R_p(g) = E[KL(p || sigma(f))]`` for the
     logistic loss, the rule minimises ``max_{p in [lo, hi]} KL(p || q)``.
     ``KL(. || q)`` is convex in ``q``, so the optimum equalises the two endpoints
-    and admits the closed form (Proposition 3)
+    and admits the closed form
 
         logit q*(x) = ( H(p_lo(x)) - H(p_hi(x)) ) / ( p_hi(x) - p_lo(x) ),
 

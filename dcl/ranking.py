@@ -1,6 +1,6 @@
 """Worst-case *ranking* learning: where decision censoring is genuinely hard.
 
-Theorem 2 shows that robust *risk* minimisation under DCSM(Gamma) is an exactly
+The DCL theorem shows that robust *risk* minimisation under DCSM(Gamma) is an exactly
 convex program.  Robust *ranking* is not.  Maximising the worst-case AUROC
 
     max_{f in F}  min_{P in I_Gamma(P_obs)}  AUC_P(f)                        (5)
@@ -10,10 +10,11 @@ is a max-min over a fractional objective: by identity (1) of
 prevalence ``pi``, and the prevalence is itself chosen by the adversary.  The
 inner minimisation is therefore not concave in ``p`` and does not decouple.
 
-What saves us is that Theorem 1 gives an **exact, O(n log n) oracle** for the
+What saves us is that the sharp-interval theorem gives an **exact,
+O(n log n) oracle** for the
 inner problem.  We can therefore run a Danskin / best-response scheme:
 
-    1. adversary:  p_t  <- argmin_{p in box} AUC(f_t, p)      (Theorem 1, exact)
+    1. adversary:  p_t  <- argmin_{p in box} AUC(f_t, p)      (exact)
     2. learner:    f_{t+1} <- gradient step on a smooth pairwise surrogate of
                    AUC(f, p_t), with pair weights p_t(x)(1 - p_t(x')).
 
@@ -67,7 +68,7 @@ class DCLRanker:
     n_steps, lr : int, float
         Adam-free projected gradient ascent schedule.
     oracle_every : int
-        How often to re-solve the exact inner problem (Theorem 1).
+        How often to re-solve the exact inner problem.
     l2 : float
         Ridge penalty, also fixing the scale invariance of AUROC.
     """
@@ -107,7 +108,8 @@ class DCLRanker:
         # learner flips, and the adversary flips back.  We therefore (i) do
         # fictitious play -- gradient steps against the running AVERAGE of the
         # adversary's responses -- and (ii) keep the best iterate measured by the
-        # exact inner value, which Theorem 2 lets us evaluate in O(n log n).  So
+        # exact inner value, which the sharp-interval theorem lets us evaluate in
+        # O(n log n).  So
         # the returned model can never be worse than the warm start.
         p_bar = mid.copy()
         n_resp = 0

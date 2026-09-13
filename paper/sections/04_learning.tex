@@ -124,8 +124,9 @@ collapses. Unlike \eqref{eq:bayes-act} it has \emph{no abstention band}: it
 remains a genuine probability estimate, which is what a downstream decision rule
 usually wants. In our experiments it gives up almost nothing in realised
 deployment accuracy while cutting certified regret several-fold, and on real
-COMPAS decisions it beats every baseline on realised risk \emph{and} certified
-regret simultaneously.
+COMPAS decisions it beats every baseline except the parametric selection model
+on realised risk --- the oracle included --- while certifying a regret an order of
+magnitude tighter than any of them.
 
 \subsection{Two safety properties}
 

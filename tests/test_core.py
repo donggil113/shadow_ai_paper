@@ -41,7 +41,7 @@ def test_manski_limit(box):
 
 
 def test_p1_always_inside_box(box):
-    """Corollary 6(i): the observed-data regression is never refuted."""
+    """Uncertainty corollary (i): the observed-data regression is never refuted."""
     _, p1, e = box
     for g in (1.0, 1.5, 3.0, 10.0, np.inf):
         lo, hi = outcome_bounds(p1, e, g)
@@ -82,7 +82,7 @@ def test_realised_gamma_roundtrip(box):
 # -------------------------------------------------------------------- ranking
 @pytest.mark.parametrize("seed", range(5))
 def test_rank_identity_matches_definition(seed):
-    """Theorem 1(i), including ties and non-uniform weights."""
+    """The rank identity, including ties and non-uniform weights."""
     rng = np.random.default_rng(seed)
     n = int(rng.integers(30, 90))
     s = np.round(rng.normal(size=n), 1)          # deliberate ties
@@ -103,7 +103,7 @@ def test_rank_identity_matches_sklearn():
 
 @pytest.mark.parametrize("gamma", [1.5, 3.0, 8.0])
 def test_sharp_bounds_match_bruteforce(box, gamma):
-    """Theorem 1(ii): the analytic interval is what an independent search finds."""
+    """Sharpness: the analytic interval is what an independent search finds."""
     s, p1, e = box
     s, p1, e = s[:120], p1[:120], e[:120]
     lo, hi = outcome_bounds(p1, e, gamma)
@@ -136,7 +136,7 @@ def test_random_members_inside_interval(box):
 
 
 def test_corner_interval_is_inside_and_can_be_strict(box):
-    """Proposition 4: corner evaluation under-covers."""
+    """Corner evaluation under-covers."""
     s, p1, e = box
     lo, hi = outcome_bounds(p1, e, 3.0)
     res = sharp_auc_interval(s, lo, hi)
@@ -162,7 +162,7 @@ def test_gamma_one_gives_point_interval(box):
 
 
 def test_threshold_metrics_are_special_cases(box):
-    """Proposition 2: the unified class recovers fixed-threshold metrics."""
+    """The unified metric class recovers fixed-threshold metrics."""
     s, p1, e = box
     lo, hi = outcome_bounds(p1, e, 2.5)
     rng = np.random.default_rng(0)
@@ -178,7 +178,7 @@ def test_threshold_metrics_are_special_cases(box):
 # ------------------------------------------------------------------ objective
 @pytest.mark.parametrize("loss", list(LOSSES))
 def test_decomposition_equals_direct_max(box, loss):
-    """Theorem 2(a)."""
+    """The exact reduction of the inner supremum."""
     s, p1, e = box
     lo, hi = outcome_bounds(p1, e, 3.0)
     L = LOSSES[loss]
@@ -190,7 +190,7 @@ def test_decomposition_equals_direct_max(box, loss):
 
 @pytest.mark.parametrize("loss", list(LOSSES))
 def test_worstcase_risk_is_convex_in_scores(box, loss):
-    """Theorem 2(b): convex for EVERY convex loss, no relaxation needed."""
+    """Convex for EVERY convex loss -- no relaxation needed."""
     s, p1, e = box
     lo, hi = outcome_bounds(p1, e, 3.0)
     rng = np.random.default_rng(1)
@@ -205,14 +205,14 @@ def test_worstcase_risk_is_convex_in_scores(box, loss):
 
 
 def test_penalty_convexity_dichotomy():
-    """Theorem 2(b), second half: the PENALTY alone is convex iff g_l is."""
+    """The PENALTY term alone is convex iff the label gap is."""
     assert gap_is_convex("logistic") and gap_is_convex("squared")
     assert gap_is_convex("exponential")
     assert not gap_is_convex("hinge")
 
 
 def test_bayes_act_matches_grid(box):
-    """Theorem 2(d)."""
+    """The closed-form minimax-risk Bayes act."""
     _, p1, e = box
     lo, hi = outcome_bounds(p1, e, 3.0)
     grid = np.linspace(-14, 14, 20001)
@@ -226,7 +226,7 @@ def test_bayes_act_matches_grid(box):
 
 
 def test_regret_rule_matches_grid(box):
-    """Proposition 3."""
+    """The closed-form minimax-regret rule."""
     _, p1, e = box
     lo, hi = outcome_bounds(p1, e, 3.0)
     q = expit(dcl_bayes_score(lo, hi, "regret"))
@@ -251,7 +251,7 @@ def test_each_rule_wins_its_own_criterion(box):
 
 
 def test_certificate_is_valid(box):
-    """Corollary 5: the certified risk upper-bounds the realised risk."""
+    """The certified risk upper-bounds the realised risk."""
     s, p1, e = box
     iset = identified_set(p1, e, 3.0)
     cert = worstcase_risk(s, iset.lo, iset.hi)
@@ -307,7 +307,7 @@ def test_naive_decomposition_adds_up():
 
 # -------------------------------------------------------------------- falsify
 def test_gamma_min_is_a_valid_lower_bound():
-    """Proposition 7: Gamma_min <= Gamma_0, and it is tight in the ideal case."""
+    """Gamma_min <= Gamma_0, and it is tight in the ideal case."""
     rng = np.random.default_rng(0)
     n = 2000
     p = expit(rng.normal(0, 1.2, n))
@@ -330,7 +330,7 @@ def test_gamma_min_is_a_valid_lower_bound():
 
 # ------------------------------------------------------------------- learners
 def test_dcl_ranker_never_worse_than_warm_start():
-    """DCLRanker uses the exact Theorem 2 oracle for best-iterate selection, so
+    """DCLRanker uses the exact sharp-interval oracle for best-iterate selection, so
     it can never return something worse than its plug-in initialisation."""
     from sklearn.linear_model import Ridge
 
@@ -352,7 +352,7 @@ def test_dcl_ranker_never_worse_than_warm_start():
 
 
 def test_dcl_parametric_matches_closed_form_on_a_rich_class():
-    """A flexible parametric fit should approach the pointwise optimum (Thm 6d)."""
+    """A flexible parametric fit should approach the pointwise optimum."""
     pytest.importorskip("torch")
     from dcl.models import DCLParametric
     rng = np.random.default_rng(0)

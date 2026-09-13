@@ -11,7 +11,6 @@ import json
 import os
 import sys
 
-import numpy as np
 import pandas as pd
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -97,6 +96,41 @@ def main() -> int:
             sub = lr[lr.dataset == ds]
             check(f"{ds} best certified regret", claimed,
                   float(sub.minimax_regret.min()), tol=1e-3)
+
+    cm = _csv("exp6b_compas_methods")
+    if cm is not None:
+        g = cm.groupby("method")[["risk", "auroc", "worstcase_risk",
+                                  "minimax_regret"]].mean()
+        tbl = {
+            "ERM-observed": (0.6523, 0.7007, 0.7174, 0.0703),
+            "IPW": (0.6559, 0.6981, 0.7209, 0.0738),
+            "AIPW": (0.6999, 0.6951, 0.7746, 0.1283),
+            "Imputation": (0.6424, 0.7041, 0.6920, 0.0444),
+            "Manski(G=inf)": (0.6804, 0.5847, 0.6830, 0.0884),
+            "DCL(G=2)": (0.6302, 0.7097, 0.6518, 0.0235),
+            "DCL-reg(G=2)": (0.6246, 0.7106, 0.6572, 0.0064),
+            "ORACLE(uncensored)": (0.6310, 0.7116, 0.7225, 0.0809),
+        }
+        for m, vals in tbl.items():
+            if m not in g.index:
+                check(f"COMPAS/{m} present", True, False)
+                continue
+            for nm, claimed, col in zip(("risk", "auroc", "wc", "regret"), vals,
+                                        ("risk", "auroc", "worstcase_risk",
+                                         "minimax_regret")):
+                check(f"COMPAS/{m} {nm}", claimed, float(g.loc[m, col]), tol=1e-3)
+        hk = cm[cm.method.str.startswith("Heckman")]
+        if len(hk):
+            check("COMPAS Heckman realised-risk range (low)", 0.616,
+                  float(hk.groupby("seed").risk.mean().min()), tol=2e-3)
+            check("COMPAS Heckman realised-risk range (high)", 0.633,
+                  float(hk.groupby("seed").risk.mean().max()), tol=2e-3)
+            check("DCL-regret certifies tighter than Heckman", True,
+                  float(g.loc["DCL-reg(G=2)", "minimax_regret"])
+                  < float(hk.minimax_regret.min()))
+        check("DCL-regret beats the oracle on realised COMPAS risk", True,
+              float(g.loc["DCL-reg(G=2)", "risk"])
+              < float(g.loc["ORACLE(uncensored)", "risk"]))
 
     fa = _csv("exp4a_falsification")
     if fa is not None:

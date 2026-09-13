@@ -5,13 +5,13 @@ Two variants, matching the two theorems:
 ``DCLPlugin``
     Non-parametric.  Estimate the nuisances, form the identified set, and apply
     the closed-form Bayes act (4).  This is the population-optimal rule of
-    Theorem 2(d) with estimated nuisances, and is what we recommend in practice.
+    the population-optimal DCL rule with estimated nuisances, and is what we recommend in practice.
 
 ``DCLParametric``
     Minimise the *empirical* worst-case risk over a restricted class ``F``
-    (linear or MLP scores).  This is the object Theorem 4 bounds: the excess
+    (linear or MLP scores).  This is the object the generalisation bound covers: the excess
     worst-case risk of the empirical minimiser over ``F``.  For convex ``F`` the
-    program is convex (Theorem 2(b)), so L-BFGS finds the global optimum; the
+    program is convex, so L-BFGS finds the global optimum; the
     MLP variant is there to show the objective is a drop-in replacement for the
     log-loss in a standard training loop.
 """
@@ -90,7 +90,7 @@ class DCLParametric:
     max_iter: int = 500
     lr: float = 0.05
     seed: int = 0
-    score_clip: Optional[float] = None   # enforce ||f||_inf <= clip (Theorem 4)
+    score_clip: Optional[float] = None   # enforce ||f||_inf <= clip
 
     def fit(self, X, box: IdentifiedSet):
         import torch
@@ -130,7 +130,7 @@ class DCLParametric:
             return (base + pen).mean() + reg
 
         if self.arch == "linear":
-            # The program is convex (Theorem 6b), so L-BFGS reaches the global
+            # The program is convex, so L-BFGS reaches the global
             # optimum quickly; the previous 1e-9 gradient tolerance made it burn
             # the full iteration budget chasing noise.
             opt = torch.optim.LBFGS(self.net_.parameters(), lr=1.0,

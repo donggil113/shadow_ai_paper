@@ -28,7 +28,7 @@ def _save(fig, name):
 
 # --------------------------------------------------------------------------- #
 def fig1_sharpness():
-    """Interval position/width vs Gamma, and coverage -- the Theorem 1 figure."""
+    """Interval position/width vs Gamma, and coverage -- the sharp-interval figure."""
     df = _load("exp1b_validity")
     if df is None:
         return
@@ -48,7 +48,7 @@ def fig1_sharpness():
     fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.1), width_ratios=[1.5, 1])
     ax = axes[0]
     for key, lab, col, off in [("sep", "separate bounds", SLOTS[2], -0.26),
-                               ("sharp", "sharp (Thm. 2)", SLOTS[0], 0.0),
+                               ("sharp", "sharp bound", SLOTS[0], 0.0),
                                ("naive", "corner evaluation", SLOTS[1], +0.26)]:
         lo, hi = g[f"{key}_lo"].values, g[f"{key}_hi"].values
         for i in range(len(gam)):
@@ -78,7 +78,7 @@ def fig1_sharpness():
 
     ax = axes[1]
     ok = df[df.gamma_sufficient]
-    names = ["sharp\n(Thm. 2)", "separate\nbounds", "corner\neval."]
+    names = ["sharp\nbound", "separate\nbounds", "corner\neval."]
     vals = [ok.sharp_covers_pop.mean(), ok.sep_covers_pop.mean(),
             ok.naive_covers_pop.mean()]
     widths = [ok.sharp_w.mean(), ok.sep_w.mean(), ok.naive_w.mean()]
@@ -205,7 +205,7 @@ def fig4_uq():
     ax.plot(log.n, log.naive_epistemic, color=SLOTS[0], marker=MARKERS[0],
             ls=DASHES[0], zorder=4, label="reported epistemic (converged ensemble)")
     ax.plot(log.n, log.censoring, color=SLOTS[1], marker=MARKERS[1],
-            ls=DASHES[1], zorder=4, label="censoring term (Cor. 13)")
+            ls=DASHES[1], zorder=4, label="censoring term")
     if (df.ensemble == "mlp").any():
         mlp = df[df.ensemble == "mlp"].sort_values("n")
         ax.plot(mlp.n, mlp.naive_epistemic, color=MUTED, marker=MARKERS[2],
@@ -223,7 +223,7 @@ def fig4_uq():
 
 
 def fig5_generalization():
-    """Theorem 11: n^{-1/2} decay of the uniform deviation, coefficient ~ log Gamma."""
+    """Generalisation: n^{-1/2} decay of the uniform deviation, coefficient ~ log Gamma."""
     dev = _load("exp5a_deviation")
     sc = _load("exp5_scaling")
     if dev is None or sc is None:
@@ -284,7 +284,7 @@ def fig5_generalization():
 
 
 def fig6_falsification():
-    """Proposition 9: Gamma_min is a valid, informative lower bound."""
+    """Falsification: Gamma_min is a valid, informative lower bound."""
     df = _load("exp4a_falsification")
     if df is None:
         return
@@ -333,9 +333,9 @@ def fig7_bayes_act():
         ax.fill_between(p1, lo, hi, color=SLOTS[0], alpha=.13, linewidth=0,
                         zorder=2, label="identified set $[\\underline{p},\\overline{p}]$")
         ax.plot(p1, expit(dcl_bayes_score(lo, hi, "risk")), color=SLOTS[0],
-                ls=DASHES[0], zorder=5, label="minimax risk (Thm 6d)")
+                ls=DASHES[0], zorder=5, label="minimax-risk rule")
         ax.plot(p1, expit(dcl_bayes_score(lo, hi, "regret")), color=SLOTS[1],
-                ls=DASHES[1], zorder=5, label="minimax regret (Prop. 7)")
+                ls=DASHES[1], zorder=5, label="minimax-regret rule")
         ax.plot(p1, p1, color=MUTED, ls=":", lw=1.1, zorder=3,
                 label="naive ($\\Gamma=1$)")
         band = (lo <= .5) & (hi >= .5)

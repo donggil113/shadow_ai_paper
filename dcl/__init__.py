@@ -26,11 +26,11 @@ __all__ = [
     # sensitivity model
     "IdentifiedSet", "identified_set", "outcome_bounds", "realised_gamma",
     "expit", "logit",
-    # ranking bounds (Theorem 2)
+    # ranking bounds: the rank identity and the sharp interval
     "midrank", "auc_from_regression", "auc_direct", "sharp_auc_interval",
     "sharp_bounds", "MetricSpec", "AUROC_SPEC", "naive_corner_interval",
     "separate_bounds_interval",
-    # learning (Theorem 6 / Proposition 7)
+    # learning: the DCL objective and the two closed-form rules
     "worstcase_risk", "worstcase_risk_decomposition", "dcl_bayes_score",
     "minimax_regret", "least_favourable_p", "abstention_band",
     "DCLPlugin", "DCLParametric", "DCLRanker", "worst_case_auc",

@@ -37,7 +37,7 @@ Tan's MSM with parameter ``Lambda``,
 
     1/Lambda <= odds(e(x)) / odds(e(x, s)) <= Lambda,   e(x, s) = P(T=1|X=x,S=s),
 
-then (see Lemma 1 in the paper) the induced constraint on ``p0`` is exactly (*)
+then (see the MSM-equivalence lemma in the paper) the induced constraint on ``p0`` is exactly (*)
 with ``Gamma = Lambda^2``; the two models are equivalent reparameterisations for
 every functional of ``P(Y | X, T = 0)``.  Use :func:`gamma_from_lambda` /
 :func:`lambda_from_gamma` to translate.
@@ -48,8 +48,8 @@ regression function ``p(.)`` is an axis-aligned **box**
 
     I_Gamma = { p : p_lo(x) <= p(x) <= p_hi(x)  for a.e. x },
 
-which is what makes both the sharp AUROC interval (Theorem 1) and the minimax
-learning problem (Theorem 2) tractable.  This module computes that box.
+which is what makes both the sharp AUROC interval and the minimax learning
+problem tractable.  This module computes that box.
 """
 
 from __future__ import annotations
@@ -166,7 +166,8 @@ def outcome_bounds(
     log_g = np.log(gamma)
     eta1 = logit(p1)
     # The log-odds scale is where Gamma acts as a pure translation; this keeps
-    # the map from the estimated nuisance to the bounds 1-Lipschitz (Theorem 4).
+    # the map from the estimated nuisance to the bounds 1-Lipschitz, which is what
+    # keeps the generalisation bound logarithmic rather than linear in Gamma.
     lo = e * p1 + (1.0 - e) * expit(eta1 - log_g)
     hi = e * p1 + (1.0 - e) * expit(eta1 + log_g)
     if direction == "censored-lower":
@@ -202,7 +203,7 @@ class IdentifiedSet:
 
     @property
     def mid(self) -> np.ndarray:
-        """Midpoint ``(lo + hi) / 2`` -- the 'p-tilde' of Theorem 2."""
+        """Midpoint ``(lo + hi) / 2`` -- the 'p-tilde' of the DCL objective."""
         return 0.5 * (self.lo + self.hi)
 
     @property

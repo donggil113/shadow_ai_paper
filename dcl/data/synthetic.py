@@ -201,8 +201,9 @@ def make_sl_bench(
     gamma0 = float(np.exp(np.max(lor)))
     gamma0_q99 = float(np.exp(np.quantile(lor, 0.99)))
     # The *conditional* sensitivity parameter, i.e. DCSM within each decision
-    # maker.  This -- not the Z-marginal gamma0 -- is what Assumption 8 posits and
-    # what Proposition 9's lower bound must respect: marginalising over Z averages
+    # maker.  This -- not the Z-marginal gamma0 -- is what the leniency-instrument
+    # assumption posits, and what the falsification bound must respect:
+    # marginalising over Z averages
     # the tilts and can shrink the log odds ratio, so gamma0 <= gamma0_cond.
     lor_z = []
     for e_j, p1_j in zip(e_by_z, p1_by_z):

@@ -191,7 +191,7 @@ def censor_with_hidden_signal(
         p1_by_z.append(p1j); e_by_z.append(ej)
         lor_z.append(np.abs(logit(np.clip(p0j, 1e-12, 1 - 1e-12)) - logit(p1j)))
     # conditional (within decision maker) sensitivity parameter -- see the note
-    # in dcl/data/synthetic.py; this is the quantity Proposition 9 bounds below.
+    # in dcl/data/synthetic.py; this is what the falsification bound bounds below.
     gamma0_cond = float(np.exp(np.max(np.stack(lor_z, 0))))
 
     return SelectiveLabelsDataset(

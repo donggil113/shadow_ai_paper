@@ -9,7 +9,7 @@ whole box.  We therefore wrap every learner in isotonic calibration and use
 K-fold cross-fitting, so no unit's bound is built from a model that saw its own
 label -- the same reason cross-fitting is standard in double machine learning.
 
-Theorem 4 is stated on the *logit* scale because ``Gamma`` acts there as a pure
+The generalisation bound is stated on the *logit* scale because ``Gamma`` acts there as a pure
 translation: ``logit p_hi = logit p1 + log Gamma``.  Estimation error in ``p1``
 therefore propagates to the bounds without amplification, which is what keeps
 the generalisation bound linear (rather than exponential) in ``log Gamma``.

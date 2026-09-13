@@ -1,4 +1,4 @@
-"""Experiment 4 -- Theorem 3: Gamma is not identified, but it is falsifiable.
+"""Experiment 4 -- Gamma is not identified, but it is falsifiable.
 
 Part A (falsification).  With leniency variation across decision makers and the
 exclusion restriction ``Z ind. (Y, S) | X``, the same ``p(x)`` must lie in every
@@ -52,7 +52,7 @@ def part_a_falsification(n=16000, seed=0):
                     recovered_fraction=float(np.log(max(r.gamma_min_q95, 1.0))
                                              / max(np.log(o["gamma0_cond"]), 1e-9))
                     if o["gamma0_cond"] > 1 + 1e-9 else np.nan,
-                    # Proposition 9 bounds the CONDITIONAL parameter from below.
+                    # The falsification bound is on the CONDITIONAL parameter.
                     valid_lower_bound=bool(r.gamma_min <= o["gamma0_cond"] + 1e-6),
                     valid_lower_bound_q95=bool(
                         r.gamma_min_q95 <= o["gamma0_cond"] + 1e-6),

@@ -1,6 +1,6 @@
-"""Theorem 3, constructive half: Gamma is not identified, but it *is* falsifiable.
+"""The constructive half of the impossibility theorem: Gamma is not identified, but it *is* falsifiable.
 
-Theorem 3 says two things.  (i) No estimator can be consistent for the
+The impossibility theorem says two things.  (i) No estimator can be consistent for the
 deployment risk uniformly over censoring mechanisms -- so some sensitivity
 parameter must be supplied by the analyst.  (ii) ``Gamma`` itself is not point
 identified: DCSM(Gamma) and DCSM(Gamma') induce exactly the same observed-data

@@ -1,4 +1,4 @@
-"""Experiment 1 -- Theorem 1: the AUROC bounds are sharp, valid, and fast.
+"""Experiment 1 -- the AUROC bounds are sharp, valid, and fast.
 
 Three claims, three checks.
 

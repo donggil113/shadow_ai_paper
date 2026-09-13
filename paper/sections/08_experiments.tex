@@ -35,7 +35,7 @@ Every number is out of sample: methods are fit on a training split and evaluated
 on a disjoint test split, with cross-fitted, isotonically calibrated nuisances
 (\cref{app:nuisance}). Results are averaged over three seeds.
 
-\subsection{Theorem 2: the bounds are sharp, valid, and cheap}
+\subsection{\Cref{thm:sharp-auc}: the bounds are sharp, valid, and cheap}
 
 \begin{table}[t]
 \centering\small
@@ -80,7 +80,8 @@ $400{,}000$ units in $3.4$ seconds.
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/fig1_sharpness}
-\caption{\textbf{Identified intervals for the deployment AUROC.} (a) One
+\caption{\textbf{Identified intervals for the deployment AUROC}
+(\cref{thm:sharp-auc}). (a) One
 SL-Bench instance family with $\Gamma_0=3$; the shaded region marks assumed
 $\Gamma$ below the truth, where no guarantee is claimed. (b) Coverage and mean
 width aggregated over all instances with $\Gamma\ge\Gamma_0$.}
@@ -107,13 +108,45 @@ missing-at-random assumption that IPW and AIPW require --- the interval collapse
 to a point and covers the truth in $0\%$ of splits. Coverage reaches $100\%$
 exactly at $\Gamma = 1.885$, where the interval has width $0.099$: narrow enough
 to be useful, wide enough to be honest. Corner evaluation covers in $0\%$ of
-splits at every $\Gamma$ we tried. We read this as the strongest available
+splits at every $\Gamma$ we tried. \Cref{tab:compas} repeats the method comparison on this testbed. The ordering is
+the same as on the benchmarks: the minimax-regret rule certifies a regret
+$11\times$ tighter than ERM and $15$--$19\times$ tighter than the parametric
+selection model, while its realised risk ($0.625$) is lower than every baseline
+except one Heckman fit, and lower than the \emph{oracle}'s ($0.631$). Heckman's
+realised risk is also the least stable across splits ($0.616$--$0.633$), which is
+what one expects of a method whose identification rests on a functional form.
+
+We read all of this as the strongest available
 evidence that $\dcsm(\Gamma)$ with a $\Gamma$ anchored to observable leniency or
 odds-ratio structure is the right object to report --- while repeating the caveat
 of \cref{sec:setup}: pretrial detention is partly incapacitating, so $1.885$
 should be read as an anchor, not an estimate of $\Gamma_0$.
 
-\subsection{Theorem 6: learning}
+\begin{table}[t]
+\centering\small
+\caption{\textbf{Methods on COMPAS} --- real release decisions, real censored
+outcomes, out of sample, 3 splits. Certificates are evaluated at $\Gamma=1.885$,
+the empirical detained-versus-released odds ratio. Heckman is shown as the range
+over splits because its realised risk is the least stable.}
+\label{tab:compas}
+\begin{tabular}{lccccc}
+\toprule
+method & risk $\downarrow$ & AUROC $\uparrow$ & obs.\ AUROC & w.c.\ risk $\downarrow$ & regret $\downarrow$\\
+\midrule
+ERM-observed         & $0.6523$ & $0.7007$ & $0.6959$ & $0.7174$ & $0.0703$\\
+IPW                  & $0.6559$ & $0.6981$ & $0.6933$ & $0.7209$ & $0.0738$\\
+AIPW                 & $0.6999$ & $0.6951$ & $0.6923$ & $0.7746$ & $0.1283$\\
+Imputation           & $0.6424$ & $0.7041$ & $0.7000$ & $0.6920$ & $0.0444$\\
+Heckman probit       & $0.616$--$0.633$ & $0.711$--$0.728$ & --- & $0.720$--$0.756$ & $0.095$--$0.123$\\
+Manski ($\Gamma=\infty$) & $0.6804$ & $0.5847$ & $0.5948$ & $0.6830$ & $0.0884$\\
+DCL, minimax risk ($\Gamma=2$)   & $0.6302$ & $0.7097$ & $0.7041$ & $\mathbf{0.6518}$ & $0.0235$\\
+DCL, minimax regret ($\Gamma=2$) & $\mathbf{0.6246}$ & $0.7106$ & $0.7045$ & $0.6572$ & $\mathbf{0.0064}$\\
+\emph{oracle (uncensored)} & \emph{0.6310} & \emph{0.7116} & --- & \emph{0.7225} & \emph{0.0809}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{\Cref{thm:dcl}: learning}
 
 \begin{table}[t]
 \centering\small
@@ -203,7 +236,8 @@ The minimax-regret rule occupies the lower-left corner on every testbed.}
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/fig7_rules}
-\caption{\textbf{The two closed-form DCL rules.} Shaded: the identified set at
+\caption{\textbf{The two closed-form DCL rules} (\cref{thm:dcl}(d) and
+\cref{prop:regret}). Shaded: the identified set at
 $e(x)=0.5$. The minimax-risk rule \eqref{eq:bayes-act} flattens to the decision
 boundary on the abstention band; the minimax-regret rule \eqref{eq:regret-rule}
 stays inside the identified set and remains a probability estimate throughout.}
