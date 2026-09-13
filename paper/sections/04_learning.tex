@@ -149,16 +149,35 @@ point). The resulting risk interpolates smoothly between $\Gamma=1$ and
 pointwise $\Gamma$; see \cref{app:budget}.
 \end{remark}
 
-\subsection{Ranking-robust learning is genuinely harder}
+\subsection{Ranking-robust learning: harder, and apparently unnecessary}
 
 \Cref{thm:dcl} makes robust \emph{risk} minimisation convex. Robust
 \emph{ranking} is not: maximising $\min_{p\in\I_\Gamma}\AUC(f,p)$ is a max-min
-over the fractional objective of \cref{sec:ranking}, and the inner problem is
-neither concave nor separable. What rescues it is that \cref{thm:sharp-auc}
-supplies an \emph{exact} $O(n\log n)$ oracle for that inner problem, which can
-be used as a best-response step: alternate (i) the exact adversarial $p$ from
-\cref{thm:sharp-auc} with (ii) a gradient step on a smoothed pairwise surrogate
-weighted by $p(x)(1-p(x'))$. Because step (i) is exact, Danskin's theorem makes
-the step-(ii) gradient a valid supergradient of the inner minimum wherever the
-argmin is unique. We implement this as \texttt{DCLRanker}; see
-\cref{app:ranking-alg}.
+over the fractional objective of \cref{sec:ranking}, whose inner problem is
+neither concave nor separable in $p$. What makes it approachable at all is that
+\cref{thm:sharp-auc} supplies an \emph{exact} $O(n\log n)$ oracle for that inner
+problem, so one can run a Danskin best-response scheme: alternate the exact
+adversarial $p$ with a gradient step on a smoothed pairwise surrogate weighted by
+$p(x)(1-p(x'))$. We implement this as \textsc{DCLRanker}
+(\cref{app:ranking-alg}), with fictitious-play averaging of the adversary --
+best-responding to the \emph{latest} adversary oscillates, because the exact
+inner argmin inverts the soft labels relative to the current ranking -- and with
+best-iterate selection under the exact oracle, so the returned model is never
+worse than its initialisation.
+
+We report a negative result. Across our instances the scheme never improved on
+its own warm start, the \emph{plug-in midpoint ranking} $x\mapsto\tilde p(x)$.
+Nor did anything else we tried: neither $400$ random directions nor a coordinate
+search within the linear class, nor --- searching over rankings directly, outside
+any parametric class --- structured families such as $\logit\tilde p + c\,\delta$
+or several thousand steps of pairwise-swap ascent, which bought $+0.0003$ AUROC.
+The plug-in rankings by $\plo$, $\pup$, $\tilde p$ and $p_1$ all land within
+$0.003$ of each other, while ranking by the identification width $\delta$ alone
+is near chance --- a sanity check that the exact oracle is measuring what we think.
+
+We therefore do \emph{not} recommend a special ranking-robust training
+procedure: rank by the midpoint of the identified set. Whether
+$x\mapsto\tilde p(x)$ is exactly optimal for worst-case AUROC --- as the evidence
+suggests but we have not been able to prove --- is, to us, the most interesting
+question this paper leaves open. \Cref{thm:sharp-auc} makes it a well-posed one:
+the objective can be evaluated exactly, so any proposed optimum can be checked.

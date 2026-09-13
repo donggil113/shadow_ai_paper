@@ -121,17 +121,21 @@ class DCLParametric:
             if self.loss == "logistic":
                 base = mid * sp(-z) + (1 - mid) * sp(z)
                 pen = 0.5 * delta * z.abs()
-            else:                                  # exact max form, any loss
-                L = get_loss(self.loss)
-                l1 = torch.tensor(0.0)
-                raise NotImplementedError("torch path implements the logistic loss")
+            else:
+                raise NotImplementedError(
+                    "the torch path implements the logistic loss; for other "
+                    "losses use the numpy objective in dcl.objectives, which "
+                    "evaluates the exact max form for every registered loss")
             reg = self.l2 * sum((p ** 2).sum() for p in self.net_.parameters())
             return (base + pen).mean() + reg
 
         if self.arch == "linear":
+            # The program is convex (Theorem 6b), so L-BFGS reaches the global
+            # optimum quickly; the previous 1e-9 gradient tolerance made it burn
+            # the full iteration budget chasing noise.
             opt = torch.optim.LBFGS(self.net_.parameters(), lr=1.0,
                                     max_iter=self.max_iter,
-                                    tolerance_grad=1e-9, tolerance_change=1e-12,
+                                    tolerance_grad=1e-7, tolerance_change=1e-10,
                                     line_search_fn="strong_wolfe")
 
             def closure():

@@ -59,24 +59,44 @@ $\Gamma$ value as $B$ ranges over $[0,\log\Gamma]$.
 \begin{algorithmic}[1]
 \State \textbf{input} features $X$, identified box $[\plo,\pup]$, temperature
   $\tau$, steps $T$, oracle period $k$
-\State initialise $\theta$ at the ridge fit to the midpoint $\tilde p$, normalised
+\State $\theta \gets$ ridge fit to the midpoint $\tilde p$, normalised;
+  $\bar p \gets \tilde p$; $\theta^{\text{best}}\gets\theta$
+\State $v^{\text{best}} \gets \textsc{SharpAUCInterval}(X\theta,\plo,\pup).\text{lower}$
 \For{$t=1,\dots,T$}
   \If{$t \equiv 0 \pmod k$}
     \State $p \gets \textsc{SharpAUCInterval}(X\theta,\plo,\pup).p_{\text{lower}}$
       \Comment{exact inner argmin, \cref{thm:sharp-auc}}
+    \State $\bar p \gets \bar p + (p - \bar p)/(\text{\#responses})$
+      \Comment{fictitious play: averaging prevents oscillation}
   \EndIf
   \State sample pairs $(i,j)$; $s \gets \sigma\big((x_i-x_j)^\top\theta/\tau\big)$
-  \State $g \gets \overline{p_i(1-p_j)\,s(1-s)(x_i-x_j)}/\tau - \lambda\theta$
-  \State $\theta \gets \Pi_{\|\theta\|=1}\big(\theta + \alpha\, g/\|g\|\big)$
+  \State $g \gets \overline{\bar p_i(1-\bar p_j)\,s(1-s)(x_i-x_j)}/\tau - \lambda\theta$
+  \State $\theta \gets \Pi_{\|\theta\|=1}\big(\theta + \alpha_t\, g/\|g\|\big)$
+  \State \textbf{if} the exact inner value at $\theta$ exceeds $v^{\text{best}}$
+    \textbf{then} update $(\theta^{\text{best}}, v^{\text{best}})$
 \EndFor
+\State \textbf{return} $\theta^{\text{best}}$
 \end{algorithmic}
 \end{algorithm}
 
-Because line 4 solves the inner minimisation \emph{exactly} rather than
-approximately, Danskin's theorem makes the gradient in line 6 a valid
-supergradient of $\min_{p\in\I_\Gamma}\AUC(\cdot,p)$ wherever the argmin is
-unique, and the iterates converge to a stationary point of \eqref{eq:dcl}'s
-ranking analogue.
+Because line 6 solves the inner minimisation \emph{exactly}, Danskin's theorem
+makes the gradient in line 10 a valid supergradient of
+$\min_{p\in\I_\Gamma}\AUC(\cdot,p)$ wherever the argmin is unique, and line 12
+uses the same oracle to guarantee the returned model is no worse than its
+initialisation.
+
+Two implementation points, both learned the hard way. Best-responding to the
+latest adversary rather than to the running average diverges: the exact inner
+argmin sets $p=\plo$ where the current score ranks units high and $p=\pup$ where
+it ranks them low, so the learner flips its ranking, the adversary flips back,
+and the objective \emph{decreases} monotonically (in an early version, from
+$0.467$ to $0.420$). Fictitious-play averaging fixes this. Second, the
+normalisation $\|\theta\|=1$ is not cosmetic: AUROC is scale-invariant, so
+without it the surrogate's effective temperature drifts with $\|\theta\|$ and the
+gradient signal decays.
+
+As reported in \cref{sec:learning}, the fixed algorithm converges but does not
+beat its plug-in warm start on any instance we tried.
 
 \subsection{Estimation of the nuisances}
 \label{app:nuisance}

@@ -326,3 +326,55 @@ def test_gamma_min_is_a_valid_lower_bound():
         gmin = gamma_lower_bound(p1s, es, quantile=0.95)
         assert gmin <= g0 * 1.05 + 1e-6
         assert gmin >= g0 * 0.95 - 1e-6      # tight when tilts are opposed
+
+
+# ------------------------------------------------------------------- learners
+def test_dcl_ranker_never_worse_than_warm_start():
+    """DCLRanker uses the exact Theorem 2 oracle for best-iterate selection, so
+    it can never return something worse than its plug-in initialisation."""
+    from sklearn.linear_model import Ridge
+
+    from dcl.ranking import DCLRanker, worst_case_auc
+    rng = np.random.default_rng(0)
+    n, d = 1200, 6
+    X = rng.normal(size=(n, d))
+    p1 = np.clip(expit(X @ rng.normal(size=d) / np.sqrt(d)), 0.02, 0.98)
+    e = np.clip(0.5 + 0.2 * X[:, 0], 0.1, 0.9)
+    lo, hi = outcome_bounds(p1, e, 3.0)
+    mid = 0.5 * (lo + hi)
+    w0 = Ridge(alpha=1e-3).fit(X, mid).coef_
+    w0 = w0 / np.linalg.norm(w0)
+    warm = worst_case_auc(X @ w0, lo, hi)
+
+    r = DCLRanker(n_steps=60, oracle_every=10, seed=0).fit(X, lo, hi)
+    assert worst_case_auc(r.decision_function(X), lo, hi) >= warm - 1e-9
+    assert np.isfinite(r.best_worst_case_auc_)
+
+
+def test_dcl_parametric_matches_closed_form_on_a_rich_class():
+    """A flexible parametric fit should approach the pointwise optimum (Thm 6d)."""
+    torch = pytest.importorskip("torch")
+    from dcl.models import DCLParametric
+    rng = np.random.default_rng(0)
+    n = 3000
+    X = rng.normal(size=(n, 4))
+    p1 = np.clip(expit(X @ np.array([1.0, -0.5, 0.3, 0.2])), 0.02, 0.98)
+    e = np.full(n, 0.5)
+    iset = identified_set(p1, e, 2.0)
+    star = worstcase_risk(dcl_bayes_score(iset.lo, iset.hi), iset.lo, iset.hi)
+    m = DCLParametric(gamma=2.0, arch="mlp", max_iter=400, seed=0).fit(X, iset)
+    got = worstcase_risk(m.decision_function(), iset.lo, iset.hi)
+    assert got >= star - 1e-6          # the closed form is the pointwise optimum
+    assert got <= star + 0.05          # and a rich class gets close to it
+
+
+def test_dcl_plugin_out_of_sample():
+    from dcl.data import make_sl_bench
+    from dcl.models import DCLPlugin
+    ds = make_sl_bench(n=3000, d=6, target_gamma=2.0, seed=0)
+    tr, te = ds.split(test_size=0.3, seed=0)
+    m = DCLPlugin(gamma=2.0, n_folds=3).fit(tr.X, tr.T, tr.Y_obs)
+    s = m.decision_function(te.X)
+    assert s.shape == (te.n,)
+    lo, hi = m.predict_proba_bounds(te.X)
+    assert np.all(lo <= hi + 1e-12) and np.all((lo >= 0) & (hi <= 1))

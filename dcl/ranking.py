@@ -81,6 +81,7 @@ class DCLRanker:
     l2: float = 1e-3
     seed: int = 0
     coef_: np.ndarray | None = field(default=None, init=False)
+    best_worst_case_auc_: float = field(default=float('nan'), init=False)
     history_: list = field(default_factory=list, init=False)
 
     def _scores(self, X):
@@ -94,7 +95,7 @@ class DCLRanker:
         rng = np.random.default_rng(self.seed)
         w = np.full(n, 1.0 / n) if weights is None else np.asarray(weights, float) / np.sum(weights)
 
-        # initialise at the plug-in midpoint ranking (a strong warm start)
+        # Warm start at the plug-in midpoint ranking.
         mid = 0.5 * (lo + hi)
         XtX = X.T @ X + 1e-3 * np.eye(d)
         self.coef_ = np.linalg.solve(XtX, X.T @ (mid - mid.mean()))
@@ -102,26 +103,47 @@ class DCLRanker:
         if nrm > 0:
             self.coef_ /= nrm
 
-        p_adv = mid.copy()
+        # Best-responding to the *latest* adversary oscillates: the exact inner
+        # argmin inverts the soft labels relative to the current ranking, the
+        # learner flips, and the adversary flips back.  We therefore (i) do
+        # fictitious play -- gradient steps against the running AVERAGE of the
+        # adversary's responses -- and (ii) keep the best iterate measured by the
+        # exact inner value, which Theorem 2 lets us evaluate in O(n log n).  So
+        # the returned model can never be worse than the warm start.
+        p_bar = mid.copy()
+        n_resp = 0
+        best_coef = self.coef_.copy()
+        best_val = sharp_auc_interval(self._scores(X), lo, hi, w).lower
+        self.history_.append(best_val)
+
         for t in range(self.n_steps):
             if t % self.oracle_every == 0:
-                res = sharp_auc_interval(self._scores(X), lo, hi, w)
-                p_adv = res.p_lower                      # exact inner argmin
-                self.history_.append(res.lower)
+                p_new = sharp_auc_interval(self._scores(X), lo, hi, w).p_lower
+                n_resp += 1
+                p_bar += (p_new - p_bar) / n_resp
 
             i = rng.integers(0, n, self.n_pairs)
             j = rng.integers(0, n, self.n_pairs)
             zi, zj = X[i] @ self.coef_, X[j] @ self.coef_
             dz = (zi - zj) / self.tau
             s = 1.0 / (1.0 + np.exp(-np.clip(dz, -50, 50)))
-            # weight of an ordered pair: P(Y_i = 1, Y_j = 0) under p_adv
-            pw = p_adv[i] * (1.0 - p_adv[j])
-            g_coef = (pw * s * (1.0 - s) / self.tau)[:, None] * (X[i] - X[j])
-            grad = g_coef.mean(axis=0) - self.l2 * self.coef_
-            self.coef_ = self.coef_ + self.lr * grad / (np.linalg.norm(grad) + 1e-12)
+            pw = p_bar[i] * (1.0 - p_bar[j])          # P(Y_i = 1, Y_j = 0)
+            g = (pw * s * (1.0 - s) / self.tau)[:, None] * (X[i] - X[j])
+            grad = g.mean(axis=0) - self.l2 * self.coef_
+            lr = self.lr / (1.0 + t / max(self.n_steps / 8.0, 1.0))
+            self.coef_ = self.coef_ + lr * grad / (np.linalg.norm(grad) + 1e-12)
             nrm = np.linalg.norm(self.coef_)
             if nrm > 0:
                 self.coef_ /= nrm
+
+            if (t + 1) % self.oracle_every == 0:
+                val = sharp_auc_interval(self._scores(X), lo, hi, w).lower
+                self.history_.append(val)
+                if val > best_val:
+                    best_val, best_coef = val, self.coef_.copy()
+
+        self.coef_ = best_coef
+        self.best_worst_case_auc_ = best_val
         return self
 
     def decision_function(self, X: np.ndarray) -> np.ndarray:
