@@ -35,7 +35,7 @@ Every number is out of sample: methods are fit on a training split and evaluated
 on a disjoint test split, with cross-fitted, isotonically calibrated nuisances
 (\cref{app:nuisance}). Results are averaged over three seeds.
 
-\subsection{\Cref{thm:sharp-auc}: the bounds are sharp, valid, and cheap}
+\subsection{The bounds are sharp, valid, and cheap}
 
 \begin{table}[t]
 \centering\small
@@ -63,7 +63,8 @@ $n=20{,}000$ / $100{,}000$ / $400{,}000$ & \multicolumn{3}{c}{$0.16$s / $0.85$s 
 \end{tabular}
 \end{table}
 
-\Cref{tab:sharpness} and \cref{fig:sharpness} report three things. First,
+\Cref{tab:sharpness} and \cref{fig:sharpness} test \cref{thm:sharp-auc} three
+ways. First,
 \emph{sharpness}: an independent projected-gradient search over the identified
 box never escapes the analytic interval and matches it to $3.6\times10^{-6}$,
 while the extremal $p^\star$ returned by \cref{thm:sharp-auc} lies in the box and
@@ -146,7 +147,7 @@ DCL, minimax regret ($\Gamma=2$) & $\mathbf{0.6246}$ & $0.7106$ & $0.7045$ & $0.
 \end{tabular}
 \end{table}
 
-\subsection{\Cref{thm:dcl}: learning}
+\subsection{Decision-censored learning}
 
 \begin{table}[t]
 \centering\small
@@ -191,7 +192,8 @@ bold; the oracle is not attainable.}
 \end{tabular}
 \end{table}
 
-\Cref{tab:learning} and \cref{fig:learning} report the trade-off honestly.
+\Cref{tab:learning} and \cref{fig:learning} put \cref{thm:dcl} and
+\cref{prop:regret} against the field, and report the trade-off honestly.
 
 \emph{The certificates.} DCL attains the best worst-case risk on every testbed,
 by construction --- but the margin is what matters: $0.2299$ against ERM's
