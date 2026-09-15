@@ -1,0 +1,128 @@
+{
+ "def:dcsm": {
+  "env": "definition",
+  "title": "$\\dcsm(\\Gamma)$",
+  "file": "02_setup.tex",
+  "text": "For $\\Gamma\\ge 1$, the law $P$ satisfies $\\dcsm(\\Gamma)$ if \\begin{equation} \\Gamma^{-1} \\;\\le\\; \\frac{\\odds\\big(p_0(x)\\big)}{\\odds\\big(p_1(x)\\big)} \\;\\le\\; \\Gamma \\qquad\\text{for $P_X$-almost every } x, \\end{equation} equivalently $\\big|\\logit p_0(x) - \\logit p_1(x)\\big| \\le \\log\\Gamma$, where $\\odds(u) = u/(1-u)$."
+ },
+ "lem:msm": {
+  "env": "lemma",
+  "title": "Equivalence with the marginal sensitivity model",
+  "file": "02_setup.tex",
+  "text": "Suppose the propensity obeys $\\textup{MSM}(\\Lambda)$, i.e. $\\Lambda^{-1}\\le \\odds(e(x))/\\odds(\\pi(x,s)) \\le \\Lambda$ for all $x,s$. Then $P$ satisfies $\\dcsm(\\Gamma)$ with $\\Gamma=\\Lambda^{2}$, and the bound is attained: every value in $[\\Lambda^{-2},\\Lambda^{2}]$ is realised by some admissible $\\pi$."
+ },
+ "lem:box": {
+  "env": "lemma",
+  "title": "Box form of the identified set",
+  "file": "02_setup.tex",
+  "text": "Under $\\dcsm(\\Gamma)$ the identified set for the deployment regression is \\[ \\I_\\Gamma(P_{\\mathrm{obs}}) \\;=\\; \\Big\\{\\, p:\\X\\to[0,1] \\;\\Big|\\; \\plo(x) \\le p(x) \\le \\pup(x) \\ \\text{ for a.e. } x \\,\\Big\\}, \\] with \\[ \\plo(x) = e p_1 + (1-e)\\,\\sigma\\big(\\logit p_1 - \\log\\Gamma\\big), \\qquad \\pup(x) = e p_1 + (1-e)\\,\\sigma\\big(\\logit p_1 + \\log\\Gamma\\big), \\] all evaluated at $x$. The set is non-empty, convex and compact; every $p$ in it is realised by an admissible law; and $\\Gamma\\mapsto\\I_\\Gamma$ is nested increasing with $\\I_1 = \\{p_1\\}$ and $\\I_\\infty = \\{\\,e p_1 \\le p \\le e p_1 + 1 - e\\,\\}$ (Manski)."
+ },
+ "thm:rank-identity": {
+  "env": "theorem",
+  "title": "Rank identity",
+  "file": "03_ranking.tex",
+  "text": "For every measurable $p:\\X\\to[0,1]$ with $\\pi=\\E_\\mu[p]\\in(0,1)$, \\begin{equation} \\boxed{\\; \\AUC(p) \\;=\\; \\frac{\\E_\\mu\\!\\big[\\,p(X)\\,R(X)\\,\\big] \\;-\\; \\pi^{2}/2}{\\pi\\,(1-\\pi)} \\; } \\end{equation} In particular, \\emph{at fixed prevalence $\\pi$, AUROC is an affine functional of the outcome regression.}"
+ },
+ "thm:sharp-auc": {
+  "env": "theorem",
+  "title": "Sharp AUROC interval",
+  "file": "03_ranking.tex",
+  "text": "Let $\\I_\\Gamma$ be the box of \\cref{lem:box}, let $\\pi_{\\!-}=\\E_\\mu[\\plo]$, $\\pi_{+}=\\E_\\mu[\\pup]$, and for $\\pi\\in[\\pi_-,\\pi_+]$ define \\[ V^{\\pm}(\\pi) \\;=\\; \\genfrac{}{}{0pt}{}{\\max}{\\min} \\Big\\{\\, \\E_\\mu[p\\,R] \\;:\\; p\\in\\I_\\Gamma,\\ \\E_\\mu[p]=\\pi \\,\\Big\\}. \\] Then \\begin{equation} \\Big[\\;\\inf_{p\\in\\I_\\Gamma}\\AUC(p),\\ \\sup_{p\\in\\I_\\Gamma}\\AUC(p)\\;\\Big] \\;=\\; \\Big[\\;\\min_{\\pi\\in[\\pi_-,\\pi_+]}\\frac{V^{-}(\\pi)-\\pi^2/2}{\\pi(1-\\pi)},\\ \\ \\max_{\\pi\\in[\\pi_-,\\pi_+]}\\frac{V^{+}(\\pi)-\\pi^2/2}{\\pi(1-\\pi)}\\;\\Big], \\end{equation} and both endpoints are \\emph{attained} by members of $\\I_\\Gamma$. Moreover: \\begin{enumerate} \\item[(i)] $V^{+}$ is piecewise linear and concave, $V^{-}$ piecewise linear and convex, each with at most $n$ breakpoints; both are computed by a continuous knapsack --- fill $p$ up from $\\plo$ toward $\\pup$ in decreasing (resp.\\ increasing) order of $R(x)$ until the budget $\\pi$ is exhausted. \\item[(ii)] On each linear piece $V^\\pm(\\pi)=\\alpha+\\beta\\pi$ the objective is a ratio of quadratics whose stationary points solve $(\\beta-\\tfrac12)\\pi^{2} + 2\\alpha\\pi - \\alpha = 0$; the cubic terms cancel identically. \\item[(iii)] Consequently \\eqref{eq:sharp-auc} is computed \\emph{exactly} in $O(n\\log n)$ time and $O(n)$ space. \\end{enumerate}"
+ },
+ "prop:unified": {
+  "env": "proposition",
+  "title": "A unified class",
+  "file": "03_ranking.tex",
+  "text": "\\Cref{thm:sharp-auc} holds verbatim for every functional of the form \\[ M(p) \\;=\\; \\frac{\\E_\\mu[p\\,\\phi] + c_0 + c_1\\pi + c_2\\pi^{2}} {d_0 + d_1\\pi + d_2\\pi^{2}}, \\] with $\\phi$ identified, the stationary condition becoming $A\\pi^2+B\\pi+C=0$ with $A=c_2d_1-c_1'd_2$, $B=2(c_2d_0-c_0'd_2)$, $C=c_1'd_0-c_0'd_1$ where $c_0'=\\alpha+c_0$, $c_1'=\\beta+c_1$. Taking $\\phi=R,\\,c_2=-\\tfrac12,\\,d_1=1,\\,d_2=-1$ gives AUROC; $\\phi=\\one\\{f>\\tau\\}$, $d_1=1$ gives sensitivity at threshold $\\tau$; $\\phi=-\\one\\{f\\le\\tau\\}$, $c_0=\\mu(f\\le\\tau)$, $d_0=1,d_1=-1$ gives specificity; $\\phi=\\one\\{f>\\tau\\}$, $d_0=\\mu(f>\\tau)$ gives PPV. The known fixed-threshold results are thus special cases, and AUROC is the new member."
+ },
+ "prop:corner": {
+  "env": "proposition",
+  "title": "Corner evaluation under-covers",
+  "file": "03_ranking.tex",
+  "text": "Let $\\mathcal{C} = [\\min,\\max]$ of $\\{\\AUC(\\plo),\\AUC(\\tilde p),\\AUC(\\pup)\\}$. Then $\\mathcal{C}$ is contained in the sharp interval \\eqref{eq:sharp-auc}, and the containment is strict whenever $R$ is non-constant on $\\{x:\\delta(x)>0\\}$. Consequently there exist laws in $\\I_\\Gamma$ whose AUROC lies outside $\\mathcal{C}$, and $\\mathcal{C}$ fails to cover the truth."
+ },
+ "thm:dcl": {
+  "env": "theorem",
+  "title": "Decision-censored ERM",
+  "file": "04_learning.tex",
+  "text": "Let $\\ell(\\cdot,y)$ be convex for each $y$ and define the \\emph{label gap} $g_\\ell(z) = |\\ell(z,1)-\\ell(z,0)|$. Then: \\begin{enumerate} \\item[(a)] \\textup{(Exact reduction.)} \\begin{equation} \\Rbar_\\Gamma(f) \\;:=\\; \\sup_{P\\in\\I_\\Gamma} R_P(f) \\;=\\; \\underbrace{\\E\\Big[\\tilde p(X)\\,\\ell_1 + \\big(1-\\tilde p(X)\\big)\\ell_0\\Big]} _{\\text{risk at the midpoint model}} \\;+\\; \\underbrace{\\tfrac12\\,\\E\\Big[\\delta(X)\\,g_\\ell\\big(f(X)\\big)\\Big]} _{\\text{margin penalty $\\times$ identification width}} . \\end{equation} For the logistic loss $\\ell(z,1)-\\ell(z,0) = -z$ exactly, so the penalty is $\\tfrac12\\E[\\delta(X)\\,|f(X)|]$: an $L_1$ penalty on the \\emph{score}, weighted by how censored each region of covariate space is. \\item[(b)] \\textup{(Exact convexity --- no relaxation needed.)} $\\Rbar_\\Gamma$ is a pointwise supremum of functions convex in $z$, hence convex in $z$; over any convex class $\\F$ of real-valued scores, \\eqref{eq:dcl} is an exactly convex program. Separately, the penalty term of \\eqref{eq:wc-decomp} is convex on its own \\emph{iff} $g_\\ell$ is convex --- true for the logistic, squared and exponential losses, false for the hinge. The distinction matters only for modular implementation, not for tractability. \\item[(c)] \\textup{(Saddle point.)} $R_P(f)$ is convex in $f$ and linear, hence concave, in $p$, over a convex compact set, so by Sion's theorem \\citep{sion1958general} $\\inf_f\\sup_P = \\sup_P\\inf_f$ and a saddle point $(\\hat f, P^\\star)$ exists. The adversary's best response is the explicit vertex \\[ p^\\star(x) \\;=\\; \\pup(x)\\ \\text{ if } \\ell(f(x),1)\\ge\\ell(f(x),0), \\qquad \\plo(x) \\text{ otherwise,} \\] --- for the logistic loss, $\\pup$ exactly where the model predicts negative. $\\hat f$ is thus the Bayes predictor for the least-favourable member of the identified set. \\item[(d)] \\textup{(Bayes act.)} For the logistic loss the pointwise minimiser of \\eqref{eq:wc-decomp} is \\begin{equation} f^\\star_\\Gamma(x) \\;=\\; \\begin{cases} \\logit \\plo(x), & \\plo(x) > \\tfrac12,\\\\[2pt] \\logit \\pup(x), & \\pup(x) < \\tfrac12,\\\\[2pt] 0, & \\text{otherwise.} \\end{cases} \\end{equation} \\end{enumerate}"
+ },
+ "prop:regret": {
+  "env": "proposition",
+  "title": "Minimax-regret rule",
+  "file": "04_learning.tex",
+  "text": "Let $H(u) = -u\\log u - (1-u)\\log(1-u)$. The pointwise minimax-regret score is \\begin{equation} \\boxed{\\; \\logit q^\\star(x) \\;=\\; \\frac{H\\big(\\plo(x)\\big) - H\\big(\\pup(x)\\big)}{\\pup(x)-\\plo(x)}\\;} \\end{equation} with the convention $q^\\star = p$ when $\\plo=\\pup=p$. The value of the game is $\\KL(\\plo\\|q^\\star) = \\KL(\\pup\\|q^\\star)$."
+ },
+ "cor:validity": {
+  "env": "corollary",
+  "title": "Validity of the certificate",
+  "file": "04_learning.tex",
+  "text": "If the true law satisfies $\\dcsm(\\Gamma)$ then $R_{P}(f) \\le \\Rbar_\\Gamma(f)$ for every $f$. The certified number is therefore an upper bound on the risk actually incurred at deployment --- something no observed-data metric provides."
+ },
+ "thm:impossible": {
+  "env": "theorem",
+  "title": "Impossibility",
+  "file": "05_impossibility.tex",
+  "text": "Fix $\\eta\\in(0,1)$, a loss $\\ell$, a score $f$ and $\\Gamma>1$. Let $\\mathcal{P}_{\\Gamma,\\eta}$ be the set of laws satisfying $\\dcsm(\\Gamma)$ with $\\Prb(T=0)\\ge\\eta$. Then for \\emph{every} sample size $n$ and every estimator $\\hat R_n$ measurable with respect to $\\{O_i\\}_{i\\le n}$, \\begin{equation} \\sup_{P\\in\\mathcal{P}_{\\Gamma,\\eta}} \\Prb_P\\!\\left(\\big|\\hat R_n - R_P(f)\\big| \\;\\ge\\; \\tfrac{\\Delta}{2}\\right) \\;\\ge\\; \\tfrac12, \\qquad \\Delta \\;=\\; \\eta\\,\\frac{\\Gamma-1}{\\Gamma+1}\\, \\E\\big[g_\\ell(f(X))\\,\\big|\\,T=0\\big], \\end{equation} where $g_\\ell(z)=|\\ell(z,1)-\\ell(z,0)|$. Consequently no estimator is consistent for the deployment risk uniformly over $\\bigcup_{\\Gamma\\ge1}\\mathcal{P}_{\\Gamma,\\eta}$, and the error cannot be made smaller than a constant depending on $\\Gamma$ and the censoring rate."
+ },
+ "cor:gamma-unidentified": {
+  "env": "corollary",
+  "title": "$\\Gamma$ is not identified",
+  "file": "05_impossibility.tex",
+  "text": "For any $1\\le\\Gamma<\\Gamma'$, the set of observed-data laws compatible with $\\dcsm(\\Gamma)$ equals the set compatible with $\\dcsm(\\Gamma')$ --- namely all of them. No test based on $(X,T,TY)$ has power against $\\dcsm(\\Gamma)$."
+ },
+ "ass:iv": {
+  "env": "assumption",
+  "title": "Leniency instrument",
+  "file": "05_impossibility.tex",
+  "text": "$Z$ indexes decision makers, $Z \\perp (Y,S)\\mid X$ (random assignment and exclusion), and $\\dcsm(\\Gamma)$ holds conditionally on each $Z=z$."
+ },
+ "prop:falsify": {
+  "env": "proposition",
+  "title": "Identified lower bound on $\\Gamma$",
+  "file": "05_impossibility.tex",
+  "text": "Under \\cref{ass:iv}, $p(x)$ does not depend on $z$ while $e_z(x)$ and $p_{1,z}(x)$ do, so \\[ p(x) \\;\\in\\; \\bigcap_{z}\\;\\big[\\plo^{\\,\\Gamma}_z(x),\\ \\pup^{\\,\\Gamma}_z(x)\\big]. \\] The intervals are nested increasing and continuous in $\\Gamma$, hence \\[ \\Gamma_{\\min}(x) \\;=\\; \\inf\\Big\\{\\Gamma\\ge1 \\;:\\; \\textstyle\\bigcap_z \\big[\\plo^{\\,\\Gamma}_z(x),\\pup^{\\,\\Gamma}_z(x)\\big] \\neq \\emptyset \\Big\\} \\] is well defined, identified, computable by bisection, and satisfies $\\Gamma_{\\min}(x)\\le\\Gamma_0$. $\\dcsm(\\Gamma)$ is \\emph{refuted} for every $\\Gamma < \\sup_x \\Gamma_{\\min}(x)$."
+ },
+ "thm:generalization": {
+  "env": "theorem",
+  "title": "Excess worst-case risk",
+  "file": "06_generalization.tex",
+  "text": "Assume $\\ell$ is $L$-Lipschitz in its first argument with $\\sup_{|z|\\le B,y}\\ell(z,y)\\le \\ell_{\\max}(B)$. Then with probability at least $1-\\delta$ over the sample, \\begin{equation} \\Rbar_\\Gamma(\\hat f) - \\inf_{f\\in\\F}\\Rbar_\\Gamma(f) \\;\\le\\; 4L\\,\\Rad_n(\\F) \\;+\\; 2\\,\\ell_{\\max}(B)\\sqrt{\\frac{\\log(2/\\delta)}{2n}} \\;+\\; 2\\,\\kappa(B)\\Big(\\|\\hat e - e\\|_{L^1(\\mu)} + \\tfrac14\\|\\hat\\eta_1-\\eta_1\\|_{L^1(\\mu)}\\Big), \\end{equation} where $\\eta_1 = \\logit p_1$ and $\\kappa(B)=\\sup_{|z|\\le B} g_\\ell(z)$. For the logistic loss $L=1$, $\\ell_{\\max}(B)\\le\\log 2 + B$ and $\\kappa(B)=B$."
+ },
+ "cor:loggamma": {
+  "env": "corollary",
+  "title": "$\\log\\Gamma$ scaling",
+  "file": "06_generalization.tex",
+  "text": "With $B=B_0+\\log\\Gamma$ and the logistic loss, \\begin{equation} \\Rbar_\\Gamma(\\hat f) - \\inf_{f\\in\\F_\\Gamma}\\Rbar_\\Gamma(f) \\;\\le\\; 4\\,\\Rad_n(\\F_\\Gamma) \\;+\\; 2\\big(\\log 2 + B_0 + \\log\\Gamma\\big)\\sqrt{\\frac{\\log(2/\\delta)}{2n}} \\;+\\; 2\\big(B_0+\\log\\Gamma\\big)\\,\\varepsilon_{\\mathrm{nuis}}, \\end{equation} i.e.\\ the complexity term is \\textbf{linear in $\\log\\Gamma$}, not in $\\Gamma$."
+ },
+ "prop:lower-gen": {
+  "env": "proposition",
+  "title": "The $\\log\\Gamma$ dependence is necessary",
+  "file": "06_generalization.tex",
+  "text": "There is a family of instances and a class $\\F_\\Gamma$ of constant scores with $\\|f\\|_\\infty\\le B_0+\\log\\Gamma$ for which every estimator suffers excess worst-case risk $\\Omega\\big(\\log\\Gamma\\cdot n^{-1/2}\\big)$. Hence \\eqref{eq:loggamma} is tight in its $\\Gamma$-dependence up to constants."
+ },
+ "cor:uq": {
+  "env": "corollary",
+  "title": "The two-way decomposition is biased by at least the censoring term",
+  "file": "07_uncertainty.tex",
+  "text": "Assume $\\dcsm(\\Gamma)$ and fix $x$ with $e(x)<1$, $p_1(x)\\in(0,1)$, $\\Gamma>1$. Let $C_n(x)\\subseteq[0,1]$ be the credal set an observed-data method reports after $n$ samples --- the interval hull of an ensemble fit to the selected units, or a high-posterior-mass interval --- with epistemic term $\\mathrm{Epi}_n(x)=H(\\bar p_n)-\\tfrac1M\\sum_mH(p_m)$, and let $\\mathrm{Cens}(x)=\\max_{q\\in[\\plo,\\pup]}H(q)-\\min_{q\\in[\\plo,\\pup]}H(q)$ be the censoring term \\eqref{eq:cens}. Call $C$ \\emph{valid} at $x$ if it contains $p(x)$ under every law compatible with $\\dcsm(\\Gamma)$ and $P_{\\mathrm{obs}}$. \\begin{enumerate} \\item[(i)] \\textup{(Never refuted.)} $\\plo(x)<p_1(x)<\\pup(x)$, and every compatible law induces the same $P_{\\mathrm{obs}}$; hence no calibration, coverage or goodness-of-fit statistic of observed data has power above its size against the decomposition being biased. \\item[(ii)] \\textup{(Honest floor.)} $C$ is valid iff $C\\supseteq[\\plo,\\pup]$; the smallest epistemic term any valid set can report is $\\mathrm{Cens}(x)$, and for every $n$ \\[ \\mathrm{Bias}_n(x)\\;:=\\;\\mathrm{EU}\\big(\\mathrm{hull}(C_n(x)\\cup[\\plo,\\pup])\\big)-\\mathrm{Epi}_n(x) \\;\\ge\\;\\mathrm{Cens}(x)-\\mathrm{Epi}_n(x), \\] where $\\mathrm{EU}(C)=\\max_C H-\\min_C H$ is the credal epistemic term. \\item[(iii)] \\textup{(Asymptotic overconfidence.)} If $C_n(x)$ contracts to $\\{p_1(x)\\}$ with Hausdorff radius $\\varepsilon_n\\to0$ --- a consistent posterior, or a converged ensemble of a well-specified class --- then $\\mathrm{Epi}_n(x)\\le H(\\min\\{2\\varepsilon_n,\\tfrac12\\})\\to0$ while $\\mathrm{Bias}_n(x)\\to\\mathrm{Cens}(x)>0$: the reported epistemic term ends up $\\mathrm{Cens}(x)-o(1)$ below that of \\emph{every} valid credal set, and $\\mathrm{Cens}(x)$ does not depend on $n$. \\item[(iv)] \\textup{(Size of the floor.)} With $m(x)=\\min_{q\\in[\\plo,\\pup]}|\\logit q|$, \\[ \\mathrm{Cens}(x)\\;\\ge\\;\\delta(x)\\,m(x)+\\tfrac12\\,\\delta(x)^2, \\qquad \\delta(x)=\\big(1-e(x)\\big)\\frac{\\odds(p_1(x))\\,(\\Gamma^2-1)} {\\big(1+\\Gamma\\odds(p_1(x))\\big)\\big(\\Gamma+\\odds(p_1(x))\\big)}>0, \\] and $\\E_\\mu[\\mathrm{Cens}(X)]$ equals the width of the sharp identified interval for the population aleatoric entropy $\\E_\\mu[H(p(X))]$. \\end{enumerate} The full statement, a plug-in version with cross-fitted nuisances (\\cref{prop:cens-plugin}), and proofs are in \\cref{app:uq}."
+ },
+ "def:valid": {
+  "env": "definition",
+  "title": "Valid credal set, reported and honest epistemic terms",
+  "file": "A_proofs.tex",
+  "text": "Fix $x$. A closed set $C\\subseteq[0,1]$ is \\emph{valid at $x$ under $\\dcsm(\\Gamma)$} if $p(x)\\in C$ for every law $P$ that satisfies $\\dcsm(\\Gamma)$ and induces the observed law $P_{\\mathrm{obs}}$. An \\emph{observed-data method} returns, for each $n$, a credal set $C_n(x)\\subseteq[0,1]$ built from $O_1,\\dots,O_n$ --- the interval hull of an ensemble $\\{p^{(n)}_m(x)\\}_{m\\le M}$ fit to the selected units, or the support of a posterior over $p_\\theta(x)$ --- and reports the two-way decomposition \\[ \\mathrm{Tot}_n(x)=H(\\bar p_n(x)),\\qquad \\mathrm{Ale}_n(x)=\\tfrac1M\\textstyle\\sum_m H(p^{(n)}_m(x)),\\qquad \\mathrm{Epi}_n(x)=\\mathrm{Tot}_n(x)-\\mathrm{Ale}_n(x), \\] with $\\bar p_n=\\tfrac1M\\sum_m p^{(n)}_m$ (posterior expectations in the Bayesian case). The \\emph{honest epistemic term} of the method is the credal epistemic term of the smallest set that is both consistent with its own sampling spread and valid, $\\mathrm{EU}\\big(\\mathrm{hull}(C_n(x)\\cup\\I_\\Gamma(x))\\big)$, and its \\emph{bias} is \\begin{equation} \\mathrm{Bias}_n(x)\\;:=\\;\\mathrm{EU}\\big(\\mathrm{hull}(C_n(x)\\cup\\I_\\Gamma(x))\\big)\\;-\\;\\mathrm{Epi}_n(x). \\end{equation}"
+ },
+ "cor:uq-full": {
+  "env": "corollary",
+  "title": "Full statement of \\cref{cor:uq}",
+  "file": "A_proofs.tex",
+  "text": "Assume $\\dcsm(\\Gamma)$ and fix $x$ with $e(x)<1$, $p_1(x)\\in(0,1)$ and $\\Gamma>1$ (otherwise $\\delta(x)=0$ and every quantity below is $0$). Then: \\begin{enumerate} \\item[(i)] \\textup{(The naive answer is never refuted.)} $\\plo(x)<p_1(x)<\\pup(x)$. The selection-on-observables law $P^{(1)}$ (tilt $a\\equiv1$, so $p=p_1$) satisfies $\\dcsm(\\Gamma)$ for every $\\Gamma\\ge1$ and induces the same $P_{\\mathrm{obs}}$; consequently every statistic $S(O_1,\\dots,O_n)$ has the same distribution under every admissible law. In particular no calibration, coverage or goodness-of-fit test computed on observed data has power above its size against ``$\\mathrm{Epi}_n$ understates the epistemic uncertainty about $p(x)$''. \\item[(ii)] \\textup{(The honest floor and a finite-$n$ inequality.)} $C$ is valid at $x$ iff $C\\supseteq\\I_\\Gamma(x)$, and \\[ \\inf\\{\\mathrm{EU}(C):\\ C\\ \\text{valid at }x\\}\\;=\\;\\mathrm{EU}(\\I_\\Gamma(x))\\;=\\;\\mathrm{Cens}(x), \\] attained by $C=\\I_\\Gamma(x)$. For every $n$ and every observed-data method, $0\\le\\mathrm{Epi}_n(x)\\le\\mathrm{EU}(C_n(x))$ and \\begin{equation} \\mathrm{Bias}_n(x)\\;\\ge\\;\\max\\big\\{\\mathrm{EU}(C_n(x)),\\ \\mathrm{Cens}(x)\\big\\}-\\mathrm{Epi}_n(x) \\;\\ge\\;\\mathrm{Cens}(x)-\\mathrm{Epi}_n(x). \\end{equation} \\item[(iii)] \\textup{(Asymptotic overconfidence.)} Let $\\varepsilon_n(x)=\\sup_{q\\in C_n(x)}|q-p_1(x)|$ and suppose $\\varepsilon_n(x)\\to0$ (almost surely, or in probability; the conclusions then hold in the same mode) --- as for a consistent posterior or a converged ensemble of a well-specified class. Then \\[ \\mathrm{Epi}_n(x)\\;\\le\\;H\\big(\\min\\{2\\varepsilon_n(x),\\tfrac12\\}\\big)\\;\\longrightarrow\\;0, \\qquad \\mathrm{Cens}(x)-\\mathrm{Epi}_n(x)\\;\\le\\;\\mathrm{Bias}_n(x)\\;\\le\\; \\mathrm{Cens}(x)+2H\\big(\\min\\{\\varepsilon_n(x),\\tfrac12\\}\\big)-\\mathrm{Epi}_n(x), \\] so $\\mathrm{Bias}_n(x)\\to\\mathrm{Cens}(x)>0$. Precisely: \\emph{``asymptotically overconfident by at least $\\mathrm{Cens}(x)$'' means} \\begin{equation} \\liminf_{n\\to\\infty}\\ \\inf_{C\\ \\mathrm{valid\\ at}\\ x}\\big[\\mathrm{EU}(C)-\\mathrm{Epi}_n(x)\\big] \\;=\\;\\lim_{n\\to\\infty}\\big[\\mathrm{Cens}(x)-\\mathrm{Epi}_n(x)\\big]\\;=\\;\\mathrm{Cens}(x), \\end{equation} i.e.\\ for every $\\epsilon>0$ there is $n_0$ such that for all $n\\ge n_0$ the reported epistemic term is at least $\\mathrm{Cens}(x)-\\epsilon$ below the epistemic term of \\emph{every} valid credal set, while $\\mathrm{Cens}(x)$ itself does not depend on $n$. \\item[(iv)] \\textup{(Explicit form of the censoring term.)} With $d(x)=\\max\\{\\tfrac12-\\plo(x),\\ \\pup(x)-\\tfrac12\\}$, \\begin{align} \\tfrac12\\notin\\I_\\Gamma(x):&\\quad \\mathrm{Cens}(x)=\\Big|\\int_{\\plo(x)}^{\\pup(x)}\\logit q\\,dq\\Big| \\;\\ge\\;\\delta(x)\\,m(x)+2\\,\\delta(x)^2,\\qquad \\mathrm{Cens}(x)\\le\\delta(x)\\max_{q\\in\\I_\\Gamma(x)}|\\logit q|; \\\\ \\tfrac12\\in\\I_\\Gamma(x):&\\quad \\mathrm{Cens}(x)=\\log2-\\min\\{H(\\plo),H(\\pup)\\} =\\KL\\big(\\mathrm{Bern}(q^\\ast)\\,\\|\\,\\mathrm{Bern}(\\tfrac12)\\big) \\;\\ge\\;2\\,d(x)^2\\;\\ge\\;\\tfrac12\\,\\delta(x)^2, \\end{align} where $q^\\ast$ is the endpoint of $\\I_\\Gamma(x)$ farther from $\\tfrac12$. In both cases \\begin{equation} \\mathrm{Cens}(x)\\;\\ge\\;\\delta(x)\\,m(x)+\\tfrac12\\,\\delta(x)^2, \\qquad \\delta(x)=\\big(1-e(x)\\big)\\,\\frac{\\odds(p_1(x))\\,(\\Gamma^2-1)} {\\big(1+\\Gamma\\,\\odds(p_1(x))\\big)\\big(\\Gamma+\\odds(p_1(x))\\big)}\\;>\\;0 . \\end{equation} \\item[(v)] \\textup{(Mean version.)} $\\E_\\mu[\\mathrm{Cens}(X)]=\\E_\\mu[\\overline h(X)]-\\E_\\mu[\\underline h(X)]$ is exactly the width of the sharp identified interval for the population aleatoric entropy $\\E_\\mu[H(p(X))]$ (endpoints $\\overline h=H(\\mathrm{clip}_{[\\plo,\\pup]}(\\tfrac12))$, $\\underline h=\\min\\{H(\\plo),H(\\pup)\\}$, both attained). For every $n$, $\\E_\\mu[\\mathrm{Bias}_n(X)]\\ge\\E_\\mu[\\mathrm{Cens}(X)]-\\E_\\mu[\\mathrm{Epi}_n(X)]$; if the hypothesis of (iii) holds for $\\mu$-a.e.\\ $x$ then $\\E_\\mu[\\mathrm{Epi}_n(X)]\\to0$ and $\\E_\\mu[\\mathrm{Bias}_n(X)]\\to\\E_\\mu[\\mathrm{Cens}(X)]$, with \\begin{equation} \\E_\\mu[\\mathrm{Cens}(X)]\\;\\ge\\;\\E_\\mu[\\delta(X)\\,m(X)]+\\tfrac12\\E_\\mu[\\delta(X)^2] \\;\\ge\\;\\E_\\mu[\\delta(X)\\,m(X)]+\\tfrac12\\,(\\pi_+-\\pi_-)^2, \\end{equation} $\\pi_\\pm=\\E_\\mu[\\pup],\\E_\\mu[\\plo]$ the prevalence interval of \\cref{thm:sharp-auc}. \\end{enumerate}"
+ },
+ "prop:cens-plugin": {
+  "env": "proposition",
+  "title": "Plug-in censoring term with cross-fitted nuisances",
+  "file": "A_proofs.tex",
+  "text": "Let $\\hat\\plo,\\hat\\pup$ be the box built from cross-fitted $(\\hat e,\\hat\\eta_1)$ and $\\widehat{\\mathrm{Cens}}(x)=\\mathrm{EU}([\\hat\\plo(x),\\hat\\pup(x)])$. With $\\Delta_n(x)=|\\hat e(x)-e(x)|+\\tfrac14|\\hat\\eta_1(x)-\\eta_1(x)|$, \\begin{equation} \\big|\\widehat{\\mathrm{Cens}}(x)-\\mathrm{Cens}(x)\\big|\\;\\le\\;2\\,H\\big(\\min\\{\\Delta_n(x),\\tfrac12\\}\\big) \\;\\le\\;2\\,\\Delta_n(x)\\big(1+\\log\\tfrac1{\\Delta_n(x)}\\big), \\end{equation} and, with $\\varepsilon_{\\mathrm{nuis}}=\\|\\hat e-e\\|_{L^1(\\mu)}+\\tfrac14\\|\\hat\\eta_1-\\eta_1\\|_{L^1(\\mu)}$ as in \\cref{cor:loggamma}, $\\E_\\mu\\big|\\widehat{\\mathrm{Cens}}(X)-\\mathrm{Cens}(X)\\big|\\le 2H(\\min\\{\\varepsilon_{\\mathrm{nuis}},\\tfrac12\\})$. Moreover the inflated box $\\I^{+}_n(x)=[\\hat\\plo(x)-\\Delta_n(x),\\ \\hat\\pup(x)+\\Delta_n(x)]\\cap[0,1]$ contains $\\I_\\Gamma(x)$, so it is valid at $x$ and $\\mathrm{EU}(\\I^{+}_n(x))\\ge\\mathrm{Cens}(x)$; replacing $\\Delta_n(x)$ by any radius $r_n(x)\\ge\\Delta_n(x)$ that holds with probability $1-\\alpha$ gives a valid floor at level $1-\\alpha$."
+ }
+}

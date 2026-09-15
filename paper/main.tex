@@ -1,9 +1,10 @@
-% Decision-Censored Learning
-% Target: ICML / NeurIPS main track.  Compiles with a standard LaTeX
-% distribution; swap \documentclass for the venue style file at submission.
-\documentclass[11pt]{article}
+% Decision-Censored Learning -- ICML 2027 submission.
+% The official icml2027.sty is not yet published; icml_substitute.sty matches
+% the ICML geometry and macro API.  At submission: replace the \usepackage line
+% below by \usepackage{icml2027} (with [accepted] for the camera-ready).
+\documentclass{article}
 
-\usepackage[margin=1in]{geometry}
+\usepackage{icml_substitute}          % -> \usepackage{icml2027} at submission
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{booktabs,multirow,array}
 \usepackage{graphicx}
@@ -14,6 +15,7 @@
 \usepackage{natbib}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{microtype}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
@@ -45,14 +47,23 @@
 \newcommand{\Rbar}{\overline{R}}
 \newcommand{\dcsm}{\textup{DCSM}}
 
-\title{\bf Decision-Censored Learning:\\
-Sharp Ranking Bounds and Minimax Prediction under Selective Labels}
-
-\author{}
-\date{}
+\icmltitlerunning{Decision-Censored Learning}
 
 \begin{document}
-\maketitle
+
+\twocolumn[
+\icmltitle{Decision-Censored Learning: Sharp Ranking Bounds and Minimax
+  Prediction When the Label Exists Only Where Someone Decided to Look}
+\icmlsetsymbol{equal}{*}
+\begin{icmlauthorlist}
+\icmlauthor{Anonymous Authors}{anon}
+\end{icmlauthorlist}
+\icmlaffiliation{anon}{Anonymous Institution}
+\icmlcorrespondingauthor{Anonymous}{anon@anon.org}
+\icmlkeywords{selective labels, partial identification, sensitivity analysis, AUROC, minimax}
+\vskip 0.3in
+]
+\printAffiliationsAndNotice{}
 
 \begin{abstract}
 In a large class of consequential prediction problems the label is produced only
@@ -124,6 +135,7 @@ assumption covers $0\%$.
 \bibliographystyle{plainnat}
 \bibliography{refs}
 
+\label{lastmainpage}
 \appendix
 \input{sections/A_proofs}
 \input{sections/B_details}

@@ -1,0 +1,4 @@
+icml_substitute.sty is a documented stand-in for the unpublished ICML 2027 style.
+It matches the ICML page geometry and the icmlYYYY.sty macro API so that
+"\usepackage{icml_substitute}" -> "\usepackage{icml2027}" is the only change at
+submission. See the header of the .sty file.
