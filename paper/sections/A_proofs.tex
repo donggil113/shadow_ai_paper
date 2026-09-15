@@ -355,27 +355,252 @@ $\varepsilon = \Omega(\log\Gamma\cdot n^{-1/2})$.
 \subsection{Uncertainty}
 \label{app:uq}
 
-\begin{proof}[Proof of \cref{cor:uq}]
-\emph{(i)} $\plo = e p_1 + (1-e)\sigma(\eta_1-\log\Gamma)
-\le e p_1 + (1-e)\sigma(\eta_1) = p_1$ since $\log\Gamma\ge0$ and $\sigma$ is
-increasing; symmetrically $\pup\ge p_1$. So $p_1\in[\plo,\pup]$ always, with
-strict interiority whenever $\Gamma>1$ and $e<1$.
+\paragraph{Notation.} $H(q)=-q\log q-(1-q)\log(1-q)$ (nats);
+$\I_\Gamma(x)=[\plo(x),\pup(x)]$; $\delta(x)=\pup(x)-\plo(x)$; $\eta_1=\logit p_1$.
+For a closed $C\subseteq[0,1]$ the \emph{credal epistemic term} is
+$\mathrm{EU}(C)=\max_{q\in C}H(q)-\min_{q\in C}H(q)$ \citep{abellan2005difference};
+$\mathrm{Cens}(x)=\mathrm{EU}(\I_\Gamma(x))$ is the censoring term \eqref{eq:cens}; and
+$m(x)=\min_{q\in\I_\Gamma(x)}|\logit q|$, which is $0$ iff $\tfrac12\in\I_\Gamma(x)$.
 
-\emph{(ii)} $H$ is concave on $[0,1]$ with maximum at $\tfrac12$, so on an
-interval its maximum is at the point closest to $\tfrac12$ --- namely
-$\mathrm{clip}_{[\plo,\pup]}(\tfrac12)$ --- and its minimum at whichever endpoint
-is farther from $\tfrac12$, i.e.\ $\min\{H(\plo),H(\pup)\}$. Because
-$\E_\mu[H(p)]$ is separable in $p(x)$ and the box is a product, the pointwise
-extremes are simultaneously attainable, so the sharp interval for the mean is
-the mean of the pointwise sharp interval.
+\begin{definition}[Valid credal set, reported and honest epistemic terms]
+\label{def:valid}
+Fix $x$. A closed set $C\subseteq[0,1]$ is \emph{valid at $x$ under $\dcsm(\Gamma)$} if
+$p(x)\in C$ for every law $P$ that satisfies $\dcsm(\Gamma)$ and induces the observed law
+$P_{\mathrm{obs}}$. An \emph{observed-data method} returns, for each $n$, a credal set
+$C_n(x)\subseteq[0,1]$ built from $O_1,\dots,O_n$ --- the interval hull of an ensemble
+$\{p^{(n)}_m(x)\}_{m\le M}$ fit to the selected units, or the support of a posterior over
+$p_\theta(x)$ --- and reports the two-way decomposition
+\[
+  \mathrm{Tot}_n(x)=H(\bar p_n(x)),\qquad
+  \mathrm{Ale}_n(x)=\tfrac1M\textstyle\sum_m H(p^{(n)}_m(x)),\qquad
+  \mathrm{Epi}_n(x)=\mathrm{Tot}_n(x)-\mathrm{Ale}_n(x),
+\]
+with $\bar p_n=\tfrac1M\sum_m p^{(n)}_m$ (posterior expectations in the Bayesian case).
+The \emph{honest epistemic term} of the method is the credal epistemic term of the smallest
+set that is both consistent with its own sampling spread and valid,
+$\mathrm{EU}\big(\mathrm{hull}(C_n(x)\cup\I_\Gamma(x))\big)$, and its \emph{bias} is
+\begin{equation}
+  \mathrm{Bias}_n(x)\;:=\;\mathrm{EU}\big(\mathrm{hull}(C_n(x)\cup\I_\Gamma(x))\big)\;-\;\mathrm{Epi}_n(x).
+  \label{eq:uq-bias}
+\end{equation}
+\end{definition}
 
-\emph{(iii)} If $C_n(x)\to\{p_1(x)\}$ then both
-$\max_{C_n}H$ and $\min_{C_n}H$ converge to $H(p_1(x))$, so the reported
-epistemic term $\to0$. The censoring term \eqref{eq:cens} does not depend on $n$
-and is positive whenever $\plo<\pup$, i.e.\ whenever $\Gamma>1$ and $e(x)<1$. For
-the explicit bound, if $\tfrac12\notin[\plo,\pup]$ then $H$ is monotone there and
-by the mean value theorem
-$|H(\pup)-H(\plo)| = \delta\,|H'(\xi)| = \delta\,|\logit\xi|$
-for some $\xi\in(\plo,\pup)$, which is at least
-$\delta\cdot\min_{p\in[\plo,\pup]}|\logit p|$.
+\begin{corollary}[Full statement of \cref{cor:uq}]
+\label{cor:uq-full}
+Assume $\dcsm(\Gamma)$ and fix $x$ with $e(x)<1$, $p_1(x)\in(0,1)$ and $\Gamma>1$
+(otherwise $\delta(x)=0$ and every quantity below is $0$). Then:
+\begin{enumerate}
+\item[(i)] \textup{(The naive answer is never refuted.)}
+  $\plo(x)<p_1(x)<\pup(x)$. The selection-on-observables law $P^{(1)}$
+  (tilt $a\equiv1$, so $p=p_1$) satisfies $\dcsm(\Gamma)$ for every $\Gamma\ge1$ and induces
+  the same $P_{\mathrm{obs}}$; consequently every statistic $S(O_1,\dots,O_n)$ has the same
+  distribution under every admissible law. In particular no calibration, coverage or
+  goodness-of-fit test computed on observed data has power above its size against
+  ``$\mathrm{Epi}_n$ understates the epistemic uncertainty about $p(x)$''.
+\item[(ii)] \textup{(The honest floor and a finite-$n$ inequality.)}
+  $C$ is valid at $x$ iff $C\supseteq\I_\Gamma(x)$, and
+  \[
+    \inf\{\mathrm{EU}(C):\ C\ \text{valid at }x\}\;=\;\mathrm{EU}(\I_\Gamma(x))\;=\;\mathrm{Cens}(x),
+  \]
+  attained by $C=\I_\Gamma(x)$. For every $n$ and every observed-data method,
+  $0\le\mathrm{Epi}_n(x)\le\mathrm{EU}(C_n(x))$ and
+  \begin{equation}
+    \mathrm{Bias}_n(x)\;\ge\;\max\big\{\mathrm{EU}(C_n(x)),\ \mathrm{Cens}(x)\big\}-\mathrm{Epi}_n(x)
+    \;\ge\;\mathrm{Cens}(x)-\mathrm{Epi}_n(x).
+    \label{eq:uq-bias-finite}
+  \end{equation}
+\item[(iii)] \textup{(Asymptotic overconfidence.)} Let
+  $\varepsilon_n(x)=\sup_{q\in C_n(x)}|q-p_1(x)|$ and suppose $\varepsilon_n(x)\to0$
+  (almost surely, or in probability; the conclusions then hold in the same mode) --- as for a
+  consistent posterior or a converged ensemble of a well-specified class. Then
+  \[
+    \mathrm{Epi}_n(x)\;\le\;H\big(\min\{2\varepsilon_n(x),\tfrac12\}\big)\;\longrightarrow\;0,
+    \qquad
+    \mathrm{Cens}(x)-\mathrm{Epi}_n(x)\;\le\;\mathrm{Bias}_n(x)\;\le\;
+    \mathrm{Cens}(x)+2H\big(\min\{\varepsilon_n(x),\tfrac12\}\big)-\mathrm{Epi}_n(x),
+  \]
+  so $\mathrm{Bias}_n(x)\to\mathrm{Cens}(x)>0$. Precisely: \emph{``asymptotically
+  overconfident by at least $\mathrm{Cens}(x)$'' means}
+  \begin{equation}
+    \liminf_{n\to\infty}\ \inf_{C\ \mathrm{valid\ at}\ x}\big[\mathrm{EU}(C)-\mathrm{Epi}_n(x)\big]
+    \;=\;\lim_{n\to\infty}\big[\mathrm{Cens}(x)-\mathrm{Epi}_n(x)\big]\;=\;\mathrm{Cens}(x),
+    \label{eq:uq-overconf}
+  \end{equation}
+  i.e.\ for every $\epsilon>0$ there is $n_0$ such that for all $n\ge n_0$ the reported
+  epistemic term is at least $\mathrm{Cens}(x)-\epsilon$ below the epistemic term of
+  \emph{every} valid credal set, while $\mathrm{Cens}(x)$ itself does not depend on $n$.
+\item[(iv)] \textup{(Explicit form of the censoring term.)} With
+  $d(x)=\max\{\tfrac12-\plo(x),\ \pup(x)-\tfrac12\}$,
+  \begin{align}
+    \tfrac12\notin\I_\Gamma(x):&\quad
+      \mathrm{Cens}(x)=\Big|\int_{\plo(x)}^{\pup(x)}\logit q\,dq\Big|
+      \;\ge\;\delta(x)\,m(x)+2\,\delta(x)^2,\qquad
+      \mathrm{Cens}(x)\le\delta(x)\max_{q\in\I_\Gamma(x)}|\logit q|;
+      \label{eq:cens-mono}\\
+    \tfrac12\in\I_\Gamma(x):&\quad
+      \mathrm{Cens}(x)=\log2-\min\{H(\plo),H(\pup)\}
+      =\KL\big(\mathrm{Bern}(q^\ast)\,\|\,\mathrm{Bern}(\tfrac12)\big)
+      \;\ge\;2\,d(x)^2\;\ge\;\tfrac12\,\delta(x)^2,
+      \label{eq:cens-inside}
+  \end{align}
+  where $q^\ast$ is the endpoint of $\I_\Gamma(x)$ farther from $\tfrac12$. In both cases
+  \begin{equation}
+    \mathrm{Cens}(x)\;\ge\;\delta(x)\,m(x)+\tfrac12\,\delta(x)^2,
+    \qquad
+    \delta(x)=\big(1-e(x)\big)\,\frac{\odds(p_1(x))\,(\Gamma^2-1)}
+        {\big(1+\Gamma\,\odds(p_1(x))\big)\big(\Gamma+\odds(p_1(x))\big)}\;>\;0 .
+    \label{eq:cens-unified}
+  \end{equation}
+\item[(v)] \textup{(Mean version.)} $\E_\mu[\mathrm{Cens}(X)]=\E_\mu[\overline h(X)]-\E_\mu[\underline h(X)]$
+  is exactly the width of the sharp identified interval for the population aleatoric entropy
+  $\E_\mu[H(p(X))]$ (endpoints $\overline h=H(\mathrm{clip}_{[\plo,\pup]}(\tfrac12))$,
+  $\underline h=\min\{H(\plo),H(\pup)\}$, both attained). For every $n$,
+  $\E_\mu[\mathrm{Bias}_n(X)]\ge\E_\mu[\mathrm{Cens}(X)]-\E_\mu[\mathrm{Epi}_n(X)]$; if the
+  hypothesis of (iii) holds for $\mu$-a.e.\ $x$ then $\E_\mu[\mathrm{Epi}_n(X)]\to0$ and
+  $\E_\mu[\mathrm{Bias}_n(X)]\to\E_\mu[\mathrm{Cens}(X)]$, with
+  \begin{equation}
+    \E_\mu[\mathrm{Cens}(X)]\;\ge\;\E_\mu[\delta(X)\,m(X)]+\tfrac12\E_\mu[\delta(X)^2]
+    \;\ge\;\E_\mu[\delta(X)\,m(X)]+\tfrac12\,(\pi_+-\pi_-)^2,
+    \label{eq:cens-mean}
+  \end{equation}
+  $\pi_\pm=\E_\mu[\pup],\E_\mu[\plo]$ the prevalence interval of \cref{thm:sharp-auc}.
+\end{enumerate}
+\end{corollary}
+
+\begin{proposition}[Plug-in censoring term with cross-fitted nuisances]
+\label{prop:cens-plugin}
+Let $\hat\plo,\hat\pup$ be the box built from cross-fitted $(\hat e,\hat\eta_1)$ and
+$\widehat{\mathrm{Cens}}(x)=\mathrm{EU}([\hat\plo(x),\hat\pup(x)])$. With
+$\Delta_n(x)=|\hat e(x)-e(x)|+\tfrac14|\hat\eta_1(x)-\eta_1(x)|$,
+\begin{equation}
+  \big|\widehat{\mathrm{Cens}}(x)-\mathrm{Cens}(x)\big|\;\le\;2\,H\big(\min\{\Delta_n(x),\tfrac12\}\big)
+  \;\le\;2\,\Delta_n(x)\big(1+\log\tfrac1{\Delta_n(x)}\big),
+  \label{eq:cens-plugin}
+\end{equation}
+and, with $\varepsilon_{\mathrm{nuis}}=\|\hat e-e\|_{L^1(\mu)}+\tfrac14\|\hat\eta_1-\eta_1\|_{L^1(\mu)}$
+as in \cref{cor:loggamma},
+$\E_\mu\big|\widehat{\mathrm{Cens}}(X)-\mathrm{Cens}(X)\big|\le 2H(\min\{\varepsilon_{\mathrm{nuis}},\tfrac12\})$.
+Moreover the inflated box $\I^{+}_n(x)=[\hat\plo(x)-\Delta_n(x),\ \hat\pup(x)+\Delta_n(x)]\cap[0,1]$
+contains $\I_\Gamma(x)$, so it is valid at $x$ and $\mathrm{EU}(\I^{+}_n(x))\ge\mathrm{Cens}(x)$;
+replacing $\Delta_n(x)$ by any radius $r_n(x)\ge\Delta_n(x)$ that holds with probability $1-\alpha$
+gives a valid floor at level $1-\alpha$.
+\end{proposition}
+
+\begin{proof}[Proof of \cref{cor:uq-full} (and hence of \cref{cor:uq})]
+Throughout, $H''(q)=-1/(q(1-q))\le-4$ on $(0,1)$, so for $a,b\in[0,1]$ (by continuity at the
+endpoints)
+\begin{equation}
+  H(a)\;\le\;H(b)+H'(b)(a-b)-2(a-b)^2,\qquad H'(b)=-\logit b .
+  \label{eq:sc}
+\end{equation}
+We also use three elementary facts about $\mathrm{EU}(C)=\max_C H-\min_C H$.
+\emph{(F1) Monotonicity:} $C\subseteq C'$ implies $\max_C H\le\max_{C'}H$ and
+$\min_C H\ge\min_{C'}H$, hence $\mathrm{EU}(C)\le\mathrm{EU}(C')$.
+\emph{(F2) Interval form:} on an interval $[a,b]$, concavity gives
+$\max H=H(\mathrm{clip}_{[a,b]}(\tfrac12))$ and $\min H=\min\{H(a),H(b)\}$.
+\emph{(F3) Modulus:} for $|a-b|\le\tfrac12$, $|H(a)-H(b)|\le H(|a-b|)$. Indeed, fix
+$t=|a-b|$; $u\mapsto H(u+t)-H(u)$ is decreasing on $[0,1-t]$ (its derivative
+$H'(u+t)-H'(u)\le0$ by concavity), so it is maximised at $u=0$, giving
+$H(u+t)-H(u)\le H(t)-H(0)=H(t)$; the same bound for $H(u)-H(u+t)$ follows from
+$H(u)-H(u+t)=H(1-u)-H(1-u-t)$ and the symmetry $H(q)=H(1-q)$. Consequently
+$\mathrm{EU}(C)\le H(\min\{\mathrm{diam}\,C,\tfrac12\})$ for every $C$. Also
+$H(t)\le t(1+\log\tfrac1t)$ for $t\in(0,\tfrac12]$ because
+$g(t)=t+(1-t)\log(1-t)$ has $g(0)=0$, $g'(t)=-\log(1-t)\ge0$.
+
+\emph{(i)} $\log\Gamma>0$ and $\sigma$ strictly increasing give
+$\sigma(\eta_1-\log\Gamma)<\sigma(\eta_1)=p_1<\sigma(\eta_1+\log\Gamma)$ (strict because
+$\eta_1$ is finite); multiplying by $1-e(x)>0$ and adding $e p_1$ yields
+$\plo<p_1<\pup$. The law $P^{(1)}$ with $p_0=p_1$ has tilt $a\equiv1\in[\Gamma^{-1},\Gamma]$,
+so it satisfies $\dcsm(\Gamma)$; $P_{\mathrm{obs}}$ depends on $P$ only through
+$(P_X,e,p_1)$, which $P^{(1)}$ shares with every admissible $P$. Any statistic
+$S(O_1,\dots,O_n)$ is a measurable function of an i.i.d.\ sample from
+$P_{\mathrm{obs}}$, so its law is the same under all admissible $P$, and a test of the
+hypothesis ``$\mathrm{Epi}_n$ is unbiased for the epistemic uncertainty about $p(x)$''
+(true under $P^{(1)}$, false under the tilt $a\equiv\Gamma$ where $p=\pup\ne p_1$) has
+power equal to its size.
+
+\emph{(ii)} If $C$ is valid it contains $p(x)$ for every admissible law; by
+\cref{lem:box} every $q\in\I_\Gamma(x)$ is $p(x)$ for some admissible law, so
+$C\supseteq\I_\Gamma(x)$. Conversely $C\supseteq\I_\Gamma(x)$ is valid because
+$p(x)\in\I_\Gamma(x)$ under every admissible law. By (F1),
+$\mathrm{EU}(C)\ge\mathrm{EU}(\I_\Gamma(x))=\mathrm{Cens}(x)$, with equality at
+$C=\I_\Gamma(x)$. For the reported term: $\bar p_n\in\mathrm{hull}\{p_m\}=C_n$ so
+$H(\bar p_n)\le\max_{C_n}H$, and each $H(p_m)\ge\min_{C_n}H$ so
+$\tfrac1M\sum_mH(p_m)\ge\min_{C_n}H$; subtracting gives
+$\mathrm{Epi}_n\le\mathrm{EU}(C_n)$, and $\mathrm{Epi}_n\ge0$ is Jensen for concave $H$.
+Since $\mathrm{hull}(C_n\cup\I_\Gamma)$ contains both $C_n$ and $\I_\Gamma$, (F1) gives
+$\mathrm{EU}(\mathrm{hull}(C_n\cup\I_\Gamma))\ge\max\{\mathrm{EU}(C_n),\mathrm{Cens}(x)\}$,
+which is \eqref{eq:uq-bias-finite} after subtracting $\mathrm{Epi}_n$.
+
+\emph{(iii)} $C_n\subseteq[p_1-\varepsilon_n,p_1+\varepsilon_n]$ has diameter
+$\le2\varepsilon_n$, so by (ii) and (F3)
+$\mathrm{Epi}_n\le\mathrm{EU}(C_n)\le H(\min\{2\varepsilon_n,\tfrac12\})\to H(0)=0$.
+For the upper bound on the bias, $p_1\in\I_\Gamma(x)$ (part (i)) gives
+$\mathrm{hull}(C_n\cup\I_\Gamma)\subseteq[\plo-\varepsilon_n,\pup+\varepsilon_n]\cap[0,1]=:J_n$.
+By (F2) $\max_{J_n}H=H(\mathrm{clip}_{J_n}(\tfrac12))$ and
+$\max_{\I_\Gamma}H=H(\mathrm{clip}_{\I_\Gamma}(\tfrac12))$; the two clipped points differ by
+at most $\varepsilon_n$ (clipping to an interval is $1$-Lipschitz in the endpoints), so by
+(F3) the maxima differ by at most $H(\min\{\varepsilon_n,\tfrac12\})$. Likewise
+$\min_{J_n}H=\min\{H(\plo-\varepsilon_n),H(\pup+\varepsilon_n)\}$ (endpoints clipped to
+$[0,1]$) differs from $\min\{H(\plo),H(\pup)\}$ by at most $H(\min\{\varepsilon_n,\tfrac12\})$,
+because $|\min\{u,v\}-\min\{u',v'\}|\le\max\{|u-u'|,|v-v'|\}$. Hence
+$\mathrm{EU}(J_n)\le\mathrm{Cens}(x)+2H(\min\{\varepsilon_n,\tfrac12\})$, and (F1) gives the
+stated sandwich; both ends converge to $\mathrm{Cens}(x)$, so
+$\mathrm{Bias}_n(x)\to\mathrm{Cens}(x)$. For \eqref{eq:uq-overconf}: by (ii) the inner
+infimum equals $\mathrm{Cens}(x)-\mathrm{Epi}_n(x)$ for every $n$, and
+$\mathrm{Epi}_n(x)\to0$. Positivity of $\mathrm{Cens}(x)$ is (iv).
+
+\emph{(iv)} By the symmetry $H(q)=H(1-q)$ and $\logit(1-q)=-\logit q$ we may assume
+$\pup\le\tfrac12$ in the first case. Then $H'=-\logit\ge0$ on $[\plo,\pup]$, so
+$\mathrm{Cens}=H(\pup)-H(\plo)=\int_{\plo}^{\pup}|\logit q|\,dq$; since $|\logit|$ is
+decreasing on $(0,\tfrac12]$, $m(x)=|\logit\pup|=H'(\pup)$ and
+$\max_{\I_\Gamma}|\logit|=|\logit\plo|$, giving the upper bound
+$\mathrm{Cens}\le\delta\max|\logit|$ directly from the integral. For the lower bound apply
+\eqref{eq:sc} with $a=\plo$, $b=\pup$:
+$H(\plo)\le H(\pup)-H'(\pup)\,\delta-2\delta^2$, i.e.\
+$\mathrm{Cens}\ge\delta\,m(x)+2\delta^2$, which is \eqref{eq:cens-mono}.
+If $\tfrac12\in\I_\Gamma$, (F2) gives $\max H=H(\tfrac12)=\log2$ and
+$\min H=H(q^\ast)$ with $|q^\ast-\tfrac12|=d(x)$ (H decreases away from $\tfrac12$). A direct
+computation gives $\KL(\mathrm{Bern}(q)\|\mathrm{Bern}(\tfrac12))
+=q\log(2q)+(1-q)\log(2(1-q))=\log2-H(q)$, and \eqref{eq:sc} with $b=\tfrac12$, $H'(\tfrac12)=0$,
+gives $\log2-H(q^\ast)\ge2d(x)^2$ (equivalently Pinsker with total variation $d(x)$). Since
+$\tfrac12\in[\plo,\pup]$, $d(x)\ge\delta/2$, so $2d^2\ge\delta^2/2$; this is
+\eqref{eq:cens-inside}. The unified bound \eqref{eq:cens-unified} follows because
+$m(x)=0$ in the second case and $2\delta^2\ge\delta^2/2$ in the first. For the closed form
+of $\delta$, write $o=\odds(p_1)$; then $\sigma(\eta_1+\log\Gamma)=\Gamma o/(1+\Gamma o)$
+and $\sigma(\eta_1-\log\Gamma)=o/(\Gamma+o)$, whose difference is
+$o(\Gamma^2-1)/[(1+\Gamma o)(\Gamma+o)]$; multiply by $1-e$. It is $>0$ iff $\Gamma>1$,
+$e<1$ and $o\in(0,\infty)$.
+
+\emph{(v)} $\E_\mu[H(p(X))]$ is separable in $p(x)$ and $\I_\Gamma$ is a product of
+intervals, so the pointwise extremes of (F2) are attained simultaneously by one admissible
+$p$ (measurability: $\overline h,\underline h$ are Borel functions of $(\plo,\pup)$), and the
+sharp interval for the mean is $[\E\underline h,\E\overline h]$ with width
+$\E[\overline h-\underline h]=\E[\mathrm{Cens}(X)]$. Taking $\E_\mu$ of
+\eqref{eq:uq-bias-finite} gives the finite-$n$ mean inequality. Under $\mu$-a.e.\
+contraction, $\mathrm{Epi}_n(X)\to0$ a.e.\ and $0\le\mathrm{Epi}_n\le\log2$, so
+$\E_\mu[\mathrm{Epi}_n(X)]\to0$ by bounded convergence, and likewise
+$\E_\mu[\mathrm{Bias}_n(X)]\to\E_\mu[\mathrm{Cens}(X)]$ from the pointwise sandwich in (iii)
+(both bounds are in $[0,2\log2]$). Finally \eqref{eq:cens-mean} is the expectation of
+\eqref{eq:cens-unified} followed by Jensen, $\E[\delta^2]\ge(\E\delta)^2$, and
+$\E_\mu[\delta]=\E_\mu[\pup]-\E_\mu[\plo]=\pi_+-\pi_-$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:cens-plugin}]
+Write $\plo(e,\eta)=e\sigma(\eta)+(1-e)\sigma(\eta-\log\Gamma)$ on the convex set
+$[0,1]\times\R$. Then $\partial_e\plo=\sigma(\eta)-\sigma(\eta-\log\Gamma)\in[0,1]$ and
+$\partial_\eta\plo=e\sigma'(\eta)+(1-e)\sigma'(\eta-\log\Gamma)\le\tfrac14$, and the same
+holds for $\pup$; the mean value theorem along the segment from $(e,\eta_1)$ to
+$(\hat e,\hat\eta_1)$ gives $|\hat\plo-\plo|,|\hat\pup-\pup|\le\Delta_n(x)$. Now repeat the
+perturbation argument of part (iii): the clipped maximisers differ by at most
+$\Delta_n$ and the endpoint minima by at most $\Delta_n$, so by (F3) each of
+$\max H$ and $\min H$ moves by at most $H(\min\{\Delta_n,\tfrac12\})$, giving
+\eqref{eq:cens-plugin}; the second inequality is $H(t)\le t(1+\log\tfrac1t)$. For the mean
+bound, $Z=\min\{\Delta_n(X),\tfrac12\}\in[0,\tfrac12]$, $H$ is concave and increasing on
+$[0,\tfrac12]$, so $\E H(Z)\le H(\E Z)\le H(\min\{\E\Delta_n,\tfrac12\})$ and
+$\E\Delta_n\le\varepsilon_{\mathrm{nuis}}$. Finally $|\hat\plo-\plo|\le\Delta_n$ gives
+$\hat\plo-\Delta_n\le\plo$ and $\hat\pup+\Delta_n\ge\pup$, so
+$\I^{+}_n(x)\supseteq\I_\Gamma(x)$, and validity plus (F1) give
+$\mathrm{EU}(\I^{+}_n(x))\ge\mathrm{Cens}(x)$; with a probabilistic radius the same holds on
+the event $\{r_n(x)\ge\Delta_n(x)\}$.
 \end{proof}

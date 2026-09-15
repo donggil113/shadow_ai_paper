@@ -14,41 +14,59 @@ ensemble or posterior $\{p_m(x)\}_{m\le M}$ the standard decomposition is
   \qquad \bar p = \tfrac1M\textstyle\sum_m p_m .
 \]
 Under decision censoring every term is computed from models fit to the
-\emph{selected} units, so they concentrate on $p_1(x)$, not on $p(x)$. Two things
-follow, and the second is the uncomfortable one.
+\emph{selected} units, so they concentrate on $p_1(x)$, not on $p(x)$. The
+quantity that measures what this omits is the entropy range over the identified
+set,
+\begin{equation}
+  \mathrm{Cens}(x)\;=\;\max_{q\in[\plo(x),\pup(x)]}H(q)\;-\;\min_{q\in[\plo(x),\pup(x)]}H(q),
+  \label{eq:cens}
+\end{equation}
+the \emph{censoring term}. Two things follow, and the second is the
+uncomfortable one.
 
-\begin{corollary}[Decision censoring and the uncertainty decomposition]
+\begin{corollary}[The two-way decomposition is biased by at least the censoring term]
 \label{cor:uq}
-Assume $\dcsm(\Gamma)$ with $\Gamma>1$ and $e(x)<1$ on a set of positive measure.
-Then:
+Assume $\dcsm(\Gamma)$ and fix $x$ with $e(x)<1$, $p_1(x)\in(0,1)$, $\Gamma>1$.
+Let $C_n(x)\subseteq[0,1]$ be the credal set an observed-data method reports
+after $n$ samples --- the interval hull of an ensemble fit to the selected
+units, or a high-posterior-mass interval --- with epistemic term
+$\mathrm{Epi}_n(x)=H(\bar p_n)-\tfrac1M\sum_mH(p_m)$, and let
+$\mathrm{Cens}(x)=\max_{q\in[\plo,\pup]}H(q)-\min_{q\in[\plo,\pup]}H(q)$ be the
+censoring term \eqref{eq:cens}. Call $C$ \emph{valid} at $x$ if it contains
+$p(x)$ under every law compatible with $\dcsm(\Gamma)$ and $P_{\mathrm{obs}}$.
 \begin{enumerate}
-\item[(i)] \textup{(The naive answer is never refuted.)}
-  $p_1(x)\in[\plo(x),\pup(x)]$ for every $x$. Hence the observed-data
-  regression --- and every functional of it, including the naive aleatoric term ---
-  lies \emph{inside} the identified set, and no calibration check, coverage test
-  or goodness-of-fit statistic computed on observed data can detect the bias.
-  The naive decomposition is not wrong on the data; it answers a different
-  question.
-\item[(ii)] \textup{(Sharp interval for the aleatoric term.)} The identified set
-  for $\E[H(p(X))]$ is $[\,\E\,\underline{h}(X),\ \E\,\overline{h}(X)\,]$ with
-  $\overline{h} = H(\mathrm{clip}_{[\plo,\pup]}(\tfrac12))$ and
-  $\underline{h} = \min\{H(\plo),H(\pup)\}$; both endpoints are attained.
-\item[(iii)] \textup{(Asymptotic overconfidence.)} Let $\{C_n(x)\}$ be any credal
-  set derived from observed data that contracts to $\{p_1(x)\}$ --- as a
-  consistent posterior or an ensemble does. Then the reported epistemic term
-  $\to 0$, while the identification-induced uncertainty
-  \begin{equation}
-    \mathrm{Cens}(x)
-    \;=\;
-    \max_{p\in[\plo,\pup]}H(p) - \min_{p\in[\plo,\pup]}H(p)
-    \label{eq:cens}
-  \end{equation}
-  is bounded away from $0$ uniformly in $n$; when
-  $\tfrac12\notin[\plo(x),\pup(x)]$,
-  $\mathrm{Cens}(x)\ \ge\ \delta(x)\cdot\min_{p\in[\plo,\pup]}|\logit p|$. Any
-  two-way decomposition is therefore asymptotically overconfident by at least
-  $\mathrm{Cens}(x)$.
+\item[(i)] \textup{(Never refuted.)} $\plo(x)<p_1(x)<\pup(x)$, and every
+  compatible law induces the same $P_{\mathrm{obs}}$; hence no calibration,
+  coverage or goodness-of-fit statistic of observed data has power above its
+  size against the decomposition being biased.
+\item[(ii)] \textup{(Honest floor.)} $C$ is valid iff $C\supseteq[\plo,\pup]$;
+  the smallest epistemic term any valid set can report is $\mathrm{Cens}(x)$,
+  and for every $n$
+  \[
+    \mathrm{Bias}_n(x)\;:=\;\mathrm{EU}\big(\mathrm{hull}(C_n(x)\cup[\plo,\pup])\big)-\mathrm{Epi}_n(x)
+    \;\ge\;\mathrm{Cens}(x)-\mathrm{Epi}_n(x),
+  \]
+  where $\mathrm{EU}(C)=\max_C H-\min_C H$ is the credal epistemic term.
+\item[(iii)] \textup{(Asymptotic overconfidence.)} If $C_n(x)$ contracts to
+  $\{p_1(x)\}$ with Hausdorff radius $\varepsilon_n\to0$ --- a consistent
+  posterior, or a converged ensemble of a well-specified class --- then
+  $\mathrm{Epi}_n(x)\le H(\min\{2\varepsilon_n,\tfrac12\})\to0$ while
+  $\mathrm{Bias}_n(x)\to\mathrm{Cens}(x)>0$: the reported epistemic term ends up
+  $\mathrm{Cens}(x)-o(1)$ below that of \emph{every} valid credal set, and
+  $\mathrm{Cens}(x)$ does not depend on $n$.
+\item[(iv)] \textup{(Size of the floor.)} With
+  $m(x)=\min_{q\in[\plo,\pup]}|\logit q|$,
+  \[
+    \mathrm{Cens}(x)\;\ge\;\delta(x)\,m(x)+\tfrac12\,\delta(x)^2,
+    \qquad
+    \delta(x)=\big(1-e(x)\big)\frac{\odds(p_1(x))\,(\Gamma^2-1)}
+      {\big(1+\Gamma\odds(p_1(x))\big)\big(\Gamma+\odds(p_1(x))\big)}>0,
+  \]
+  and $\E_\mu[\mathrm{Cens}(X)]$ equals the width of the sharp identified
+  interval for the population aleatoric entropy $\E_\mu[H(p(X))]$.
 \end{enumerate}
+The full statement, a plug-in version with cross-fitted nuisances
+(\cref{prop:cens-plugin}), and proofs are in \cref{app:uq}.
 \end{corollary}
 
 \paragraph{A three-way decomposition.} The fix is to build the credal set from
