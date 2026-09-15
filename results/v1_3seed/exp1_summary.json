@@ -1,0 +1,12 @@
+{
+  "max_abs_gap": 3.578310773300064e-06,
+  "bruteforce_always_inside": true,
+  "max_attainment_error": 1.2212453270876722e-15,
+  "coverage_sharp_pop": 1.0,
+  "coverage_sharp_emp": 1.0,
+  "coverage_naive": 0.1,
+  "coverage_separate": 1.0,
+  "coverage_sharp_when_gamma_too_small": 0.7142857142857143,
+  "width_sharp": 0.27655237608865085,
+  "width_separate": 0.8832398322393114
+}

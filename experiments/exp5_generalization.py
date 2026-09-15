@@ -26,7 +26,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from _common import Timer, save, save_table
+from _common import Timer, save, save_table, stamp_provenance
 from dcl.data import make_sl_bench
 from dcl.models import DCLParametric
 from dcl.objectives import worstcase_risk
@@ -164,4 +164,7 @@ if __name__ == "__main__":
         slope_vs_gamma=b_lin, r2_vs_gamma=r2_lin,
         slope_vs_B=b_B, r2_vs_B=r2_B,
         excess_rate_exponent=float(exc_sc.rate_exponent.mean()),
+        n_seeds_deviation=int(dev.seed.nunique()),
+        n_seeds_excess=int(exc.seed.nunique()),
     ))
+    stamp_provenance("exp5_summary", "synthetic")

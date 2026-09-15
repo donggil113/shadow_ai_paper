@@ -23,7 +23,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from _common import Timer, save, save_table
+from _common import Timer, save, save_table, stamp_provenance
 from dcl.auc_bounds import sharp_auc_interval
 from dcl.baselines import ERMObserved
 from dcl.data import make_lending_club, make_mimic_sim, make_sl_bench
@@ -108,7 +108,7 @@ def part_b_breakeven(seed=0):
     return df, pd.DataFrame(summary)
 
 
-def part_c_misspecification(n=16000, seed=0, n_seeds=3):
+def part_c_misspecification(n=16000, seed=0, n_seeds=5):
     rows = []
     for sd in range(n_seeds):
         ds = make_sl_bench(n=n, d=10, target_gamma=3.0, seed=seed + sd)
@@ -155,4 +155,6 @@ if __name__ == "__main__":
             a[a.gamma0 > 1.2].refutes_MAR.mean()),
         false_alarm_when_MAR=float(a[a.gamma0 <= 1.001].refutes_MAR.mean())
         if (a.gamma0 <= 1.001).any() else float("nan"),
+        n_seeds_misspecification=int(c.seed.nunique()),
     ))
+    stamp_provenance("exp4_summary", "synthetic")

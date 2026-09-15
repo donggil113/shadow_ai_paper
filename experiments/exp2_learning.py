@@ -21,7 +21,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from _common import Timer, save_table
+from _common import Timer, save_table, stamp_provenance, ci95, save
 from dcl.data import make_lending_club, make_mimic_sim, make_sl_bench
 from dcl.harness import run_methods
 
@@ -32,7 +32,7 @@ TESTBEDS = {
 }
 
 
-def run(n_seeds: int = 3, gammas=(1.0, 1.5, 2.0, 3.0, 5.0)):
+def run(n_seeds: int = 5, gammas=(1.0, 1.5, 2.0, 3.0, 5.0)):
     rows = []
     for name, maker in TESTBEDS.items():
         for sd in range(n_seeds):
@@ -77,6 +77,14 @@ if __name__ == "__main__":
     save_table("exp2_learning_raw", df)
     s = summarise(df)
     save_table("exp2_learning_summary", s)
+    # JSON summary with 95% CIs (rule 4) and per-dataset provenance (rule 3)
+    keep = ["risk", "auroc", "accuracy", "obs_auroc", "worstcase_risk", "minimax_regret"]
+    out = {}
+    for (dsn, m), g in df.groupby(["dataset", "method"]):
+        out.setdefault(dsn, {})[m] = {k: dict(zip(("mean", "ci95", "n"), ci95(g[k]))) for k in keep}
+    provenance = {"sl_bench": "synthetic", "lending_club": "semi-synthetic", "mimic_sim": "simulator"}
+    save("exp2_summary", dict(datasets=out, n_seeds=int(df.seed.nunique())))
+    stamp_provenance("exp2_summary", "simulator", per_dataset=provenance)
     for ds_name in s.dataset.unique():
         sub = s[s.dataset == ds_name].copy()
         sub = sub.sort_values("minimax_regret")

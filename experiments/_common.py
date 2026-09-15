@@ -57,3 +57,49 @@ class Timer:
 
     def __exit__(self, *exc):
         print(f"[{self.label}] done in {time.time() - self.t:.1f}s", flush=True)
+
+
+DATA_SOURCES = ("real", "simulator", "semi-synthetic", "synthetic")
+
+
+def ci95(values):
+    """Mean and a 95% confidence interval (t-based) for a list of seed values.
+
+    Returns ``(mean, half_width, n)``; ``half_width`` is NaN when ``n < 2``.
+    """
+    from scipy import stats
+    v = np.asarray([x for x in values if x is not None and np.isfinite(x)], float)
+    n = v.size
+    if n == 0:
+        return float("nan"), float("nan"), 0
+    if n == 1:
+        return float(v[0]), float("nan"), 1
+    hw = float(stats.t.ppf(0.975, n - 1) * v.std(ddof=1) / np.sqrt(n))
+    return float(v.mean()), hw, int(n)
+
+
+def stamp_provenance(name: str, data_source: str, per_dataset: dict | None = None) -> None:
+    """Add the mandatory ``data_source`` field to an existing results JSON."""
+    if data_source not in DATA_SOURCES:
+        raise ValueError(f"data_source must be one of {DATA_SOURCES}, got {data_source!r}")
+    path = os.path.join(RESULTS, f"{name}.json")
+    d = json.load(open(path))
+    d["data_source"] = data_source
+    if per_dataset:
+        d["data_source_by_dataset"] = dict(per_dataset)
+    with open(path, "w") as f:
+        json.dump(d, f, indent=2, default=_default)
+
+
+def save_provenanced(name: str, payload: dict, data_source: str) -> str:
+    """Like :func:`save` but stamps the mandatory ``data_source`` field (rule 3).
+
+    ``data_source`` is one of ``DATA_SOURCES``; use ``"mixed"``-free per-dataset
+    entries inside ``payload`` when a file combines sources, and set the
+    top-level value to the *least* trustworthy source present.
+    """
+    if data_source not in DATA_SOURCES:
+        raise ValueError(f"data_source must be one of {DATA_SOURCES}, got {data_source!r}")
+    payload = dict(payload)
+    payload["data_source"] = data_source
+    return save(name, payload)

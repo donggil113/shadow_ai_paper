@@ -35,7 +35,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from _common import Timer, save, save_table
+from _common import Timer, save, save_table, stamp_provenance, ci95
 from dcl.data import make_sl_bench
 from dcl.nuisance import CrossFitNuisance
 from dcl.sensitivity import outcome_bounds
@@ -159,8 +159,13 @@ def panel_c(sizes=(2000, 5000, 12000, 30000, 70000), gamma=2.5, seed=0,
 if __name__ == "__main__":
     with Timer("exp3 panels A/B"):
         ab = panel_ab()
-    with Timer("exp3 panel C"):
-        c = panel_c()
+    with Timer("exp3 panel C (5 seeds)"):
+        cs = []
+        for sd in range(5):
+            ci_ = panel_c(seed=sd)
+            ci_["seed"] = sd
+            cs.append(ci_)
+        c = pd.concat(cs, ignore_index=True)
     save_table("exp3_uq_identification", ab)
     save_table("exp3_uq_decomposition", c)
 
@@ -177,8 +182,16 @@ if __name__ == "__main__":
     print("\n=== Panel C: decomposition vs n ===")
     print(c.to_string(index=False, float_format=lambda x: f"{x:9.5f}"))
 
-    log = c[c.ensemble == "logistic"].sort_values("n")
-    mlp = c[c.ensemble == "mlp"].sort_values("n")
+    agg = c.groupby(["ensemble", "n"], as_index=False)[
+        ["naive_epistemic", "censoring", "ratio_epistemic_to_censoring",
+         "mean_abs_calibration_error"]].mean()
+    log = agg[agg.ensemble == "logistic"].sort_values("n")
+    mlp = agg[agg.ensemble == "mlp"].sort_values("n")
+    cis = {}
+    for (ens, n_), g in c.groupby(["ensemble", "n"]):
+        cis[f"{ens}_n{int(n_)}"] = {k: dict(zip(("mean", "ci95", "n"), ci95(g[k])))
+                                    for k in ("naive_epistemic", "censoring",
+                                              "ratio_epistemic_to_censoring")}
     def decay(sub):
         if len(sub) < 3 or (sub.naive_epistemic <= 0).any():
             return float("nan")
@@ -197,6 +210,9 @@ if __name__ == "__main__":
         censoring_first_logistic=float(log.censoring.iloc[0]),
         censoring_last_logistic=float(log.censoring.iloc[-1]),
         ratio_last_logistic=float(log.ratio_epistemic_to_censoring.iloc[-1]),
-        mlp_inside_identified=bool(mlp.naive_inside_identified.all()),
-        logistic_inside_identified=bool(log.naive_inside_identified.all()),
+        mlp_inside_identified=bool(c[c.ensemble == "mlp"].naive_inside_identified.all()),
+        logistic_inside_identified=bool(c[c.ensemble == "logistic"].naive_inside_identified.all()),
+        n_seeds=int(c.seed.nunique()),
+        by_cell_ci=cis,
     ))
+    stamp_provenance("exp3_summary", "synthetic")

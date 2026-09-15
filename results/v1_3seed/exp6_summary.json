@@ -1,0 +1,9 @@
+{
+  "compas_marginal_odds_ratio": 1.8846076673848333,
+  "compas_observed_minus_true": -0.007645244534149076,
+  "compas_coverage_at_gamma_1": 0.0,
+  "compas_coverage_at_or": 1.0,
+  "compas_coverage_at_gamma_25": 1.0,
+  "compas_naive_coverage_at_or": 0.0,
+  "compas_width_at_or": 0.09928491629321565
+}

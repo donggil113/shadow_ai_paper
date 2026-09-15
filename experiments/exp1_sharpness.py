@@ -22,7 +22,7 @@ import time
 import numpy as np
 import pandas as pd
 
-from _common import Timer, save, save_table
+from _common import Timer, save, save_table, stamp_provenance, ci95
 from dcl.auc_bounds import (auc_direct, auc_from_regression, bruteforce_auc_interval,
                             midrank, naive_corner_interval, separate_bounds_interval,
                             sharp_auc_interval)
@@ -61,7 +61,7 @@ def part_a_sharpness(seed: int = 0):
     return df
 
 
-def part_b_validity(n: int = 24000, seed: int = 0, n_seeds: int = 3):
+def part_b_validity(n: int = 24000, seed: int = 0, n_seeds: int = 5):
     """Do the intervals contain the TRUE deployment AUROC?
 
     Two targets, because they are different quantities and the distinction
@@ -168,4 +168,7 @@ if __name__ == "__main__":
             b[~b.gamma_sufficient].sharp_covers_pop.mean()),
         width_sharp=float(b[b.gamma_sufficient].sharp_w.mean()),
         width_separate=float(b[b.gamma_sufficient].sep_w.mean()),
+        n_seeds=int(b.seed.nunique()),
+        width_sharp_ci95=ci95(b[b.gamma_sufficient].groupby('seed').sharp_w.mean())[1],
     ))
+    stamp_provenance("exp1_summary", "synthetic")
