@@ -18,3 +18,5 @@ paper/*.log
 paper/*.out
 paper/*.toc
 paper/main.pdf
+# unit-level prepared cohort files are never committed (pseudonymised person-level data)
+results/korea_cohort_prepared.*

@@ -1,0 +1,10 @@
+{
+  "data_source": "pending",
+  "status": "pending IRB",
+  "cohort": "Korean national health-screening batch cohort (T7)",
+  "n_seeds": null,
+  "containment": null,
+  "gamma_comparison": null,
+  "note": "Placeholder written by scripts/korea_cohort/analyze_korea_cohort.py --write-pending; no data were accessed. It lets the paper's macros resolve to a visible PENDING marker (scripts/check_provenance.py refuses pending macros in a verified build). Replace it by running the real path once IRB approval and data access are granted.",
+  "written_by": "scripts/korea_cohort/analyze_korea_cohort.py --write-pending"
+}

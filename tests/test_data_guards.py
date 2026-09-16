@@ -94,6 +94,6 @@ def test_every_results_json_has_data_source():
             d = json.load(open(p))
         except json.JSONDecodeError:
             continue                       # being rewritten by a running experiment
-        if isinstance(d, dict) and d.get("data_source") not in ("real", "simulator", "semi-synthetic", "synthetic"):
+        if isinstance(d, dict) and d.get("data_source") not in ("real", "simulator", "semi-synthetic", "synthetic", "pending"):
             missing.append(os.path.basename(p))
     assert not missing, f"results files without data_source: {missing}"
