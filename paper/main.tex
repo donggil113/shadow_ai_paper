@@ -16,6 +16,8 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{microtype}
+\input{numbers}                       % auto-generated: scripts/make_numbers.py
+\def\nuisancesectionready{}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
@@ -125,6 +127,7 @@ assumption covers $0\%$.
 \input{sections/02_setup}
 \input{sections/03_ranking}
 \input{sections/04_learning}
+\input{sections/05_nuisance}
 \input{sections/05_impossibility}
 \input{sections/06_generalization}
 \input{sections/07_uncertainty}

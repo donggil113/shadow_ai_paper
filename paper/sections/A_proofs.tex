@@ -218,6 +218,35 @@ so $H(\pup)-H(\plo) = (\plo-\pup)\log q + (\pup-\plo)\log(1-q)
 the right-hand side tends to $-H'(p)=\logit p$, recovering the precise case.
 \end{proof}
 
+\begin{proof}[Proof of \cref{prop:midrank}]
+Fix an ordering $\sigma$ and let $R_\sigma(i)\in\{\tfrac{1}{2n},\tfrac{3}{2n},\dots\}$
+be the mid-rank of unit $i$ under $\sigma$ (no ties, so the multiset of ranks
+is the same for every $\sigma$). Write $p=\plo+\delta u$ with $u\in[0,1]^n$ and
+$\pi=\bar p=\bar{\plo}+\delta\bar u$. By \cref{thm:rank-identity}, at fixed
+$\pi$ the AUROC is $(\langle p,R_\sigma\rangle_n-\pi^2/2)/(\pi(1-\pi))$ with
+$\langle p,R_\sigma\rangle_n=\langle\plo,R_\sigma\rangle_n+\delta\langle u,R_\sigma\rangle_n$.
+For fixed $\bar u=m$,
+$\min\{\langle u,R_\sigma\rangle_n:u\in[0,1]^n,\bar u=m\}$ is attained by
+filling the $nm$ smallest ranks (continuous knapsack), so it equals a function
+$\Phi^-(m)$ of the multiset of ranks alone --- the same for every $\sigma$; likewise
+$\max\{\cdot\}=\Phi^+(m)$. Hence
+$V^-_\sigma(\pi)=\langle\plo,R_\sigma\rangle_n+\delta\Phi^-(m)$ and
+$V^+_\sigma(\pi)=\langle\plo,R_\sigma\rangle_n+\delta\Phi^+(m)$. By the
+rearrangement inequality, $\langle\plo,R_\sigma\rangle_n$ is maximised exactly
+when $\sigma$ orders the units by $\plo$ (ties in $\plo$ may be broken
+arbitrarily), call it $\sigma^\star$. Thus $V^\pm_{\sigma^\star}(\pi)\ge
+V^\pm_\sigma(\pi)$ for every admissible $\pi$, the denominator $\pi(1-\pi)$
+does not depend on $\sigma$, and taking $\min_\pi$ (resp.\ $\max_\pi$) of
+the ratio preserves the inequality:
+$\min_p\AUC(\sigma^\star,p)\ge\min_p\AUC(\sigma,p)$ and
+$\max_p\AUC(\sigma^\star,p)\ge\max_p\AUC(\sigma,p)$. Since
+$\tilde p=\plo+\delta/2$ and $\pup=\plo+\delta$ induce the same ordering, the
+three plug-in orderings coincide. For unequal widths the knapsack has
+capacities $\delta_i$, its value depends on which capacities occupy the low
+ranks, and the decoupling fails; \cref{app:audit-ranking} exhibits explicit
+instances.
+\end{proof}
+
 \begin{proof}[Proof of \cref{cor:validity}]
 Immediate: $P\in\I_\Gamma$ and $\Rbar_\Gamma(f)$ is the supremum of $R_{P'}(f)$
 over $P'\in\I_\Gamma$.
@@ -350,6 +379,99 @@ a two-point argument on the Bernoulli parameter (Le Cam) then shows that
 distinguishing the two candidate optima requires
 $n = \Omega\big((\log\Gamma)^2/\varepsilon^2\big)$, i.e.\
 $\varepsilon = \Omega(\log\Gamma\cdot n^{-1/2})$.
+\end{proof}
+
+\subsection{Nuisance bottleneck}
+\label{app:nuisance}
+
+Throughout, $g_\gamma(p)=\gamma p/(1+(\gamma-1)p)$, so
+$g_\gamma'(p)=\gamma/(1+(\gamma-1)p)^2$ and
+$g_\gamma''(p)=-2\gamma(\gamma-1)/(1+(\gamma-1)p)^3$. For
+$\gamma\in\{\Gamma,1/\Gamma\}$ and $p\in[0,1]$ one checks
+$0<g_\gamma'\le\Gamma$ and $|g_\gamma''|\le2\Gamma(\Gamma-1)$: for
+$\gamma=\Gamma$ both suprema are at $p=0$; for $\gamma=1/\Gamma$ both are at
+$p=1$, where $1+(\gamma-1)p=1/\Gamma$.
+
+\begin{proof}[Proof of \cref{thm:nuisance}(a)]
+Since $\E[TY\mid X]=e\,p_1$ and $g_\gamma(p_1(X))$ is a function of $X$,
+$\pi_\gamma=\E[TY]+\E[(1-e)\,g_\gamma(p_1)]$; the first term is a sample mean
+and contributes no nuisance bias, so consider
+$\psi=\E[(1-T)g_\gamma(p_1(X))]$. Conditioning on $X$ in \eqref{eq:onestep},
+\[
+  \E\big[(1-T)g_\gamma(\hat p_1)+(1-\hat e)\,g_\gamma'(\hat p_1)\,
+  \tfrac{T(Y-\hat p_1)}{\hat e}\big]
+  = \E\big[(1-e)\,g_\gamma(\hat p_1)\big]
+  + \E\big[(1-\hat e)\tfrac{e}{\hat e}\,g_\gamma'(\hat p_1)\,(p_1-\hat p_1)\big].
+\]
+Subtract $\psi=\E[(1-e)g_\gamma(p_1)]$ and expand $g_\gamma(p_1)$ around
+$\hat p_1$ to second order,
+$g_\gamma(p_1)=g_\gamma(\hat p_1)+g_\gamma'(\hat p_1)(p_1-\hat p_1)
++\tfrac12 g_\gamma''(\xi)(p_1-\hat p_1)^2$:
+\[
+  \E[\hat\psi]-\psi
+  = \E\Big[g_\gamma'(\hat p_1)\,(p_1-\hat p_1)\Big\{(1-\hat e)\tfrac{e}{\hat e}-(1-e)\Big\}\Big]
+  - \tfrac12\E\big[(1-e)\,g_\gamma''(\xi)\,(p_1-\hat p_1)^2\big].
+\]
+The brace equals $(e-\hat e)/\hat e$. Bounding $g_\gamma'\le\Gamma$,
+$\hat e\ge\varepsilon$, $1-e\le1$, $|g_\gamma''|\le2\Gamma(\Gamma-1)$ and
+applying Cauchy--Schwarz to the first term gives \eqref{eq:dr-bias}. For the
+plug-in, the same expansion without the correction term leaves
+$\E[(1-e)g_\gamma'(\hat p_1)(\hat p_1-p_1)]+O(\|\hat p_1-p_1\|_2^2)$, whose
+leading term is of first order in $\|\hat p_1-p_1\|_1$ and does not vanish
+unless $\hat p_1$ is unbiased for $p_1$ pointwise.
+
+Asymptotics follow the standard cross-fitting argument
+\citep{chernozhukov2018double}: with nuisances fit on independent folds, the
+estimator is $\Prb_n[\varphi_\gamma(\hat e,\hat p_1)]$ with
+$\varphi_\gamma(e,p_1)=TY+(1-T)g_\gamma(p_1)+(1-e)g_\gamma'(p_1)T(Y-p_1)/e$
+the (uncentred) efficient influence function, the empirical-process term is
+$o_P(n^{-1/2})$ by fold independence and $L_2$-consistency of the nuisances,
+and the remaining bias is \eqref{eq:dr-bias}, assumed $o_P(n^{-1/2})$. The
+central limit theorem and Slutsky give the normal limit with the plug-in
+standard error $\hat s_\gamma^2=\Prb_n[(\varphi_\gamma-\hat\pi_\gamma)^2]/n$.
+For the outer interval, the union bound gives
+$\Prb\{\pi_{1/\Gamma}<L\ \text{or}\ \pi_\Gamma>U\}\le\alpha/2+\alpha/2$,
+each one-sided miss having asymptotic probability $\alpha/2$ at
+$z_{1-\alpha/2}$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:nuisance}(b)]
+With $\eta=\logit p_1$ and $s_\pm=\sigma(\eta\pm\log\Gamma)$,
+$\plo=e\,\sigma(\eta)+(1-e)s_-$ and $\pup=e\,\sigma(\eta)+(1-e)s_+$. Then
+$\partial_e\plo=\sigma(\eta)-s_-\ge0$, $\partial_e\pup=\sigma(\eta)-s_+\le0$,
+and $\partial_\eta\plo=e\,\sigma'(\eta)+(1-e)\sigma'(\eta-\log\Gamma)>0$,
+likewise for $\pup$; the four monotonicities follow. If $e\in[e_L,e_U]$ and
+$\eta\in[\eta_L,\eta_U]$ then
+$\plo(e,\eta)\ge\plo(e_L,\eta)\ge\plo(e_L,\eta_L)$ and
+$\pup(e,\eta)\le\pup(e_L,\eta)\le\pup(e_L,\eta_U)$, which is
+\eqref{eq:inflated}. The coverage inequality is the inclusion of events
+$\{e\in[e_L,e_U],\eta\in[\eta_L,\eta_U]\}\subseteq\{p\in\I^\circ\}$, using
+$p\in[\plo,\pup]$ (\cref{lem:box}). A functional $F$ is monotone in the box
+if $I\subseteq I'$ pointwise implies $\inf_{p\in I'}F\le\inf_{p\in I}F$ and
+$\sup_{p\in I}F\le\sup_{p\in I'}F$; the sharp endpoints
+\eqref{eq:sharp-auc}, $\Rbar_\Gamma$ \eqref{eq:wc-decomp} and the regret
+value of \cref{prop:regret} are all of this form, so their values on $\I^\circ$
+bracket their values on the true box.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:nuisance}(c)]
+Given the bins (fixed by the estimation split and independent of the
+calibration split), the calibration counts $\sum_{i\in B_k}T_i$ and
+$\sum_{i\in B_k}T_iY_i$ are binomial with success probabilities $e^k$ and
+$p_1^k$ conditionally on the bin sizes, so the Clopper--Pearson intervals at
+level $1-\alpha/2$ each cover with probability at least $1-\alpha/2$, and the
+union bound gives $1-\alpha$ jointly. If $e$ and $p_1$ are constant on $B_k$
+then $e(x)=e^k$ and $p_1(x)=p_1^k$ for $x\in B_k$ and coverage is pointwise;
+otherwise $|e(x)-e^k|\le\omega_k$ for every $x\in B_k$ (a bin mean lies within
+the bin's oscillation of every bin value), so widening by $\omega_k$ restores
+pointwise coverage, and similarly for $p_1$ on the logit scale with the
+oscillation of $\eta_1$. The implementation replaces the unknown $\omega_k$
+by the within-bin range of the \emph{estimate}, which is exact when the
+estimate is a monotone recalibration of the truth on the bin and otherwise an
+approximation, stated as such in \cref{tab:nuisance}. That no assumption-free
+pointwise interval exists is \citet{low1997nonparametric}: any confidence
+interval for $f(x_0)$ that is honest over a class containing functions with
+arbitrarily sharp local features has expected length bounded away from zero.
 \end{proof}
 
 \subsection{Uncertainty}
