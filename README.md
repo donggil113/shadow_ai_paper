@@ -111,9 +111,20 @@ dcl/
   baselines.py     ERM / IPW / AIPW / imputation / Heckman bivariate probit / Manski
   evaluation.py    deployment vs observed metrics; Lakkaraju contraction
   harness.py       train/test protocol (out-of-sample by construction)
-  data/            SL-Bench, Lending Club, MIMIC, COMPAS, AER-CreditCard
-experiments/       exp1..exp6 + figures
-paper/             LaTeX source, full proofs in sections/A_proofs.tex
+  intervals.py     Theorem 5: DR prevalence bounds, monotone inflated boxes, binned nuisance intervals
+  models_ecg.py    1-D ResNet ECG encoder (EchoNext-style) for the medical arm
+  data/            SL-Bench, Lending Club (semi-synthetic, hidden-signal guard), MIMIC (loader + simulator),
+                   mimic_ecg_echo/ (real MIMIC-IV-ECG x ECHO pipeline; exits 2 without data), COMPAS
+                   (recorded and exposure-adjusted outcomes), AER-CreditCard
+experiments/       exp0..exp10 + make_figures.py (exp7 = real medical arm, exp8 = nuisance coverage,
+                   exp9 = ranking search summary, exp10 = ranker vs midpoint)
+scripts/           make_numbers.py, check_provenance.py, verify_paper_numbers.py, make_status.py,
+                   check_theorem_preservation.py, build_paper.sh, korea_cohort/ (T7 spec + scripts)
+audit/             A_AUDIT.md (scope, COMPAS lineage/time-at-risk, ranking search), REVIEW_matrix.md,
+                   t3_ranking_search.py, compas_time_at_risk.py
+docs/              claims.json (-> STATUS.md), theorem_snapshot.json / theorem_moves.json,
+                   mimic_ecg_echo_spec.md, restructure_plan.md
+paper/             LaTeX source (main.tex + sections/), numbers.tex (generated), proofs in sections/A_proofs.tex
 ```
 
 ## Notes on correctness

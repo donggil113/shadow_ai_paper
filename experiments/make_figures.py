@@ -106,6 +106,9 @@ def fig2_compas():
     df = _load("exp6a_compas_coverage")
     if df is None:
         return
+    if "outcome" in df:                       # 5-seed rerun stores both outcome definitions
+        df = df[df.outcome == "recorded"]
+    or_marg = float(df.marginal_odds_ratio.iloc[0]) if "marginal_odds_ratio" in df else float("nan")
     g = df.groupby("gamma").agg(
         lo=("sharp_lo", "mean"), hi=("sharp_hi", "mean"),
         true_auc=("true_auc", "mean"), obs_auc=("observed_auc", "mean"),
@@ -121,7 +124,7 @@ def fig2_compas():
         if g['hi'][i] - g['lo'][i] < 0.004:      # Gamma = 1 collapses to a point
             ax.plot(x[i], g['lo'][i], marker="o", ms=5, color=col, zorder=4)
     ax.axhline(g["true_auc"].iloc[0], color=INK, lw=1.2, zorder=5,
-               label="true deployment AUROC")
+               label="recorded deployment AUROC")
     ax.axhline(g["obs_auc"].iloc[0], color=SLOTS[1], lw=1.2, ls="--", zorder=5,
                label="AUROC on labelled units only")
     for i, c in enumerate(covered):
@@ -129,9 +132,9 @@ def fig2_compas():
                     xytext=(0, 5), textcoords="offset points", ha="center",
                     fontsize=6.4, color=INK2 if c else MUTED)
     ax.set_xticks(x); ax.set_xticklabels([f"{v:g}" for v in g["gamma"]])
-    ax.set_xlabel(r"assumed $\Gamma$   (1.885 = the data's own odds ratio)")
+    ax.set_xlabel(rf"assumed $\Gamma$   ({or_marg:.3f} = the data's own odds ratio)")
     ax.set_ylabel("AUROC")
-    ax.set_title("COMPAS: real decisions, real censored outcomes")
+    ax.set_title("COMPAS: real decisions, recorded censored outcomes")
     ax.set_ylim(0.44, 0.86)
     grid(ax)
     ax.legend(loc="lower left", fontsize=7.0)

@@ -1,24 +1,213 @@
 [
- {"claim_id": "C1", "statement": "DCSM(Gamma) is equivalent to Tan's MSM with Gamma = Lambda^2; identified set is a box of per-unit intervals (Lemmas msm, box)", "type": "thm", "evidence": "paper/sections/A_proofs.tex: proofs of lem:msm, lem:box", "data_source": "n/a", "seeds": "n/a", "status": "proved"},
- {"claim_id": "C2", "statement": "Rank identity: AUC(p) = (E[pR] - pi^2/2)/(pi(1-pi)); AUROC is affine in p at fixed prevalence (Thm rank-identity)", "type": "thm", "evidence": "paper/sections/A_proofs.tex: proof of thm:rank-identity", "data_source": "n/a", "seeds": "n/a", "status": "proved"},
- {"claim_id": "C3", "statement": "Sharp AUROC interval computed exactly in O(n log n); endpoints attained (Thm sharp-auc)", "type": "thm", "evidence": "results/exp1_summary.json:max_abs_gap", "data_source": "synthetic", "seeds": 5, "status": "verified"},
- {"claim_id": "C4", "statement": "Sharp interval covers the deployment AUROC whenever Gamma >= Gamma_0; corner evaluation does not (Prop corner)", "type": "exp", "evidence": "results/exp1_summary.json:coverage_sharp_pop", "data_source": "synthetic", "seeds": 5, "status": "verified", "note": "corner coverage: results/exp1_summary.json:coverage_naive"},
- {"claim_id": "C5", "statement": "Worst-case risk over the identified set = midpoint risk + width-weighted margin penalty; exactly convex; saddle point; closed-form Bayes act (Thm dcl)", "type": "thm", "evidence": "paper/sections/A_proofs.tex: proof of thm:dcl", "data_source": "n/a", "seeds": "n/a", "status": "proved"},
- {"claim_id": "C6", "statement": "Minimax-regret rule logit q* = (H(lo)-H(hi))/(hi-lo) (Prop regret)", "type": "prop", "evidence": "paper/sections/A_proofs.tex: proof of prop:regret", "data_source": "n/a", "seeds": "n/a", "status": "proved"},
- {"claim_id": "C7", "statement": "Minimax-regret rule has lower realised risk than ERM/IPW/AIPW and the oracle on Lending Club, with certified regret an order of magnitude tighter", "type": "exp", "evidence": "results/exp2_summary.json:datasets.lending_club.DCL-reg(G=2).risk", "data_source": "semi-synthetic", "seeds": 5, "status": "verified", "note": "ERM: results/exp2_summary.json:datasets.lending_club.ERM-observed.risk"},
- {"claim_id": "C8", "statement": "On COMPAS (real decisions, recorded outcomes) the sharp interval covers the recorded AUROC at the data's own odds ratio and misses at Gamma = 1", "type": "exp", "evidence": "results/exp6_summary.json:coverage.recorded.at_own_or.covers", "data_source": "real", "seeds": 5, "status": "verified", "before": "COMPAS provides ground truth; coverage 100% at Gamma = 1.885 (3 seeds)", "after": "COMPAS provides recorded outcomes; exposure-adjusted odds ratio 2.135 (incapacitation masked selection); coverage reported under both outcome definitions at 5 seeds"},
- {"claim_id": "C9", "statement": "No estimator is uniformly consistent for deployment risk over Gamma; Gamma is not identified from (X,T,TY) (Thm impossible, Cor)", "type": "thm", "evidence": "paper/sections/A_proofs.tex: proof of thm:impossible", "data_source": "n/a", "seeds": "n/a", "status": "proved"},
- {"claim_id": "C10", "statement": "Leniency variation gives an identified lower bound Gamma_min <= Gamma_0^cond; valid in every configuration and never refutes MAR (Prop falsify)", "type": "exp", "evidence": "results/exp4_summary.json:falsification_always_valid", "data_source": "synthetic", "seeds": 5, "status": "verified"},
- {"claim_id": "C11", "statement": "Excess worst-case risk bound with complexity term linear in log Gamma; empirically the uniform deviation decays at n^-1/2 and its coefficient scales with log Gamma (Thm generalization, Cor loggamma)", "type": "thm", "evidence": "results/exp5_summary.json:r2_vs_log_gamma", "data_source": "synthetic", "seeds": 8, "status": "verified"},
- {"claim_id": "C12", "statement": "Under decision censoring the aleatoric/epistemic decomposition is biased by at least the censoring term minus the epistemic term, the bias is undetectable from observed data, and the epistemic term vanishes with n while the censoring term does not (Cor uq)", "type": "prop", "evidence": "results/exp3_summary.json:ratio_last_logistic", "data_source": "synthetic", "seeds": 5, "status": "verified"},
- {"claim_id": "C13", "statement": "Theorem 5(a): one-step estimator of the identified prevalence endpoints has second-order bias (product term + squared outcome term); outer interval covers the identified interval", "type": "thm", "evidence": "results/exp8_summary.json:datasets.lending_club.dr_covers_prevalence_interval", "data_source": "semi-synthetic", "seeds": 5, "status": "verified", "note": "SL-Bench: results/exp8_summary.json:datasets.sl_bench.dr_covers_prevalence_interval"},
- {"claim_id": "C14", "statement": "Theorem 5(b,c): inflated per-unit boxes from binned exact nuisance intervals cover p(x) at the nominal level; the plug-in box does not", "type": "exp", "evidence": "results/exp8_summary.json:datasets.lending_club.cov_bins20", "data_source": "semi-synthetic", "seeds": 5, "status": "verified", "before": "the identified box with cross-fitted nuisances contains the true p(x) (implicitly assumed)", "after": "plug-in box covers ~50% of units; inflated box reaches >=90% with 20 bins; outcome model is the binding nuisance", "note": "plug-in: results/exp8_summary.json:datasets.sl_bench.cov_plugin"},
- {"claim_id": "C15", "statement": "Outcome model, not propensity, is the binding nuisance (oracle e barely helps; oracle p1 restores coverage)", "type": "exp", "evidence": "results/exp8_summary.json:datasets.sl_bench.cov_est_e_oracle_p1", "data_source": "synthetic", "seeds": 5, "status": "verified", "note": "oracle e: results/exp8_summary.json:datasets.sl_bench.cov_oracle_e_est_p1"},
- {"claim_id": "C16", "statement": "Plug-in (midpoint) ordering maximises worst- and best-case AUROC when all identified intervals have equal width (Prop midrank)", "type": "prop", "evidence": "results/exp9_ranking_search.json:equal_violations", "data_source": "synthetic", "seeds": "n/a", "status": "proved"},
- {"claim_id": "C17", "statement": "The midpoint ordering is minimax-optimal for AUROC in general", "type": "prop", "evidence": "results/exp9_ranking_search.json:unequal_mid_beaten_frac", "data_source": "synthetic", "seeds": "n/a", "status": "refuted", "before": "conjectured optimal in general (evidence suggested, unproved)", "after": "false for unequal widths (exhaustive counterexamples, mean gap 0.006 AUROC); proved for equal widths; midpoint remains the recommended default"},
- {"claim_id": "C18", "statement": "DCLRanker (best response against the exact oracle) does not improve on the midpoint ordering by more than a negligible margin on the benchmarks", "type": "exp", "evidence": "results/exp10_summary.json:ranker_max_gain_over_midpoint", "data_source": "synthetic", "seeds": 5, "status": "open", "note": "pending exp10 rerun"},
- {"claim_id": "C19", "statement": "Lending Club hidden signal S (interest rate / sub-grade) and its deterministic derivatives are excluded from X, enforced in code", "type": "exp", "evidence": "tests/test_data_guards.py: test_lending_hidden_signal_not_in_X", "data_source": "semi-synthetic", "seeds": "n/a", "status": "verified"},
- {"claim_id": "C20", "statement": "COMPAS time-at-risk: holding exposure fixed raises the detained/released odds ratio (incapacitation masks selection)", "type": "exp", "evidence": "results/compas_time_at_risk.json:exposure_adjusted.730.odds_ratio", "data_source": "real", "seeds": "n/a", "status": "verified", "note": "recorded: results/compas_time_at_risk.json:recorded.odds_ratio"},
- {"claim_id": "C21", "statement": "H_A1: Gamma_min in [1.5, 3.0] on MIMIC-IV-ECG x ECHO; EchoNext-architecture observed AUROC has sharp [L,U] and break-even Gamma* on real data", "type": "exp", "evidence": "experiments/exp7_mimic_ecg_echo.py (pending run on the GPU server; exits 2 here)", "data_source": "real", "seeds": 5, "status": "open"},
- {"claim_id": "C22", "statement": "Korean screening cohort: (i) US-model interval contains Korean realised AUROC, (ii) Gamma differs Korea vs US", "type": "exp", "evidence": "scripts/korea_cohort/analyze_korea_cohort.py (pending IRB)", "data_source": "real", "seeds": 5, "status": "open"}
+ {
+  "claim_id": "C1",
+  "statement": "DCSM(Gamma) is equivalent to Tan's MSM with Gamma = Lambda^2; identified set is a box of per-unit intervals (Lemmas msm, box)",
+  "type": "thm",
+  "evidence": "paper/sections/A_proofs.tex: proofs of lem:msm, lem:box",
+  "data_source": "n/a",
+  "seeds": "n/a",
+  "status": "proved"
+ },
+ {
+  "claim_id": "C2",
+  "statement": "Rank identity: AUC(p) = (E[pR] - pi^2/2)/(pi(1-pi)); AUROC is affine in p at fixed prevalence (Thm rank-identity)",
+  "type": "thm",
+  "evidence": "paper/sections/A_proofs.tex: proof of thm:rank-identity",
+  "data_source": "n/a",
+  "seeds": "n/a",
+  "status": "proved"
+ },
+ {
+  "claim_id": "C3",
+  "statement": "Sharp AUROC interval computed exactly in O(n log n); endpoints attained (Thm sharp-auc)",
+  "type": "thm",
+  "evidence": "results/exp1_summary.json:max_abs_gap",
+  "data_source": "synthetic",
+  "seeds": 5,
+  "status": "verified"
+ },
+ {
+  "claim_id": "C4",
+  "statement": "Sharp interval covers the deployment AUROC whenever Gamma >= Gamma_0; corner evaluation does not (Prop corner)",
+  "type": "exp",
+  "evidence": "results/exp1_summary.json:coverage_sharp_pop",
+  "data_source": "synthetic",
+  "seeds": 5,
+  "status": "verified",
+  "note": "corner coverage: results/exp1_summary.json:coverage_naive"
+ },
+ {
+  "claim_id": "C5",
+  "statement": "Worst-case risk over the identified set = midpoint risk + width-weighted margin penalty; exactly convex; saddle point; closed-form Bayes act (Thm dcl)",
+  "type": "thm",
+  "evidence": "paper/sections/A_proofs.tex: proof of thm:dcl",
+  "data_source": "n/a",
+  "seeds": "n/a",
+  "status": "proved"
+ },
+ {
+  "claim_id": "C6",
+  "statement": "Minimax-regret rule logit q* = (H(lo)-H(hi))/(hi-lo) (Prop regret)",
+  "type": "prop",
+  "evidence": "paper/sections/A_proofs.tex: proof of prop:regret",
+  "data_source": "n/a",
+  "seeds": "n/a",
+  "status": "proved"
+ },
+ {
+  "claim_id": "C7",
+  "statement": "Minimax-regret rule has lower realised risk than ERM/IPW/AIPW and the oracle on Lending Club, with certified regret an order of magnitude tighter",
+  "type": "exp",
+  "evidence": "results/exp2_summary.json:datasets.lending_club.DCL-reg(G=2).risk",
+  "data_source": "semi-synthetic",
+  "seeds": 5,
+  "status": "verified",
+  "note": "ERM: results/exp2_summary.json:datasets.lending_club.ERM-observed.risk"
+ },
+ {
+  "claim_id": "C8",
+  "statement": "On COMPAS (real decisions, recorded outcomes) the sharp interval covers the recorded AUROC at the data's own odds ratio and misses at Gamma = 1",
+  "type": "exp",
+  "evidence": "results/exp6_summary.json:coverage.recorded.at_own_or.covers",
+  "data_source": "real",
+  "seeds": 5,
+  "status": "verified",
+  "before": "COMPAS provides ground truth; coverage 100% at Gamma = 1.885 (3 seeds)",
+  "after": "COMPAS provides recorded outcomes; exposure-adjusted odds ratio 2.135 (incapacitation masked selection); coverage reported under both outcome definitions at 5 seeds"
+ },
+ {
+  "claim_id": "C9",
+  "statement": "No estimator is uniformly consistent for deployment risk over Gamma; Gamma is not identified from (X,T,TY) (Thm impossible, Cor)",
+  "type": "thm",
+  "evidence": "paper/sections/A_proofs.tex: proof of thm:impossible",
+  "data_source": "n/a",
+  "seeds": "n/a",
+  "status": "proved"
+ },
+ {
+  "claim_id": "C10",
+  "statement": "Leniency variation gives an identified lower bound Gamma_min <= Gamma_0^cond; valid in every configuration and never refutes MAR (Prop falsify)",
+  "type": "exp",
+  "evidence": "results/exp4_summary.json:falsification_always_valid",
+  "data_source": "synthetic",
+  "seeds": 5,
+  "status": "verified"
+ },
+ {
+  "claim_id": "C11",
+  "statement": "Excess worst-case risk bound with complexity term linear in log Gamma; empirically the uniform deviation decays at n^-1/2 and its coefficient scales with log Gamma (Thm generalization, Cor loggamma)",
+  "type": "thm",
+  "evidence": "results/exp5_summary.json:r2_vs_log_gamma",
+  "data_source": "synthetic",
+  "seeds": 8,
+  "status": "verified"
+ },
+ {
+  "claim_id": "C12",
+  "statement": "Under decision censoring the aleatoric/epistemic decomposition is biased by at least the censoring term minus the epistemic term, the bias is undetectable from observed data, and the epistemic term vanishes with n while the censoring term does not (Cor uq)",
+  "type": "prop",
+  "evidence": "results/exp3_summary.json:ratio_last_logistic",
+  "data_source": "synthetic",
+  "seeds": 5,
+  "status": "verified"
+ },
+ {
+  "claim_id": "C13",
+  "statement": "Theorem 5(a): one-step estimator of the identified prevalence endpoints has second-order bias (product term + squared outcome term); outer interval covers the identified interval",
+  "type": "thm",
+  "evidence": "results/exp8_summary.json:datasets.lending_club.dr_covers_prevalence_interval",
+  "data_source": "semi-synthetic",
+  "seeds": 5,
+  "status": "verified",
+  "note": "SL-Bench: results/exp8_summary.json:datasets.sl_bench.dr_covers_prevalence_interval"
+ },
+ {
+  "claim_id": "C14",
+  "statement": "Theorem 5(b,c): inflated per-unit boxes from binned exact nuisance intervals cover p(x) at the nominal level; the plug-in box does not",
+  "type": "exp",
+  "evidence": "results/exp8_summary.json:datasets.lending_club.cov_bins20",
+  "data_source": "semi-synthetic",
+  "seeds": 5,
+  "status": "verified",
+  "before": "the identified box with cross-fitted nuisances contains the true p(x) (implicitly assumed)",
+  "after": "plug-in box covers ~50% of units; inflated box reaches >=90% with 20 bins; outcome model is the binding nuisance",
+  "note": "plug-in: results/exp8_summary.json:datasets.sl_bench.cov_plugin"
+ },
+ {
+  "claim_id": "C15",
+  "statement": "Outcome model, not propensity, is the binding nuisance (oracle e barely helps; oracle p1 restores coverage)",
+  "type": "exp",
+  "evidence": "results/exp8_summary.json:datasets.sl_bench.cov_est_e_oracle_p1",
+  "data_source": "synthetic",
+  "seeds": 5,
+  "status": "verified",
+  "note": "oracle e: results/exp8_summary.json:datasets.sl_bench.cov_oracle_e_est_p1"
+ },
+ {
+  "claim_id": "C16",
+  "statement": "Plug-in (midpoint) ordering maximises worst- and best-case AUROC when all identified intervals have equal width (Prop midrank)",
+  "type": "prop",
+  "evidence": "results/exp9_ranking_search.json:equal_violations",
+  "data_source": "synthetic",
+  "seeds": "n/a",
+  "status": "proved"
+ },
+ {
+  "claim_id": "C17",
+  "statement": "The midpoint ordering is minimax-optimal for AUROC in general",
+  "type": "prop",
+  "evidence": "results/exp9_ranking_search.json:unequal_mid_beaten_frac",
+  "data_source": "synthetic",
+  "seeds": "n/a",
+  "status": "refuted",
+  "before": "conjectured optimal in general (evidence suggested, unproved)",
+  "after": "false for unequal widths (exhaustive counterexamples, mean gap 0.006 AUROC); proved for equal widths; midpoint remains the recommended default"
+ },
+ {
+  "claim_id": "C18",
+  "statement": "DCLRanker (best response against the exact oracle) does not improve on the midpoint ordering by more than a negligible margin on the benchmarks",
+  "type": "exp",
+  "evidence": "results/exp10_summary.json:ranker_max_gain_over_midpoint",
+  "data_source": "synthetic",
+  "seeds": 5,
+  "status": "verified",
+  "note": "max gain over the midpoint ordering across datasets and seeds; plug-in orderings by lo/mid/hi/p1 within results/exp10_summary.json:max_spread_plugin_orderings of each other"
+ },
+ {
+  "claim_id": "C19",
+  "statement": "Lending Club hidden signal S (interest rate / sub-grade) and its deterministic derivatives are excluded from X, enforced in code",
+  "type": "exp",
+  "evidence": "tests/test_data_guards.py: test_lending_hidden_signal_not_in_X",
+  "data_source": "semi-synthetic",
+  "seeds": "n/a",
+  "status": "verified"
+ },
+ {
+  "claim_id": "C20",
+  "statement": "COMPAS time-at-risk: holding exposure fixed raises the detained/released odds ratio (incapacitation masks selection)",
+  "type": "exp",
+  "evidence": "results/compas_time_at_risk.json:exposure_adjusted.730.odds_ratio",
+  "data_source": "real",
+  "seeds": "n/a",
+  "status": "verified",
+  "note": "recorded: results/compas_time_at_risk.json:recorded.odds_ratio"
+ },
+ {
+  "claim_id": "C21",
+  "statement": "H_A1: Gamma_min in [1.5, 3.0] on MIMIC-IV-ECG x ECHO; EchoNext-architecture observed AUROC has sharp [L,U] and break-even Gamma* on real data",
+  "type": "exp",
+  "evidence": "experiments/exp7_mimic_ecg_echo.py (pending run on the GPU server; exits 2 here)",
+  "data_source": "real",
+  "seeds": 5,
+  "status": "open"
+ },
+ {
+  "claim_id": "C22",
+  "statement": "Korean screening cohort: (i) US-model interval contains Korean realised AUROC, (ii) Gamma differs Korea vs US",
+  "type": "exp",
+  "evidence": "scripts/korea_cohort/analyze_korea_cohort.py (pending IRB)",
+  "data_source": "real",
+  "seeds": 5,
+  "status": "open"
+ }
 ]

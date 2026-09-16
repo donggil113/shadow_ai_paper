@@ -64,7 +64,7 @@ reg("nExpOneWidthSharpCI", "exp1_summary.json", "width_sharp_ci95", "f3")
 reg("nExpOneWidthSeparate", "exp1_summary.json", "width_separate", "f3")
 reg("nExpOneGap", "exp1_summary.json", "max_abs_gap", "sci1")
 reg("nExpOneAttain", "exp1_summary.json", "max_attainment_error", "sci1")
-reg("nExpOneSeeds", "exp1_summary.json", "n_seeds", "int")
+reg("nExpOneSeeds", "exp1_summary.json", "n_seeds", "int", dataset="n/a")
 reg("nExpOneWidthRatioSep", "exp1_summary.json", "width_separate/width_sharp", "x1")
 reg("nExpOneWidthRatioCorner", "csv:exp1b_validity.csv",
     "df[df.gamma_sufficient].sharp_w.mean()/df[df.gamma_sufficient].naive_w.mean()", "x1")
@@ -87,7 +87,7 @@ for ds, tag in (("lending_club", "Lending"), ("mimic_sim", "MimicSim"), ("sl_ben
                         ("worstcase_risk", "Wc"), ("minimax_regret", "Regret")):
             reg(f"nExpTwo{tag}{mtag}{ktag}", "exp2_summary.json",
                 f"datasets.{ds}.{m}.{k}", "ci:f4", dataset=ds)
-reg("nExpTwoSeeds", "exp2_summary.json", "n_seeds", "int")
+reg("nExpTwoSeeds", "exp2_summary.json", "n_seeds", "int", dataset="n/a")
 
 # ---- exp8: nuisance theorem coverage (per dataset, 5 seeds) --------------
 for ds, tag in (("sl_bench", "SlBench"), ("lending_club", "Lending"), ("compas", "Compas")):
@@ -107,11 +107,11 @@ for ds, tag in (("sl_bench", "SlBench"), ("lending_club", "Lending"), ("compas",
                     ("dr_abs_err_hi", "DrErrHi"), ("plug_abs_err_hi", "PlugErrHi")):
         fmt = "ci:pct1" if k.startswith(("cov_", "dr_covers", "plug_covers", "dr_outer", "auc_cov", "binlevel")) else "ci:f3"
         reg(f"nExpEight{tag}{ktag}", "exp8_summary.json", f"datasets.{ds}.{k}", fmt, dataset=ds)
-reg("nExpEightSeeds", "exp8_summary.json", "n_seeds", "int")
-reg("nExpEightAlphaPct", "exp8_summary.json", "alpha*100", "int")
+reg("nExpEightSeeds", "exp8_summary.json", "n_seeds", "int", dataset="n/a")
+reg("nExpEightAlphaPct", "exp8_summary.json", "alpha*100", "int", dataset="n/a")
 
 # ---- exp3: uncertainty decomposition (5 seeds) --------------------------
-reg("nExpThreeSeeds", "exp3_summary.json", "n_seeds", "int")
+reg("nExpThreeSeeds", "exp3_summary.json", "n_seeds", "int", dataset="n/a")
 NTAG = {2000: "TwoK", 5000: "FiveK", 12000: "TwelveK", 30000: "ThirtyK", 70000: "SeventyK"}   # LaTeX macro names: letters only
 for n, nt in NTAG.items():
     reg(f"nExpThreeEpiLog{nt}", "exp3_summary.json", f"by_cell_ci.logistic_n{n}.naive_epistemic", "ci:f4")
@@ -128,10 +128,10 @@ reg("nExpThreeEpiDrop", "exp3_summary.json", "epistemic_first_logistic/epistemic
 reg("nExpFourValid", "exp4_summary.json", "falsification_always_valid", "bool")
 reg("nExpFourRefutesMar", "exp4_summary.json", "refutes_MAR_when_confounded", "pct0")
 reg("nExpFourFalseAlarm", "exp4_summary.json", "false_alarm_when_MAR", "pct0")
-reg("nExpFourSeedsMis", "exp4_summary.json", "n_seeds_misspecification", "int")
+reg("nExpFourSeedsMis", "exp4_summary.json", "n_seeds_misspecification", "int", dataset="n/a")
 reg("nExpFourRecoverMin", "csv:exp4a_falsification.csv", "df.recovered_fraction.min()", "pct0")
 reg("nExpFourRecoverMax", "csv:exp4a_falsification.csv", "df.recovered_fraction.max()", "pct0")
-reg("nExpFourNCells", "csv:exp4a_falsification.csv", "len(df)", "int")
+reg("nExpFourNCells", "csv:exp4a_falsification.csv", "len(df)", "int", dataset="n/a")
 reg("nExpFourGminAtThree", "csv:exp4a_falsification.csv",
     "df[(df.target==3.0)&(df.kappa_heterogeneity==0)].gamma_min_q95.mean()", "f2")
 for ds, tag in (("lending_club", "Lending"), ("mimic_sim", "MimicSim"), ("sl_bench", "SlBench")):
@@ -148,25 +148,25 @@ reg("nExpFiveDevRate", "exp5_summary.json", "deviation_rate_exponent", "f3s")
 reg("nExpFiveRtwoLog", "exp5_summary.json", "r2_vs_log_gamma", "f2")
 reg("nExpFiveRtwoLin", "exp5_summary.json", "r2_vs_gamma", "f2")
 reg("nExpFiveExcessRate", "exp5_summary.json", "excess_rate_exponent", "f2s")
-reg("nExpFiveSeedsDev", "exp5_summary.json", "n_seeds_deviation", "int")
+reg("nExpFiveSeedsDev", "exp5_summary.json", "n_seeds_deviation", "int", dataset="n/a")
 reg("nExpFiveCoefGrowthPct", "csv:exp5_scaling.csv", "100*(df.coefficient.max()/df.coefficient.min()-1)", "int")
 
 
 # ---- exp9: exhaustive ranking search (synthetic; audit/t3_ranking_search.py)
-reg("nExpNineEqualInstances", "exp9_ranking_search.json", "equal_n_instances", "int")
+reg("nExpNineEqualInstances", "exp9_ranking_search.json", "equal_n_instances", "int", dataset="n/a")
 reg("nExpNineEqualViolations", "exp9_ranking_search.json", "equal_violations", "int")
-reg("nExpNineUnequalInstances", "exp9_ranking_search.json", "unequal_n_instances", "int")
+reg("nExpNineUnequalInstances", "exp9_ranking_search.json", "unequal_n_instances", "int", dataset="n/a")
 reg("nExpNineMidBeatenPct", "exp9_ranking_search.json", "unequal_mid_beaten_frac", "pct0")
 reg("nExpNineLoBeatenPct", "exp9_ranking_search.json", "unequal_lo_beaten_frac", "pct0")
 reg("nExpNineMidGapMean", "exp9_ranking_search.json", "unequal_mid_gap_mean", "f3")
 reg("nExpNineMidGapMax", "exp9_ranking_search.json", "unequal_mid_gap_max", "f2")
 reg("nExpNineFamilyPct", "exp9_ranking_search.json", "convex_family_attains_optimum_frac", "pct0")
 reg("nExpNineMidBeatenSevenPct", "exp9_ranking_search.json", "unequal_mid_beaten_frac_by_n.7", "pct0")
-reg("nExpNineNMax", "exp9_ranking_search.json", "n_max", "int")
+reg("nExpNineNMax", "exp9_ranking_search.json", "n_max", "int", dataset="n/a")
 reg("nExpTenRankerGain", "exp10_summary.json", "ranker_max_gain_over_midpoint", "f4")
 reg("nExpTenRankerGainTrain", "exp10_summary.json", "ranker_max_gain_train", "f4")
 reg("nExpTenSpreadPlugin", "exp10_summary.json", "max_spread_plugin_orderings", "f4")
-reg("nExpTenSeeds", "exp10_summary.json", "n_seeds", "int")
+reg("nExpTenSeeds", "exp10_summary.json", "n_seeds", "int", dataset="n/a")
 for ds, tag in (("sl_bench", "SlBench"), ("lending_club", "Lending")):
     for k, ktag in (("wc_mid_linear", "WcMid"), ("wc_ranker", "WcRanker"), ("wc_width_only", "WcWidth"), ("gain_ranker_over_mid_linear", "Gain")):
         reg(f"nExpTen{tag}{ktag}", "exp10_summary.json", f"datasets.{ds}.{k}", "ci:f4", dataset=ds)
@@ -207,7 +207,7 @@ for oc, otag in (("recorded", ""), ("exposure_adjusted", "Exp")):
             if m == "Heckman":
                 reg(f"nCompas{otag}M{mtag}{ktag}Min", "exp6_summary.json", f"methods.{oc}.{m}.{k}.min", "f3")
                 reg(f"nCompas{otag}M{mtag}{ktag}Max", "exp6_summary.json", f"methods.{oc}.{m}.{k}.max", "f3")
-reg("nExpSixSeeds", "exp6_summary.json", "n_seeds", "int")
+reg("nExpSixSeeds", "exp6_summary.json", "n_seeds", "int", dataset="n/a")
 for oc, otag in (("recorded", ""), ("exposure_adjusted", "Exp")):
     reg(f"nCompas{otag}RegretRatioErm", "exp6_summary.json",
         f"expr:d['methods']['{oc}']['ERM-observed']['minimax_regret']['mean']/d['methods']['{oc}']['DCL-reg(G=2)']['minimax_regret']['mean']", "x1")
@@ -226,8 +226,8 @@ for k, tag, fmt in (("auc_lo", "AucLo", "f4"), ("auc_mid", "AucMid", "f4"), ("au
     reg(f"nCex{tag}", "exp0_counterexample.json", k, fmt)
 
 # ---- exp1 extras ---------------------------------------------------------
-reg("nExpOneNCells", "csv:exp1b_validity.csv", "int(df[df.seed==df.seed.min()].shape[0])", "int")
-reg("nExpOneNInstances", "csv:exp1b_validity.csv", "len(df)", "int")
+reg("nExpOneNCells", "csv:exp1b_validity.csv", "int(df[df.seed==df.seed.min()].shape[0])", "int", dataset="n/a")
+reg("nExpOneNInstances", "csv:exp1b_validity.csv", "len(df)", "int", dataset="n/a")
 
 # ---- exp2 extras: pooled Heckman, blind spot, regret ratios ---------------
 for ds, tag in (("lending_club", "Lending"), ("mimic_sim", "MimicSim"), ("sl_bench", "SlBench")):
@@ -277,10 +277,10 @@ for t, ttag in ((1.0, "One"), (1.5, "OneFive"), (2.0, "Two"), (3.0, "Three"), (5
         for k, ktag in (("gamma0_cond", "GzCond"), ("gamma_min", "Gmin"), ("gamma_min_q95", "GminQ"),
                         ("recovered_fraction", "Rec")):
             reg(f"nExpFour{ttag}{htag}{ktag}", "csv:exp4a_falsification.csv", f"df[{cond}].{k}.mean()", "f2")
-reg("nExpFourMisRange", "csv:exp4c_misspecification.csv", "df.gamma.max()/df.gamma.min()", "int")
+reg("nExpFourMisRange", "csv:exp4c_misspecification.csv", "df.gamma.max()/df.gamma.min()", "int", dataset="n/a")
 reg("nExpFourMisWidthMin", "csv:exp4c_misspecification.csv", "df.groupby('gamma').width.mean().min()", "f2")
 reg("nExpFourMisWidthMax", "csv:exp4c_misspecification.csv", "df.groupby('gamma').width.mean().max()", "f2")
-reg("nExpFourMisSeeds", "csv:exp4c_misspecification.csv", "df.seed.nunique()", "int")
+reg("nExpFourMisSeeds", "csv:exp4c_misspecification.csv", "df.seed.nunique()", "int", dataset="n/a")
 
 # ---- exp5 table ----------------------------------------------------------
 for g, gtag in ((1.5, "OneFive"), (2, "Two"), (3, "Three"), (6, "Six"), (12, "Twelve"), (24, "TwentyFour")):
@@ -288,7 +288,7 @@ for g, gtag in ((1.5, "OneFive"), (2, "Two"), (3, "Three"), (6, "Six"), (12, "Tw
         reg(f"nExpFive{gtag}{ktag}", "csv:exp5_scaling.csv", f"df[np.isclose(df.gamma,{g})].{k}.iloc[0]", fmt)
 reg("nExpFiveRateMin", "csv:exp5_scaling.csv", "df.rate_exponent.min()", "f3")
 reg("nExpFiveRateMax", "csv:exp5_scaling.csv", "df.rate_exponent.max()", "f3")
-reg("nExpFiveGammaRange", "csv:exp5_scaling.csv", "df.gamma.max()/df.gamma.min()", "int")
+reg("nExpFiveGammaRange", "csv:exp5_scaling.csv", "df.gamma.max()/df.gamma.min()", "int", dataset="n/a")
 
 
 # --------------------------------------------------------------------------- #
@@ -400,6 +400,8 @@ def build():
 
 
 def _provenance(json_name, dataset, d=None):
+    if dataset == "n/a":                  # design constants (seed counts, grid sizes) carry no data provenance
+        return "n/a"
     path = os.path.join(RES, json_name)
     if d is None:
         if not os.path.exists(path):

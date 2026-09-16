@@ -68,6 +68,8 @@ def main() -> int:
             if m not in defined:
                 undefined.append((path, label, m)); continue
             src = provenance(m)
+            if src == "n/a":
+                continue
             if src == "pending":
                 problems.append(f"{path}#{label or '-'}: \\{m} is a PENDING placeholder (result not yet computed)"); continue
             if (forbid and src in forbid) or (require and src not in require):

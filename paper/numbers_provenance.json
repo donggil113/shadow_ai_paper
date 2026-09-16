@@ -51,7 +51,7 @@
  },
  "nExpOneSeeds": {
   "source": "exp1_summary.json:n_seeds",
-  "data_source": "synthetic",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpOneWidthRatioSep": {
@@ -986,7 +986,7 @@
  },
  "nExpTwoSeeds": {
   "source": "exp2_summary.json:n_seeds",
-  "data_source": "simulator",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpEightSlBenchCovPlugin": {
@@ -1396,17 +1396,17 @@
  },
  "nExpEightSeeds": {
   "source": "exp8_summary.json:n_seeds",
-  "data_source": "real",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpEightAlphaPct": {
   "source": "exp8_summary.json:alpha*100",
-  "data_source": "real",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpThreeSeeds": {
   "source": "exp3_summary.json:n_seeds",
-  "data_source": "synthetic",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpThreeEpiLogTwoK": {
@@ -1536,157 +1536,157 @@
  },
  "nExpFourValid": {
   "source": "exp4_summary.json:falsification_always_valid",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourRefutesMar": {
   "source": "exp4_summary.json:refutes_MAR_when_confounded",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourFalseAlarm": {
   "source": "exp4_summary.json:false_alarm_when_MAR",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourSeedsMis": {
   "source": "exp4_summary.json:n_seeds_misspecification",
-  "data_source": "pending",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpFourRecoverMin": {
   "source": "csv:exp4a_falsification.csv:df.recovered_fraction.min()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourRecoverMax": {
   "source": "csv:exp4a_falsification.csv:df.recovered_fraction.max()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourNCells": {
   "source": "csv:exp4a_falsification.csv:len(df)",
-  "data_source": "pending",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpFourGminAtThree": {
   "source": "csv:exp4a_falsification.csv:df[(df.target==3.0)&(df.kappa_heterogeneity==0)].gamma_min_q95.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourLendingBreakEvenFiftyFive": {
   "source": "csv:exp4b_breakeven.csv:df[df.dataset=='lending_club'].breakeven_auroc_55.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourLendingBreakEvenFifty": {
   "source": "csv:exp4b_breakeven.csv:df[df.dataset=='lending_club'].breakeven_auroc_50.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourLendingBreakEvenSixty": {
   "source": "csv:exp4b_breakeven.csv:df[df.dataset=='lending_club'].breakeven_auroc_60.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourLendingDclBeatsUpto": {
   "source": "csv:exp4b_breakeven.csv:df[df.dataset=='lending_club'].gamma_dcl_beats_incumbent_upto.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourMimicSimBreakEvenFiftyFive": {
   "source": "csv:exp4b_breakeven.csv:df[df.dataset=='mimic_sim'].breakeven_auroc_55.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourMimicSimBreakEvenFifty": {
   "source": "csv:exp4b_breakeven.csv:df[df.dataset=='mimic_sim'].breakeven_auroc_50.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourMimicSimBreakEvenSixty": {
   "source": "csv:exp4b_breakeven.csv:df[df.dataset=='mimic_sim'].breakeven_auroc_60.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourMimicSimDclBeatsUpto": {
   "source": "csv:exp4b_breakeven.csv:df[df.dataset=='mimic_sim'].gamma_dcl_beats_incumbent_upto.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourSlBenchBreakEvenFiftyFive": {
   "source": "csv:exp4b_breakeven.csv:df[df.dataset=='sl_bench'].breakeven_auroc_55.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourSlBenchBreakEvenFifty": {
   "source": "csv:exp4b_breakeven.csv:df[df.dataset=='sl_bench'].breakeven_auroc_50.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourSlBenchBreakEvenSixty": {
   "source": "csv:exp4b_breakeven.csv:df[df.dataset=='sl_bench'].breakeven_auroc_60.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourSlBenchDclBeatsUpto": {
   "source": "csv:exp4b_breakeven.csv:df[df.dataset=='sl_bench'].gamma_dcl_beats_incumbent_upto.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourMisCovLow": {
   "source": "csv:exp4c_misspecification.csv:df[df.gamma/df.gamma0<=0.5].covers.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourMisCovHigh": {
   "source": "csv:exp4c_misspecification.csv:df[df.gamma/df.gamma0>0.5].covers.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourMisWidthLow": {
   "source": "csv:exp4c_misspecification.csv:df[df.gamma/df.gamma0<=0.5].width.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourMisWidthHigh": {
   "source": "csv:exp4c_misspecification.csv:df[df.gamma/df.gamma0>3].width.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveDevRate": {
   "source": "exp5_summary.json:deviation_rate_exponent",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveRtwoLog": {
   "source": "exp5_summary.json:r2_vs_log_gamma",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveRtwoLin": {
   "source": "exp5_summary.json:r2_vs_gamma",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveExcessRate": {
   "source": "exp5_summary.json:excess_rate_exponent",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveSeedsDev": {
   "source": "exp5_summary.json:n_seeds_deviation",
-  "data_source": "pending",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpFiveCoefGrowthPct": {
   "source": "csv:exp5_scaling.csv:100*(df.coefficient.max()/df.coefficient.min()-1)",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpNineEqualInstances": {
   "source": "exp9_ranking_search.json:equal_n_instances",
-  "data_source": "synthetic",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpNineEqualViolations": {
@@ -1696,7 +1696,7 @@
  },
  "nExpNineUnequalInstances": {
   "source": "exp9_ranking_search.json:unequal_n_instances",
-  "data_source": "synthetic",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpNineMidBeatenPct": {
@@ -1731,68 +1731,68 @@
  },
  "nExpNineNMax": {
   "source": "exp9_ranking_search.json:n_max",
-  "data_source": "synthetic",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpTenRankerGain": {
   "source": "exp10_summary.json:ranker_max_gain_over_midpoint",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpTenRankerGainTrain": {
   "source": "exp10_summary.json:ranker_max_gain_train",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpTenSpreadPlugin": {
   "source": "exp10_summary.json:max_spread_plugin_orderings",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpTenSeeds": {
   "source": "exp10_summary.json:n_seeds",
-  "data_source": "pending",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpTenSlBenchWcMid": {
   "source": "exp10_summary.json:datasets.sl_bench.wc_mid_linear",
-  "data_source": "pending",
-  "n_seeds": null
+  "data_source": "synthetic",
+  "n_seeds": 5
  },
  "nExpTenSlBenchWcRanker": {
   "source": "exp10_summary.json:datasets.sl_bench.wc_ranker",
-  "data_source": "pending",
-  "n_seeds": null
+  "data_source": "synthetic",
+  "n_seeds": 5
  },
  "nExpTenSlBenchWcWidth": {
   "source": "exp10_summary.json:datasets.sl_bench.wc_width_only",
-  "data_source": "pending",
-  "n_seeds": null
+  "data_source": "synthetic",
+  "n_seeds": 5
  },
  "nExpTenSlBenchGain": {
   "source": "exp10_summary.json:datasets.sl_bench.gain_ranker_over_mid_linear",
-  "data_source": "pending",
-  "n_seeds": null
+  "data_source": "synthetic",
+  "n_seeds": 5
  },
  "nExpTenLendingWcMid": {
   "source": "exp10_summary.json:datasets.lending_club.wc_mid_linear",
-  "data_source": "pending",
-  "n_seeds": null
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
  },
  "nExpTenLendingWcRanker": {
   "source": "exp10_summary.json:datasets.lending_club.wc_ranker",
-  "data_source": "pending",
-  "n_seeds": null
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
  },
  "nExpTenLendingWcWidth": {
   "source": "exp10_summary.json:datasets.lending_club.wc_width_only",
-  "data_source": "pending",
-  "n_seeds": null
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
  },
  "nExpTenLendingGain": {
   "source": "exp10_summary.json:datasets.lending_club.gain_ranker_over_mid_linear",
-  "data_source": "pending",
-  "n_seeds": null
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
  },
  "nCompasTarNCohort": {
   "source": "compas_time_at_risk.json:n_cohort",
@@ -2711,7 +2711,7 @@
  },
  "nExpSixSeeds": {
   "source": "exp6_summary.json:n_seeds",
-  "data_source": "real",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nCompasRegretRatioErm": {
@@ -2826,12 +2826,12 @@
  },
  "nExpOneNCells": {
   "source": "csv:exp1b_validity.csv:int(df[df.seed==df.seed.min()].shape[0])",
-  "data_source": "synthetic",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpOneNInstances": {
   "source": "csv:exp1b_validity.csv:len(df)",
-  "data_source": "synthetic",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpTwoLendingHeckmanRisk": {
@@ -3226,327 +3226,327 @@
  },
  "nExpFourOneHomGzCond": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity==0)].gamma0_cond.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneHomGmin": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity==0)].gamma_min.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneHomGminQ": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity==0)].gamma_min_q95.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneHomRec": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity==0)].recovered_fraction.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneHetGzCond": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity>0)].gamma0_cond.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneHetGmin": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity>0)].gamma_min.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneHetGminQ": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity>0)].gamma_min_q95.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneHetRec": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity>0)].recovered_fraction.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneFiveHomGzCond": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity==0)].gamma0_cond.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneFiveHomGmin": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity==0)].gamma_min.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneFiveHomGminQ": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity==0)].gamma_min_q95.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneFiveHomRec": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity==0)].recovered_fraction.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneFiveHetGzCond": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity>0)].gamma0_cond.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneFiveHetGmin": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity>0)].gamma_min.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneFiveHetGminQ": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity>0)].gamma_min_q95.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourOneFiveHetRec": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity>0)].recovered_fraction.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourTwoHomGzCond": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity==0)].gamma0_cond.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourTwoHomGmin": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity==0)].gamma_min.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourTwoHomGminQ": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity==0)].gamma_min_q95.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourTwoHomRec": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity==0)].recovered_fraction.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourTwoHetGzCond": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity>0)].gamma0_cond.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourTwoHetGmin": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity>0)].gamma_min.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourTwoHetGminQ": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity>0)].gamma_min_q95.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourTwoHetRec": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity>0)].recovered_fraction.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourThreeHomGzCond": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity==0)].gamma0_cond.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourThreeHomGmin": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity==0)].gamma_min.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourThreeHomGminQ": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity==0)].gamma_min_q95.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourThreeHomRec": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity==0)].recovered_fraction.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourThreeHetGzCond": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity>0)].gamma0_cond.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourThreeHetGmin": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity>0)].gamma_min.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourThreeHetGminQ": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity>0)].gamma_min_q95.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourThreeHetRec": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity>0)].recovered_fraction.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourFiveHomGzCond": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity==0)].gamma0_cond.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourFiveHomGmin": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity==0)].gamma_min.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourFiveHomGminQ": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity==0)].gamma_min_q95.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourFiveHomRec": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity==0)].recovered_fraction.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourFiveHetGzCond": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity>0)].gamma0_cond.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourFiveHetGmin": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity>0)].gamma_min.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourFiveHetGminQ": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity>0)].gamma_min_q95.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourFiveHetRec": {
   "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity>0)].recovered_fraction.mean()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourMisRange": {
   "source": "csv:exp4c_misspecification.csv:df.gamma.max()/df.gamma.min()",
-  "data_source": "pending",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpFourMisWidthMin": {
   "source": "csv:exp4c_misspecification.csv:df.groupby('gamma').width.mean().min()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourMisWidthMax": {
   "source": "csv:exp4c_misspecification.csv:df.groupby('gamma').width.mean().max()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFourMisSeeds": {
   "source": "csv:exp4c_misspecification.csv:df.seed.nunique()",
-  "data_source": "pending",
+  "data_source": "n/a",
   "n_seeds": null
  },
  "nExpFiveOneFiveB": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,1.5)].B.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveOneFiveRate": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,1.5)].rate_exponent.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveOneFiveCoef": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,1.5)].coefficient.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveTwoB": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,2)].B.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveTwoRate": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,2)].rate_exponent.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveTwoCoef": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,2)].coefficient.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveThreeB": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,3)].B.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveThreeRate": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,3)].rate_exponent.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveThreeCoef": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,3)].coefficient.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveSixB": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,6)].B.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveSixRate": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,6)].rate_exponent.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveSixCoef": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,6)].coefficient.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveTwelveB": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,12)].B.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveTwelveRate": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,12)].rate_exponent.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveTwelveCoef": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,12)].coefficient.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveTwentyFourB": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,24)].B.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveTwentyFourRate": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,24)].rate_exponent.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveTwentyFourCoef": {
   "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,24)].coefficient.iloc[0]",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveRateMin": {
   "source": "csv:exp5_scaling.csv:df.rate_exponent.min()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveRateMax": {
   "source": "csv:exp5_scaling.csv:df.rate_exponent.max()",
-  "data_source": "pending",
+  "data_source": "synthetic",
   "n_seeds": null
  },
  "nExpFiveGammaRange": {
   "source": "csv:exp5_scaling.csv:df.gamma.max()/df.gamma.min()",
-  "data_source": "pending",
+  "data_source": "n/a",
   "n_seeds": null
  }
 }
