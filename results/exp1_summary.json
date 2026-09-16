@@ -7,6 +7,9 @@
   "coverage_naive": 0.1,
   "coverage_separate": 1.0,
   "coverage_sharp_when_gamma_too_small": 0.7142857142857143,
-  "width_sharp": 0.27655237608865085,
-  "width_separate": 0.8832398322393114
+  "width_sharp": 0.28269424137324073,
+  "width_separate": 0.8922919760724719,
+  "n_seeds": 5,
+  "width_sharp_ci95": 0.01721698816443958,
+  "data_source": "synthetic"
 }

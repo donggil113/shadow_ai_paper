@@ -196,30 +196,87 @@ def fig3_learning():
 
 
 def fig4_uq():
-    """Epistemic uncertainty vanishes; identification uncertainty does not."""
+    """Epistemic uncertainty vanishes; identification uncertainty does not (5 seeds)."""
     df = _load("exp3_uq_decomposition")
     if df is None:
         return
+    if "seed" not in df.columns:
+        df = df.assign(seed=0)
     fig, ax = plt.subplots(figsize=(4.1, 2.8))
-    log = df[df.ensemble == "logistic"].sort_values("n")
-    ax.plot(log.n, log.naive_epistemic, color=SLOTS[0], marker=MARKERS[0],
-            ls=DASHES[0], zorder=4, label="reported epistemic (converged ensemble)")
-    ax.plot(log.n, log.censoring, color=SLOTS[1], marker=MARKERS[1],
-            ls=DASHES[1], zorder=4, label="censoring term")
+
+    def band(sub, col, color, marker, ls, label, lw=1.6):
+        g = sub.groupby("n")[col]
+        m, sd, k = g.mean(), g.std(ddof=1).fillna(0.0), g.count()
+        from scipy import stats
+        hw = stats.t.ppf(0.975, np.maximum(k - 1, 1)) * sd / np.sqrt(k)
+        ax.plot(m.index, m.values, color=color, marker=marker, ls=ls, lw=lw,
+                zorder=4, label=label)
+        ax.fill_between(m.index, np.maximum(m - hw, 1e-6), m + hw, color=color,
+                        alpha=.15, linewidth=0, zorder=3)
+        return m
+
+    log = df[df.ensemble == "logistic"]
+    m_log = band(log, "naive_epistemic", SLOTS[0], MARKERS[0], DASHES[0],
+                 "reported epistemic (converged ensemble)")
+    band(log, "censoring", SLOTS[1], MARKERS[1], DASHES[1], "censoring term")
     if (df.ensemble == "mlp").any():
-        mlp = df[df.ensemble == "mlp"].sort_values("n")
-        ax.plot(mlp.n, mlp.naive_epistemic, color=MUTED, marker=MARKERS[2],
-                ls=DASHES[2], lw=1.2, zorder=3,
-                label="reported epistemic (fixed-budget deep ensemble)")
+        band(df[df.ensemble == "mlp"], "naive_epistemic", MUTED, MARKERS[2], DASHES[2],
+             "reported epistemic (fixed-budget deep ensemble)", lw=1.2)
     ax.set_xscale("log"); ax.set_yscale("log")
-    ax.set_xticks(list(log.n.values))
-    ax.set_xticklabels([f"{int(v):,}" for v in log.n.values], fontsize=7.5)
+    ax.set_xticks(list(m_log.index.values))
+    ax.set_xticklabels([f"{int(v):,}" for v in m_log.index.values], fontsize=7.5)
     ax.minorticks_off()
-    ax.set_xlabel("training units $n$"); ax.set_ylabel("nats")
+    ax.set_xlabel("training units $n$"); ax.set_ylabel("nats  (mean $\\pm$ 95% CI, 5 seeds)")
     ax.set_title("More data cannot shrink what censoring hides")
     grid(ax, axis="both")
     ax.legend(loc="lower left", fontsize=6.8, bbox_to_anchor=(-0.01, -0.02))
     _save(fig, "fig4_uq")
+
+
+def fig8_nuisance():
+    """Coverage under estimated nuisances: plug-in vs inflated boxes (Thm 5)."""
+    df = _load("exp8_nuisance_coverage_raw")
+    if df is None:
+        return
+    from scipy import stats
+    cfgs = [("plugin", "plug-in"), ("bins10", "10 bins"), ("bins20", "20 bins"),
+            ("bins10_smooth", "10 bins\n+ margin"), ("bins20_smooth", "20 bins\n+ margin")]
+    sets = [d for d in ("sl_bench", "lending_club") if d in df.dataset.unique()]
+    fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.8))
+    ax = axes[0]
+    x = np.arange(len(cfgs)); w = 0.36
+    for j, ds in enumerate(sets):
+        sub = df[df.dataset == ds]
+        means, hws = [], []
+        for key, _ in cfgs:
+            v = sub[f"cov_{key}"].dropna().values
+            means.append(v.mean())
+            hws.append(stats.t.ppf(0.975, max(len(v) - 1, 1)) * v.std(ddof=1) / np.sqrt(len(v)) if len(v) > 1 else 0)
+        ax.bar(x + (j - 0.5) * w, means, width=w, color=SLOTS[j], linewidth=0, zorder=3,
+               label={"sl_bench": "SL-Bench (exact $p$)", "lending_club": "Lending Club (oracle $p$)"}[ds])
+        ax.errorbar(x + (j - 0.5) * w, means, yerr=hws, fmt="none", ecolor=INK, elinewidth=0.8, capsize=2, zorder=4)
+    ax.axhline(0.9, color=MUTED, ls=":", lw=1)
+    ax.annotate("target 90%", (len(cfgs) - 0.55, 0.905), ha="right", fontsize=7, color=MUTED)
+    ax.set_xticks(x); ax.set_xticklabels([c[1] for c in cfgs], fontsize=7)
+    ax.set_ylim(0, 1.05); ax.set_ylabel("pointwise coverage of true $p(x)$")
+    ax.set_title("a  Coverage")
+    grid(ax); ax.legend(loc="upper left", fontsize=6.8)
+
+    ax = axes[1]
+    for j, ds in enumerate(sets):
+        sub = df[df.dataset == ds]
+        wid = [sub[f"width_{k}"].mean() for k, _ in cfgs]
+        cov = [sub[f"cov_{k}"].mean() for k, _ in cfgs]
+        ax.plot(wid, cov, color=SLOTS[j], marker=MARKERS[j], ls=DASHES[j], zorder=4)
+        for (k, lab), wv, cv in zip(cfgs, wid, cov):
+            if k in ("plugin", "bins20_smooth"):
+                ax.annotate(lab.replace("\n", " "), (wv, cv), xytext=(4, -9 if k == "plugin" else 4),
+                            textcoords="offset points", fontsize=6.5, color=INK2)
+    ax.axhline(0.9, color=MUTED, ls=":", lw=1)
+    ax.set_xlabel("mean box width"); ax.set_ylabel("coverage")
+    ax.set_title("b  The price of validity")
+    grid(ax, axis="both")
+    _save(fig, "fig8_nuisance")
 
 
 def fig5_generalization():
@@ -356,7 +413,7 @@ def fig7_bayes_act():
 
 if __name__ == "__main__":
     for fn in (fig7_bayes_act, fig1_sharpness, fig2_compas, fig3_learning,
-               fig4_uq, fig5_generalization, fig6_falsification):
+               fig4_uq, fig5_generalization, fig6_falsification, fig8_nuisance):
         try:
             fn()
         except Exception as exc:
