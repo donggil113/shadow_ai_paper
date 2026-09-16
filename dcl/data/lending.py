@@ -1,5 +1,11 @@
 """Lending Club: real credit applications with the underwriter's signal held out.
 
+**Provenance label: semi-synthetic.**  Covariates and repayment outcomes are
+real; the funding *decision* is simulated from a Gamma_0-calibrated policy that
+uses the real hidden signal.  Every results file built from this loader carries
+``data_source: semi-synthetic`` and the paper never presents it as a real
+decision process.
+
 Source.  ``modeldata::lending_club`` (n = 9,857, 5.2% adverse) and
 ``openintro::loans_full_schema`` (n = 10,000, 55 columns), both redistributions
 of Lending Club's public loan book, mirrored in the Rdatasets archive.  See
@@ -41,6 +47,10 @@ _NUM = ["funded_amnt", "annual_inc", "delinq_2yrs", "inq_last_6mths",
         "revol_util", "acc_now_delinq", "open_il_6m", "open_il_12m",
         "open_il_24m", "total_bal_il", "all_util", "inq_fi", "inq_last_12m",
         "delinq_amnt", "num_il_tl", "total_il_high_credit_limit"]
+
+# Raw columns the hidden signal S is built from, plus their deterministic
+# derivatives; assert_hidden_signal_excluded() refuses any X containing them.
+FORBIDDEN_FEATURES = ("int_rate", "sub_grade", "grade", "Class")
 
 _EMP_ORDER = {"emp_lt_1": 0.0, "emp_1": 1.0, "emp_2": 2.0, "emp_3": 3.0,
               "emp_4": 4.0, "emp_5": 5.0, "emp_6": 6.0, "emp_7": 7.0,
@@ -98,6 +108,7 @@ def make_lending_club(
         name=f"LendingClub(Gamma0~{target_gamma:g})",
         target_gamma=target_gamma, selection_rate=selection_rate,
         n_judges=n_judges, seed=seed,
+        forbidden_names=FORBIDDEN_FEATURES,
         notes=("Real Lending Club applicant features and repayment outcomes; "
                "hidden signal S = assigned interest rate / sub-grade (the "
                "underwriter's own risk assessment, excluded from X); funding "

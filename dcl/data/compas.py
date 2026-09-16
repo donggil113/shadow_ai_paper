@@ -23,6 +23,26 @@ biases the realised odds ratio *downward* (detention suppresses rearrest) while
 selection on dangerousness pushes it up.  We therefore report COMPAS as a
 coverage check for the bounds, not as a precise estimate of ``Gamma_0``, and we
 exclude spells longer than ``max_custody_days`` where incapacitation dominates.
+
+Time-at-risk correction (``outcome="exposure_adjusted"``).  ProPublica's file
+carries the survival fields it used for its Cox model: ``start`` (days from
+screening to the start of the at-risk period, i.e. release from the index
+custody spell), ``end`` (days from screening to the recidivism offence or to the
+end of follow-up) and ``event``.  ``end - start`` is therefore time *at risk in
+the community*.  The exposure-adjusted outcome is
+
+    Y_exp = 1{event == 1 and end - start <= exposure_days},
+
+and units with neither an event nor ``exposure_days`` of at-risk follow-up are
+dropped (they cannot be classified).  This holds exposure fixed across the
+released and detained groups and removes the mechanical incapacitation effect;
+``audit/compas_time_at_risk.py`` quantifies what it changes (on the ProPublica
+cohort the detained/released odds ratio *rises* from about 1.9 to about 2.1,
+i.e. incapacitation was masking selection, not creating it).  The recorded
+outcome ``two_year_recid`` remains the primary target in the paper because it
+is the quantity a deployed model is scored on; the exposure-adjusted variant is
+the sensitivity analysis.  Neither is a "ground truth" in the causal sense: we
+call them *recorded* outcomes.
 """
 
 from __future__ import annotations
@@ -37,12 +57,28 @@ from .base import SelectiveLabelsDataset
 __all__ = ["make_compas"]
 
 
+OUTCOMES = ("recorded", "exposure_adjusted")
+
+
 def make_compas(
     data_dir: str = "data/raw",
     release_days: float = 2.0,
     max_custody_days: float = 180.0,
     seed: int = 0,
+    outcome: str = "recorded",
+    exposure_days: int = 730,
 ) -> SelectiveLabelsDataset:
+    """COMPAS as a selective-labels instance.
+
+    Parameters
+    ----------
+    outcome : {"recorded", "exposure_adjusted"}
+        ``"recorded"`` scores ``two_year_recid`` as published; ``"exposure_adjusted"``
+        scores rearrest within ``exposure_days`` of *time at risk* (see module
+        docstring) and drops units with insufficient at-risk follow-up.
+    """
+    if outcome not in OUTCOMES:
+        raise ValueError(f"outcome must be one of {OUTCOMES}, got {outcome!r}")
     path = os.path.join(data_dir, "compas_two_years.csv")
     if not os.path.exists(path):
         raise FileNotFoundError(
@@ -65,7 +101,17 @@ def make_compas(
     df, days = df[keep].copy(), days[keep]
 
     T = (days.to_numpy() <= release_days).astype(float)
-    Y = df["two_year_recid"].astype(float).to_numpy()
+    Y_rec = df["two_year_recid"].astype(float).to_numpy()
+    n_cohort = int(len(df))
+    at_risk = (df["end"].astype(float) - df["start"].astype(float)).to_numpy()
+    event = df["event"].astype(float).to_numpy()
+    Y_exp_all = ((event == 1) & (at_risk <= exposure_days)).astype(float)
+    exposed = (at_risk >= exposure_days) | (event == 1)
+    if outcome == "exposure_adjusted":
+        df, days = df[exposed].copy(), days[exposed]
+        T, Y = T[exposed], Y_exp_all[exposed]
+    else:
+        Y = Y_rec
 
     num = df[["age", "priors_count", "juv_fel_count", "juv_misd_count",
               "juv_other_count"]].astype(float)
@@ -78,15 +124,23 @@ def make_compas(
 
     Y_obs = np.where(T == 1, Y, np.nan)
 
-    p1m = Y[T == 1].mean(); p0m = Y[T == 0].mean()
-    or_marg = (p0m / (1 - p0m)) / (p1m / (1 - p1m))
+    def _or(y, t):
+        a = y[t == 1].mean(); b = y[t == 0].mean()
+        return float((b / (1 - b)) / (a / (1 - a)))
 
+    or_marg = _or(Y, T)
     return SelectiveLabelsDataset(
         X=X, T=T, Y_obs=Y_obs, Y_full=Y, Z=None,
-        feature_names=list(Xdf.columns), name="COMPAS(real decisions)",
-        oracle=dict(marginal_odds_ratio=float(or_marg)),
-        notes=("Real pretrial release decisions; two-year rearrest recorded for "
-               "released AND detained defendants, so deployment risk is "
-               "evaluable. Custody spells > %g days excluded (incapacitation)."
-               % max_custody_days),
+        feature_names=list(Xdf.columns),
+        name="COMPAS(real decisions, %s outcome)" % outcome,
+        oracle=dict(marginal_odds_ratio=or_marg, outcome=outcome,
+                    exposure_days=int(exposure_days), n_cohort=n_cohort,
+                    n_kept=int(len(Y)), custody_days=days.to_numpy(),
+                    marginal_odds_ratio_recorded=_or(Y_rec, (days.to_numpy() <= release_days).astype(float))
+                    if outcome == "recorded" else None),
+        notes=("Real pretrial release decisions; two-year rearrest RECORDED for "
+               "released AND detained defendants, so a recorded deployment outcome "
+               "is available for every unit (not a causal ground truth: detention "
+               "also incapacitates). Custody spells > %g days excluded; outcome=%s."
+               % (max_custody_days, outcome)),
     )

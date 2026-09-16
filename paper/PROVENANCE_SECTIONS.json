@@ -1,0 +1,17 @@
+{
+  "_comment": "CLAUDE.md rule 3. Scopes are '<file>' or '<file>#<label>' (the \\section/\\subsection block carrying that \\label). 'forbid' lists data_source values that may not be cited (via a numbers.tex macro) inside the scope; 'require' restricts to the listed values. Main-text files listed under main_text may not cite simulator macros anywhere except in the scopes listed under simulator_allowed.",
+  "main_text": [
+    "paper/sections/01_intro.tex", "paper/sections/02_setup.tex", "paper/sections/03_ranking.tex",
+    "paper/sections/04_learning.tex", "paper/sections/05_nuisance.tex", "paper/sections/05_impossibility.tex",
+    "paper/sections/06_generalization.tex", "paper/sections/07_uncertainty.tex", "paper/sections/08_experiments.tex",
+    "paper/sections/08b_gamma.tex", "paper/sections/08c_scaling.tex", "paper/sections/09_related.tex",
+    "paper/sections/09b_related_matrix.tex", "paper/sections/10_discussion.tex", "paper/main.tex"
+  ],
+  "main_text_forbid": ["simulator"],
+  "simulator_allowed": ["paper/sections/B_details.tex#app:simulator", "paper/sections/B_details.tex#app:simulator-validation"],
+  "scopes": {
+    "paper/sections/08_experiments.tex#sec:compas": {"require": ["real"], "why": "real-decision section: only real-data macros"},
+    "paper/sections/05_nuisance.tex": {"forbid": ["simulator"], "why": "nuisance theorem validated on real / semi-synthetic data only"},
+    "paper/sections/08_experiments.tex#sec:medical": {"require": ["real"], "why": "clinical section (T1, MIMIC-IV-ECG x ECHO): real data only"}
+  }
+}

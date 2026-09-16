@@ -30,7 +30,60 @@ from ..sensitivity import expit, logit
 from .base import SelectiveLabelsDataset
 from .synthetic import _gauss_hermite
 
-__all__ = ["residualise", "censor_with_hidden_signal"]
+__all__ = ["residualise", "censor_with_hidden_signal", "assert_hidden_signal_excluded",
+           "HiddenSignalLeak"]
+
+
+class HiddenSignalLeak(AssertionError):
+    """Raised when the decision maker's private signal (or a deterministic
+    function of it) is found among the learner's covariates."""
+
+
+def assert_hidden_signal_excluded(X: np.ndarray, S_raw: np.ndarray, feature_names,
+                                  forbidden_names=(), max_abs_corr: float = 0.95,
+                                  max_r2: float = 0.95) -> dict:
+    """Code-level guarantee that ``S`` and its deterministic derivatives are not in ``X``.
+
+    Three checks, all cheap, all fatal:
+
+    1. **names** -- no feature name equals, contains or is contained in one of
+       ``forbidden_names`` (the raw columns ``S`` was built from);
+    2. **exact reproduction** -- no single column of ``X`` reproduces ``S`` (or
+       a monotone transform of it): Pearson and Spearman ``|corr| < max_abs_corr``
+       for every column;
+    3. **linear reconstruction** -- ``S`` cannot be linearly reconstructed from
+       ``X``: the in-sample ``R^2`` of ``S ~ X`` is below ``max_r2``.
+
+    Returns the diagnostics so they can be logged / written to ``results``.
+    Note that check 3 is a guard against *deterministic* derivatives, not a
+    claim that ``S`` is independent of ``X``: some dependence is expected and is
+    what :func:`residualise` removes.
+    """
+    from scipy.stats import spearmanr
+    X = np.asarray(X, float); S = np.asarray(S_raw, float).ravel()
+    names = [str(n) for n in feature_names]
+    if len(names) != X.shape[1]:
+        raise ValueError("feature_names must match X.shape[1]")
+    bad = [n for n in names for f in forbidden_names
+           if n.lower() == f.lower() or f.lower() in n.lower() or n.lower() in f.lower()]
+    if bad:
+        raise HiddenSignalLeak(f"hidden-signal columns present in X: {bad}")
+    sd = X.std(0); ok = sd > 1e-12
+    pear = np.zeros(X.shape[1]); spear = np.zeros(X.shape[1])
+    for j in np.where(ok)[0]:
+        pear[j] = abs(np.corrcoef(X[:, j], S)[0, 1])
+        spear[j] = abs(spearmanr(X[:, j], S).correlation)
+    jmax = int(np.nanargmax(np.maximum(pear, spear)))
+    if max(np.nanmax(pear), np.nanmax(spear)) >= max_abs_corr:
+        raise HiddenSignalLeak(
+            f"column {names[jmax]!r} reproduces S: |pearson|={pear[jmax]:.3f}, |spearman|={spear[jmax]:.3f}")
+    A = np.hstack([np.ones((X.shape[0], 1)), X])
+    coef = np.linalg.lstsq(A, S, rcond=None)[0]
+    r2 = 1.0 - np.var(S - A @ coef) / np.var(S)
+    if r2 >= max_r2:
+        raise HiddenSignalLeak(f"S is linearly reconstructible from X (R^2={r2:.3f})")
+    return dict(max_abs_pearson=float(np.nanmax(pear)), max_abs_spearman=float(np.nanmax(spear)),
+                argmax_feature=names[jmax], linear_r2=float(r2), n_features=int(X.shape[1]))
 
 
 def residualise(S: np.ndarray, X: np.ndarray, ridge: float = 1e-3) -> np.ndarray:
@@ -81,6 +134,7 @@ def censor_with_hidden_signal(
     align_sign: bool = True,
     notes: str = "",
     calib_n: int = 4000,
+    forbidden_names=(),
 ) -> SelectiveLabelsDataset:
     """Impose a ``Gamma_0``-calibrated censoring policy driven by the hidden ``S``.
 
@@ -93,6 +147,10 @@ def censor_with_hidden_signal(
     Y = np.asarray(Y, float)
     n = X.shape[0]
     rng = np.random.default_rng(seed)
+
+    # Rule: S and its deterministic derivatives are never in X (raises otherwise).
+    leak_diag = assert_hidden_signal_excluded(X, S_raw, feature_names,
+                                              forbidden_names=forbidden_names)
 
     S = residualise(S_raw, X)
     if align_sign:
@@ -202,6 +260,6 @@ def censor_with_hidden_signal(
                     gamma0_q99=float(np.exp(np.quantile(lor, 0.99))),
                     gamma0_cond=gamma0_cond,
                     kappa=kappa, S=S, p1_by_z=p1_by_z, e_by_z=e_by_z,
-                    leniency=leniency),
+                    leniency=leniency, hidden_signal_guard=leak_diag),
         notes=notes or "Semi-synthetic censoring on real covariates and real outcomes.",
     )

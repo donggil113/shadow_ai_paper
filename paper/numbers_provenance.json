@@ -1,0 +1,1277 @@
+{
+ "nExpOneCovSharp": {
+  "source": "exp1_summary.json:coverage_sharp_pop",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneCovSharpEmp": {
+  "source": "exp1_summary.json:coverage_sharp_emp",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneCovCorner": {
+  "source": "exp1_summary.json:coverage_naive",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneCovSeparate": {
+  "source": "exp1_summary.json:coverage_separate",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneCovTooSmall": {
+  "source": "exp1_summary.json:coverage_sharp_when_gamma_too_small",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneWidthSharp": {
+  "source": "exp1_summary.json:width_sharp",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneWidthSharpCI": {
+  "source": "exp1_summary.json:width_sharp_ci95",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneWidthSeparate": {
+  "source": "exp1_summary.json:width_separate",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneGap": {
+  "source": "exp1_summary.json:max_abs_gap",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneAttain": {
+  "source": "exp1_summary.json:max_attainment_error",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneSeeds": {
+  "source": "exp1_summary.json:n_seeds",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneWidthRatioSep": {
+  "source": "exp1_summary.json:width_separate/width_sharp",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneWidthRatioCorner": {
+  "source": "csv:exp1b_validity.csv:df[df.gamma_sufficient].sharp_w.mean()/df[df.gamma_sufficient].naive_w.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneWidthCorner": {
+  "source": "csv:exp1b_validity.csv:df[df.gamma_sufficient].naive_w.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneRuntimeTwentyK": {
+  "source": "csv:exp1c_runtime.csv:df[df.n==20000].seconds.iloc[0]",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneRuntimeHundredK": {
+  "source": "csv:exp1c_runtime.csv:df[df.n==100000].seconds.iloc[0]",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneRuntimeFourHundredK": {
+  "source": "csv:exp1c_runtime.csv:df[df.n==400000].seconds.iloc[0]",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingErmRisk": {
+  "source": "exp2_summary.json:datasets.lending_club.ERM-observed.risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingErmAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.ERM-observed.auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingErmObsAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.ERM-observed.obs_auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingErmWc": {
+  "source": "exp2_summary.json:datasets.lending_club.ERM-observed.worstcase_risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingErmRegret": {
+  "source": "exp2_summary.json:datasets.lending_club.ERM-observed.minimax_regret",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingIpwRisk": {
+  "source": "exp2_summary.json:datasets.lending_club.IPW.risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingIpwAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.IPW.auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingIpwObsAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.IPW.obs_auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingIpwWc": {
+  "source": "exp2_summary.json:datasets.lending_club.IPW.worstcase_risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingIpwRegret": {
+  "source": "exp2_summary.json:datasets.lending_club.IPW.minimax_regret",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingAipwRisk": {
+  "source": "exp2_summary.json:datasets.lending_club.AIPW.risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingAipwAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.AIPW.auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingAipwObsAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.AIPW.obs_auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingAipwWc": {
+  "source": "exp2_summary.json:datasets.lending_club.AIPW.worstcase_risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingAipwRegret": {
+  "source": "exp2_summary.json:datasets.lending_club.AIPW.minimax_regret",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingImpRisk": {
+  "source": "exp2_summary.json:datasets.lending_club.Imputation.risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingImpAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.Imputation.auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingImpObsAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.Imputation.obs_auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingImpWc": {
+  "source": "exp2_summary.json:datasets.lending_club.Imputation.worstcase_risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingImpRegret": {
+  "source": "exp2_summary.json:datasets.lending_club.Imputation.minimax_regret",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingManskiRisk": {
+  "source": "exp2_summary.json:datasets.lending_club.Manski(G=inf).risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingManskiAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.Manski(G=inf).auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingManskiObsAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.Manski(G=inf).obs_auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingManskiWc": {
+  "source": "exp2_summary.json:datasets.lending_club.Manski(G=inf).worstcase_risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingManskiRegret": {
+  "source": "exp2_summary.json:datasets.lending_club.Manski(G=inf).minimax_regret",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingOracleRisk": {
+  "source": "exp2_summary.json:datasets.lending_club.ORACLE(uncensored).risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingOracleAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.ORACLE(uncensored).auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingOracleObsAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.ORACLE(uncensored).obs_auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingOracleWc": {
+  "source": "exp2_summary.json:datasets.lending_club.ORACLE(uncensored).worstcase_risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingOracleRegret": {
+  "source": "exp2_summary.json:datasets.lending_club.ORACLE(uncensored).minimax_regret",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclTwoRisk": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL(G=2).risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclTwoAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL(G=2).auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclTwoObsAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL(G=2).obs_auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclTwoWc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL(G=2).worstcase_risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclTwoRegret": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL(G=2).minimax_regret",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclRegTwoRisk": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=2).risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclRegTwoAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=2).auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclRegTwoObsAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=2).obs_auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclRegTwoWc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=2).worstcase_risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclRegTwoRegret": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=2).minimax_regret",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclThreeRisk": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL(G=3).risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclThreeAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL(G=3).auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclThreeObsAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL(G=3).obs_auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclThreeWc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL(G=3).worstcase_risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclThreeRegret": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL(G=3).minimax_regret",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclRegThreeRisk": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=3).risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclRegThreeAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=3).auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclRegThreeObsAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=3).obs_auroc",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclRegThreeWc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=3).worstcase_risk",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoLendingDclRegThreeRegret": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=3).minimax_regret",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimErmRisk": {
+  "source": "exp2_summary.json:datasets.mimic_sim.ERM-observed.risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimErmAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.ERM-observed.auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimErmObsAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.ERM-observed.obs_auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimErmWc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.ERM-observed.worstcase_risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimErmRegret": {
+  "source": "exp2_summary.json:datasets.mimic_sim.ERM-observed.minimax_regret",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimIpwRisk": {
+  "source": "exp2_summary.json:datasets.mimic_sim.IPW.risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimIpwAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.IPW.auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimIpwObsAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.IPW.obs_auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimIpwWc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.IPW.worstcase_risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimIpwRegret": {
+  "source": "exp2_summary.json:datasets.mimic_sim.IPW.minimax_regret",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimAipwRisk": {
+  "source": "exp2_summary.json:datasets.mimic_sim.AIPW.risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimAipwAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.AIPW.auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimAipwObsAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.AIPW.obs_auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimAipwWc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.AIPW.worstcase_risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimAipwRegret": {
+  "source": "exp2_summary.json:datasets.mimic_sim.AIPW.minimax_regret",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimImpRisk": {
+  "source": "exp2_summary.json:datasets.mimic_sim.Imputation.risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimImpAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.Imputation.auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimImpObsAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.Imputation.obs_auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimImpWc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.Imputation.worstcase_risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimImpRegret": {
+  "source": "exp2_summary.json:datasets.mimic_sim.Imputation.minimax_regret",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimManskiRisk": {
+  "source": "exp2_summary.json:datasets.mimic_sim.Manski(G=inf).risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimManskiAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.Manski(G=inf).auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimManskiObsAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.Manski(G=inf).obs_auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimManskiWc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.Manski(G=inf).worstcase_risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimManskiRegret": {
+  "source": "exp2_summary.json:datasets.mimic_sim.Manski(G=inf).minimax_regret",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimOracleRisk": {
+  "source": "exp2_summary.json:datasets.mimic_sim.ORACLE(uncensored).risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimOracleAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.ORACLE(uncensored).auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimOracleObsAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.ORACLE(uncensored).obs_auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimOracleWc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.ORACLE(uncensored).worstcase_risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimOracleRegret": {
+  "source": "exp2_summary.json:datasets.mimic_sim.ORACLE(uncensored).minimax_regret",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclTwoRisk": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL(G=2).risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclTwoAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL(G=2).auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclTwoObsAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL(G=2).obs_auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclTwoWc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL(G=2).worstcase_risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclTwoRegret": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL(G=2).minimax_regret",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclRegTwoRisk": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=2).risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclRegTwoAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=2).auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclRegTwoObsAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=2).obs_auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclRegTwoWc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=2).worstcase_risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclRegTwoRegret": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=2).minimax_regret",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclThreeRisk": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL(G=3).risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclThreeAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL(G=3).auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclThreeObsAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL(G=3).obs_auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclThreeWc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL(G=3).worstcase_risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclThreeRegret": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL(G=3).minimax_regret",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclRegThreeRisk": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=3).risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclRegThreeAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=3).auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclRegThreeObsAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=3).obs_auroc",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclRegThreeWc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=3).worstcase_risk",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclRegThreeRegret": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=3).minimax_regret",
+  "data_source": "simulator",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchErmRisk": {
+  "source": "exp2_summary.json:datasets.sl_bench.ERM-observed.risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchErmAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.ERM-observed.auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchErmObsAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.ERM-observed.obs_auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchErmWc": {
+  "source": "exp2_summary.json:datasets.sl_bench.ERM-observed.worstcase_risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchErmRegret": {
+  "source": "exp2_summary.json:datasets.sl_bench.ERM-observed.minimax_regret",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchIpwRisk": {
+  "source": "exp2_summary.json:datasets.sl_bench.IPW.risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchIpwAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.IPW.auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchIpwObsAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.IPW.obs_auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchIpwWc": {
+  "source": "exp2_summary.json:datasets.sl_bench.IPW.worstcase_risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchIpwRegret": {
+  "source": "exp2_summary.json:datasets.sl_bench.IPW.minimax_regret",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchAipwRisk": {
+  "source": "exp2_summary.json:datasets.sl_bench.AIPW.risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchAipwAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.AIPW.auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchAipwObsAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.AIPW.obs_auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchAipwWc": {
+  "source": "exp2_summary.json:datasets.sl_bench.AIPW.worstcase_risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchAipwRegret": {
+  "source": "exp2_summary.json:datasets.sl_bench.AIPW.minimax_regret",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchImpRisk": {
+  "source": "exp2_summary.json:datasets.sl_bench.Imputation.risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchImpAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.Imputation.auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchImpObsAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.Imputation.obs_auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchImpWc": {
+  "source": "exp2_summary.json:datasets.sl_bench.Imputation.worstcase_risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchImpRegret": {
+  "source": "exp2_summary.json:datasets.sl_bench.Imputation.minimax_regret",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchManskiRisk": {
+  "source": "exp2_summary.json:datasets.sl_bench.Manski(G=inf).risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchManskiAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.Manski(G=inf).auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchManskiObsAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.Manski(G=inf).obs_auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchManskiWc": {
+  "source": "exp2_summary.json:datasets.sl_bench.Manski(G=inf).worstcase_risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchManskiRegret": {
+  "source": "exp2_summary.json:datasets.sl_bench.Manski(G=inf).minimax_regret",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchOracleRisk": {
+  "source": "exp2_summary.json:datasets.sl_bench.ORACLE(uncensored).risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchOracleAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.ORACLE(uncensored).auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchOracleObsAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.ORACLE(uncensored).obs_auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchOracleWc": {
+  "source": "exp2_summary.json:datasets.sl_bench.ORACLE(uncensored).worstcase_risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchOracleRegret": {
+  "source": "exp2_summary.json:datasets.sl_bench.ORACLE(uncensored).minimax_regret",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclTwoRisk": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL(G=2).risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclTwoAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL(G=2).auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclTwoObsAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL(G=2).obs_auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclTwoWc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL(G=2).worstcase_risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclTwoRegret": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL(G=2).minimax_regret",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclRegTwoRisk": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=2).risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclRegTwoAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=2).auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclRegTwoObsAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=2).obs_auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclRegTwoWc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=2).worstcase_risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclRegTwoRegret": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=2).minimax_regret",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclThreeRisk": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL(G=3).risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclThreeAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL(G=3).auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclThreeObsAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL(G=3).obs_auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclThreeWc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL(G=3).worstcase_risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclThreeRegret": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL(G=3).minimax_regret",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclRegThreeRisk": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=3).risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclRegThreeAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=3).auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclRegThreeObsAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=3).obs_auroc",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclRegThreeWc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=3).worstcase_risk",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSlBenchDclRegThreeRegret": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=3).minimax_regret",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpTwoSeeds": {
+  "source": "exp2_summary.json:n_seeds",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpEightSlBenchCovPlugin": {
+  "source": "exp8_summary.json:datasets.sl_bench.cov_plugin",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchCovBinsTen": {
+  "source": "exp8_summary.json:datasets.sl_bench.cov_bins10",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchCovBinsTwenty": {
+  "source": "exp8_summary.json:datasets.sl_bench.cov_bins20",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchCovBinsTenSmooth": {
+  "source": "exp8_summary.json:datasets.sl_bench.cov_bins10_smooth",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchCovBinsTwentySmooth": {
+  "source": "exp8_summary.json:datasets.sl_bench.cov_bins20_smooth",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchCovOracleE": {
+  "source": "exp8_summary.json:datasets.sl_bench.cov_oracle_e_est_p1",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchCovOracleP": {
+  "source": "exp8_summary.json:datasets.sl_bench.cov_est_e_oracle_p1",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchWidthPlugin": {
+  "source": "exp8_summary.json:datasets.sl_bench.width_plugin",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchWidthBinsTwenty": {
+  "source": "exp8_summary.json:datasets.sl_bench.width_bins20",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchWidthBinsTwentySmooth": {
+  "source": "exp8_summary.json:datasets.sl_bench.width_bins20_smooth",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchMaeE": {
+  "source": "exp8_summary.json:datasets.sl_bench.mae_e",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchMaeP": {
+  "source": "exp8_summary.json:datasets.sl_bench.mae_p1",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchDrCovPrev": {
+  "source": "exp8_summary.json:datasets.sl_bench.dr_covers_prevalence_interval",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchPlugCovPrev": {
+  "source": "exp8_summary.json:datasets.sl_bench.plug_covers_prevalence_interval",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchDrCovRealised": {
+  "source": "exp8_summary.json:datasets.sl_bench.dr_outer_covers_realised",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchAucCovPlugin": {
+  "source": "exp8_summary.json:datasets.sl_bench.auc_cov_plugin",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchAucCovBinsTwenty": {
+  "source": "exp8_summary.json:datasets.sl_bench.auc_cov_bins20",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchAucCovEmpPlugin": {
+  "source": "exp8_summary.json:datasets.sl_bench.auc_cov_emp_plugin",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchAucCovEmpBinsTwenty": {
+  "source": "exp8_summary.json:datasets.sl_bench.auc_cov_emp_bins20",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchAucWidthPlugin": {
+  "source": "exp8_summary.json:datasets.sl_bench.auc_width_plugin",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchAucWidthBinsTwenty": {
+  "source": "exp8_summary.json:datasets.sl_bench.auc_width_bins20",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchDrErrLo": {
+  "source": "exp8_summary.json:datasets.sl_bench.dr_abs_err_lo",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchPlugErrLo": {
+  "source": "exp8_summary.json:datasets.sl_bench.plug_abs_err_lo",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchDrErrHi": {
+  "source": "exp8_summary.json:datasets.sl_bench.dr_abs_err_hi",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightSlBenchPlugErrHi": {
+  "source": "exp8_summary.json:datasets.sl_bench.plug_abs_err_hi",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingCovPlugin": {
+  "source": "exp8_summary.json:datasets.lending_club.cov_plugin",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingCovBinsTen": {
+  "source": "exp8_summary.json:datasets.lending_club.cov_bins10",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingCovBinsTwenty": {
+  "source": "exp8_summary.json:datasets.lending_club.cov_bins20",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingCovBinsTenSmooth": {
+  "source": "exp8_summary.json:datasets.lending_club.cov_bins10_smooth",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingCovBinsTwentySmooth": {
+  "source": "exp8_summary.json:datasets.lending_club.cov_bins20_smooth",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingCovOracleE": {
+  "source": "exp8_summary.json:datasets.lending_club.cov_oracle_e_est_p1",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingCovOracleP": {
+  "source": "exp8_summary.json:datasets.lending_club.cov_est_e_oracle_p1",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingWidthPlugin": {
+  "source": "exp8_summary.json:datasets.lending_club.width_plugin",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingWidthBinsTwenty": {
+  "source": "exp8_summary.json:datasets.lending_club.width_bins20",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingWidthBinsTwentySmooth": {
+  "source": "exp8_summary.json:datasets.lending_club.width_bins20_smooth",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingMaeE": {
+  "source": "exp8_summary.json:datasets.lending_club.mae_e",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingMaeP": {
+  "source": "exp8_summary.json:datasets.lending_club.mae_p1",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingDrCovPrev": {
+  "source": "exp8_summary.json:datasets.lending_club.dr_covers_prevalence_interval",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingPlugCovPrev": {
+  "source": "exp8_summary.json:datasets.lending_club.plug_covers_prevalence_interval",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingDrCovRealised": {
+  "source": "exp8_summary.json:datasets.lending_club.dr_outer_covers_realised",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingAucCovPlugin": {
+  "source": "exp8_summary.json:datasets.lending_club.auc_cov_plugin",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingAucCovBinsTwenty": {
+  "source": "exp8_summary.json:datasets.lending_club.auc_cov_bins20",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingAucCovEmpPlugin": {
+  "source": "exp8_summary.json:datasets.lending_club.auc_cov_emp_plugin",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingAucCovEmpBinsTwenty": {
+  "source": "exp8_summary.json:datasets.lending_club.auc_cov_emp_bins20",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingAucWidthPlugin": {
+  "source": "exp8_summary.json:datasets.lending_club.auc_width_plugin",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingAucWidthBinsTwenty": {
+  "source": "exp8_summary.json:datasets.lending_club.auc_width_bins20",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingDrErrLo": {
+  "source": "exp8_summary.json:datasets.lending_club.dr_abs_err_lo",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingPlugErrLo": {
+  "source": "exp8_summary.json:datasets.lending_club.plug_abs_err_lo",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingDrErrHi": {
+  "source": "exp8_summary.json:datasets.lending_club.dr_abs_err_hi",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightLendingPlugErrHi": {
+  "source": "exp8_summary.json:datasets.lending_club.plug_abs_err_hi",
+  "data_source": "semi-synthetic",
+  "n_seeds": 5
+ },
+ "nExpEightCompasWidthPlugin": {
+  "source": "exp8_summary.json:datasets.compas.width_plugin",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nExpEightCompasWidthBinsTwenty": {
+  "source": "exp8_summary.json:datasets.compas.width_bins20",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nExpEightCompasWidthBinsTwentySmooth": {
+  "source": "exp8_summary.json:datasets.compas.width_bins20_smooth",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nExpEightCompasDrCovRealised": {
+  "source": "exp8_summary.json:datasets.compas.dr_outer_covers_realised",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nExpEightCompasAucCovEmpPlugin": {
+  "source": "exp8_summary.json:datasets.compas.auc_cov_emp_plugin",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nExpEightCompasAucCovEmpBinsTwenty": {
+  "source": "exp8_summary.json:datasets.compas.auc_cov_emp_bins20",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nExpEightCompasAucWidthPlugin": {
+  "source": "exp8_summary.json:datasets.compas.auc_width_plugin",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nExpEightCompasAucWidthBinsTwenty": {
+  "source": "exp8_summary.json:datasets.compas.auc_width_bins20",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nExpEightCompasBinCovPlugin": {
+  "source": "exp8_summary.json:datasets.compas.binlevel_cov_plugin",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nExpEightCompasBinCovBinsTwenty": {
+  "source": "exp8_summary.json:datasets.compas.binlevel_cov_bins20",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nExpEightSeeds": {
+  "source": "exp8_summary.json:n_seeds",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nExpEightAlphaPct": {
+  "source": "exp8_summary.json:alpha*100",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nExpNineEqualInstances": {
+  "source": "exp9_ranking_search.json:equal_n_instances",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpNineEqualViolations": {
+  "source": "exp9_ranking_search.json:equal_violations",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpNineUnequalInstances": {
+  "source": "exp9_ranking_search.json:unequal_n_instances",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpNineMidBeatenPct": {
+  "source": "exp9_ranking_search.json:unequal_mid_beaten_frac",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpNineLoBeatenPct": {
+  "source": "exp9_ranking_search.json:unequal_lo_beaten_frac",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpNineMidGapMean": {
+  "source": "exp9_ranking_search.json:unequal_mid_gap_mean",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpNineMidGapMax": {
+  "source": "exp9_ranking_search.json:unequal_mid_gap_max",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpNineFamilyPct": {
+  "source": "exp9_ranking_search.json:convex_family_attains_optimum_frac",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpNineMidBeatenSevenPct": {
+  "source": "exp9_ranking_search.json:unequal_mid_beaten_frac_by_n.7",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpNineNMax": {
+  "source": "exp9_ranking_search.json:n_max",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCompasTarNCohort": {
+  "source": "compas_time_at_risk.json:n_cohort",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarNRaw": {
+  "source": "compas_time_at_risk.json:n_raw",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarNPropublica": {
+  "source": "compas_time_at_risk.json:n_after_propublica_filter",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarSelectionPct": {
+  "source": "compas_time_at_risk.json:selection_rate",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarORRecorded": {
+  "source": "compas_time_at_risk.json:recorded.odds_ratio",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarORExposure": {
+  "source": "compas_time_at_risk.json:exposure_adjusted.730.odds_ratio",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarKeptPct": {
+  "source": "compas_time_at_risk.json:exposure_adjusted.730.frac_kept",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarKeptDetainedPct": {
+  "source": "compas_time_at_risk.json:exposure_adjusted.730.frac_kept_detained",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarCustodyDetainedMedian": {
+  "source": "compas_time_at_risk.json:custody_days_detained.median",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarCustodyDetainedQNinety": {
+  "source": "compas_time_at_risk.json:custody_days_detained.q90",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarCustodyReleasedMedian": {
+  "source": "compas_time_at_risk.json:custody_days_released.median",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarPZeroRecorded": {
+  "source": "compas_time_at_risk.json:recorded.p0",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarPOneRecorded": {
+  "source": "compas_time_at_risk.json:recorded.p1",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarPZeroExposure": {
+  "source": "compas_time_at_risk.json:exposure_adjusted.730.p0",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasTarPOneExposure": {
+  "source": "compas_time_at_risk.json:exposure_adjusted.730.p1",
+  "data_source": "real",
+  "n_seeds": null
+ }
+}

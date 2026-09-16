@@ -1,38 +1,19 @@
 \section{Setup: decision-censored data}
 \label{sec:setup}
 
-\paragraph{Data-generating structure.} Each unit has covariates $X\in\X$, latent
-decision-maker information $S\in\mathcal{S}$, a binary decision
-$T\in\{0,1\}$ and a binary outcome $Y\in\{0,1\}$. The decision is taken by a
-policy that sees both $X$ and $S$,
-\[
-  T \mid X, S \;\sim\; \text{Bernoulli}\big(\pi(X,S)\big),
-\]
-and the outcome is recorded \emph{only} when $T=1$. The analyst observes
-$n$ i.i.d.\ copies of
-\[
-  O \;=\; (X,\; T,\; T\cdot Y),
-\]
-never $S$, and never $Y$ on $\{T=0\}$. We write $P$ for the joint law of
-$(X,S,T,Y)$ and $P_{\mathrm{obs}}$ for the induced law of $O$.
+Each unit has covariates $X\in\X$, private decision-maker information
+$S\in\mathcal{S}$, a decision $T\in\{0,1\}$ with
+$T\mid X,S\sim\text{Bernoulli}(\pi(X,S))$, and an outcome $Y\in\{0,1\}$
+recorded \emph{only} when $T=1$. The analyst sees $n$ i.i.d.\ copies of
+$O=(X,\,T,\,T\cdot Y)$ --- never $S$, never $Y$ on $\{T=0\}$; $P$ is the
+law of $(X,S,T,Y)$ and $P_{\mathrm{obs}}$ that of $O$.
 
-\paragraph{What is and is not identified.} Two functionals of $P$ are identified
-from $P_{\mathrm{obs}}$:
-\[
-  e(x) \;=\; \Prb(T=1\mid X=x),
-  \qquad
-  p_1(x) \;=\; \Prb(Y=1 \mid X=x,\,T=1).
-\]
-The deployment target is not:
-\[
-  p(x) \;=\; \Prb(Y=1\mid X=x) \;=\; e(x)\,p_1(x) + \big(1-e(x)\big)\,p_0(x),
-  \qquad p_0(x) = \Prb(Y=1\mid X=x, T=0),
-\]
-because $p_0$ never appears in $P_{\mathrm{obs}}$. For a score
-$f:\X\to\R$ and a loss $\ell(z,y)$ the object we care about is the
-\emph{deployment risk} $R_P(f) = \E_P[\ell(f(X),Y)]$, taken over all units
-including the censored ones --- not the \emph{observed risk}
-$\E_P[\ell(f(X),Y)\mid T=1]$ that every practitioner actually measures.
+\paragraph{Identification.} $P_{\mathrm{obs}}$ identifies
+$e(x)=\Prb(T=1\mid X=x)$ and $p_1(x)=\Prb(Y=1\mid X=x,\,T=1)$ but not the
+deployment target $p(x)=\Prb(Y=1\mid X=x) = e\,p_1 + (1-e)\,p_0$, because
+$p_0(x)=\Prb(Y=1\mid X=x,\,T=0)$ never enters $P_{\mathrm{obs}}$. We target the \emph{deployment risk}
+$R_P(f)=\E_P[\ell(f(X),Y)]$ of a score $f:\X\to\R$ over all units, not the
+\emph{observed risk} $\E_P[\ell(f(X),Y)\mid T=1]$ practitioners measure.
 
 \subsection{The decision-censoring sensitivity model}
 
@@ -52,59 +33,62 @@ equivalently $\big|\logit p_0(x) - \logit p_1(x)\big| \le \log\Gamma$, where
 $\odds(u) = u/(1-u)$.
 \end{definition}
 
-\Cref{def:dcsm} has a direct reading: \emph{after conditioning on everything the
-model sees, the decision maker's private information may shift the outcome
-log-odds of the units they censored by at most $\log\Gamma$.} $\Gamma=1$ is
-selection on observables (missing at random); $\Gamma=\infty$ imposes nothing and
-returns the Manski bounds. The model is a decision-censoring analogue of
-Rosenbaum's sensitivity analysis \citep{rosenbaum1983assessing,
-rosenbaum2002observational} and is equivalent to Tan's marginal sensitivity
-model \citep{tan2006distributional} on the decision propensity:
+Read: \emph{given everything the model sees, the decision maker's
+private information shifts the censored units' outcome log-odds by at most
+$\log\Gamma$.} $\Gamma=1$ is missing at random; $\Gamma=\infty$ recovers
+the Manski bounds. $\dcsm$ is the decision-censoring
+analogue of Rosenbaum's sensitivity analysis \citep{rosenbaum1983assessing,
+rosenbaum2002observational} and matches Tan's marginal sensitivity model
+\citep{tan2006distributional} on the propensity:
 
 \begin{lemma}[Equivalence with the marginal sensitivity model]
 \label{lem:msm}
 Suppose the propensity obeys $\textup{MSM}(\Lambda)$, i.e.
-$\Lambda^{-1}\le \odds(e(x))/\odds(\pi(x,s)) \le \Lambda$ for all $x,s$. Then
-$P$ satisfies $\dcsm(\Gamma)$ with $\Gamma=\Lambda^{2}$, and the bound is
+\[
+  \Lambda^{-1}\le \odds(e(x))/\odds(\pi(x,s)) \le \Lambda
+  \quad\text{for all } x,s.
+\]
+Then $P$ satisfies $\dcsm(\Gamma)$ with $\Gamma=\Lambda^{2}$, and the bound is
 attained: every value in $[\Lambda^{-2},\Lambda^{2}]$ is realised by some
 admissible $\pi$.
 \end{lemma}
 
-\Cref{lem:msm} (proved in \cref{app:setup}) lets us work directly on the outcome
-side, which is where the functionals we care about live. Everything below is
-stated in terms of $\Gamma$; translate with $\Gamma=\Lambda^2$ if the
-sensitivity analysis is elicited on the propensity scale.
+\Cref{lem:msm} (proof in \cref{app:setup}) lets us work in $\Gamma$
+($\Gamma=\Lambda^2$ on the propensity scale).
 
 \subsection{The identified set is a box}
 
-Parameterise the deviation by a \emph{tilt} $a:\X\to[\Gamma^{-1},\Gamma]$ with
-$\odds(p_0(x)) = a(x)\,\odds(p_1(x))$. The induced outcome regression is
+Write $\odds(p_0(x)) = a(x)\,\odds(p_1(x))$ with a \emph{tilt}
+$a:\X\to[\Gamma^{-1},\Gamma]$, inducing
 \begin{equation}
+\begin{aligned}
   p^{a}(x)
-  \;=\;
-  e(x)\,p_1(x)
-  \;+\;
-  \big(1-e(x)\big)\,\sigma\!\big(\logit p_1(x) + \log a(x)\big),
-  \label{eq:tilt}
+  \;=\;{}&
+  e(x)\,p_1(x)\\
+  &+\big(1-e(x)\big)\,\sigma\!\big(\logit p_1(x) + \log a(x)\big),
+\end{aligned}
+\label{eq:tilt}
 \end{equation}
-$\sigma$ the logistic function. Since \eqref{eq:tilt} is strictly increasing in
-$a(x)$ and the constraint acts \emph{pointwise} --- $a$ is an otherwise
-unrestricted measurable function --- we get:
+with $\sigma$ logistic. Since \eqref{eq:tilt} is strictly increasing in
+$a(x)$ and the constraint on $a$ is \emph{pointwise}:
 
 \begin{lemma}[Box form of the identified set]
 \label{lem:box}
 Under $\dcsm(\Gamma)$ the identified set for the deployment regression is
 \[
+\begin{aligned}
   \I_\Gamma(P_{\mathrm{obs}})
   \;=\;
-  \Big\{\, p:\X\to[0,1] \;\Big|\; \plo(x) \le p(x) \le \pup(x)
-  \ \text{ for a.e. } x \,\Big\},
+  \Big\{\, p:\X\to[0,1] \;\Big|\;& \plo(x) \le p(x) \le \pup(x)\\
+  &\ \text{ for a.e. } x \,\Big\},
+\end{aligned}
 \]
 with
 \[
-  \plo(x) = e p_1 + (1-e)\,\sigma\big(\logit p_1 - \log\Gamma\big),
-  \qquad
-  \pup(x) = e p_1 + (1-e)\,\sigma\big(\logit p_1 + \log\Gamma\big),
+\begin{aligned}
+  \plo(x) &= e p_1 + (1-e)\,\sigma\big(\logit p_1 - \log\Gamma\big),\\
+  \pup(x) &= e p_1 + (1-e)\,\sigma\big(\logit p_1 + \log\Gamma\big),
+\end{aligned}
 \]
 all evaluated at $x$. The set is non-empty, convex and compact; every $p$ in it
 is realised by an admissible law; and $\Gamma\mapsto\I_\Gamma$ is nested
@@ -112,26 +96,19 @@ increasing with $\I_1 = \{p_1\}$ and
 $\I_\infty = \{\,e p_1 \le p \le e p_1 + 1 - e\,\}$ (Manski).
 \end{lemma}
 
-Two consequences drive everything that follows. First, because the set is a
-\emph{product} of intervals, optimisation over it decouples across $x$ for any
-separable functional --- this is what makes \cref{sec:learning} tractable.
-Second, because $\Gamma$ enters \eqref{eq:tilt} as a pure \emph{translation on
-the log-odds scale}, estimation error in $p_1$ propagates to the bounds without
-amplification --- this is what makes the $\log\Gamma$ of
-\cref{sec:generalization} $\log\Gamma$ rather than $\Gamma$.
-
-We write $\tilde p = (\plo+\pup)/2$ for the midpoint and
-$\delta = \pup - \plo$ for the \emph{identification width}, which will act
-throughout as a per-unit signal of how much the censoring decision can hide.
+First, the set is a \emph{product} of intervals, so separable optimisation
+decouples across $x$ (\cref{sec:learning}). Second, $\Gamma$ enters \eqref{eq:tilt} as a
+\emph{log-odds translation}, so error in $p_1$ reaches the bounds unamplified
+--- hence $\log\Gamma$, not $\Gamma$, in \cref{sec:generalization}. Let
+$\tilde p = (\plo+\pup)/2$ and $\delta = \pup - \plo$ be the midpoint and the
+\emph{identification width}, a per-unit measure of what censoring hides.
 
 \begin{remark}[Directional $\dcsm$]
 \label{rem:directional}
-In most applications the analyst knows the \emph{sign} of the selection effect
-even when its magnitude is unknown: clinicians order tests on the patients they
-already suspect are sick, so untested patients are lower risk
-($p_0 \le p_1$); lenders fund the applicants they judge safest, so rejected
-applicants are higher risk ($p_0 \ge p_1$). Imposing the known sign is a weaker
-commitment than naming a number for $\Gamma$, and it replaces the constraint set
-by $a\in[\Gamma^{-1},1]$ or $a\in[1,\Gamma]$, halving the width. Every result
-below holds verbatim with the correspondingly one-sided box; we report both.
+The \emph{sign} of selection is often known, its magnitude not:
+clinicians test patients they suspect are sick ($p_0 \le p_1$); lenders fund
+applicants they judge safest ($p_0 \ge p_1$). Imposing it is weaker than
+naming $\Gamma$ and restricts the tilt to $a\in[\Gamma^{-1},1]$ or
+$a\in[1,\Gamma]$, halving the width. All results hold verbatim for the
+one-sided box; we report both.
 \end{remark}

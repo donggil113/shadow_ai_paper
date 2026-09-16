@@ -1,0 +1,6 @@
+# Numeric literals the verifier may accept, one per line:  file | token | reason
+# Only structural/design constants belong here.  Experimental results never do.
+* | 0.5 | probability one half (decision boundary) in theorem statements
+* | 1.0 | Gamma = 1 (missing-at-random endpoint) in definitions and grids
+* | 0.3 | \vskip 0.3in in the ICML title block (main.tex)
+paper/main.tex | 0.3 | ICML title-block spacing

@@ -1,39 +1,36 @@
 \section{Sharp partial identification of ranking metrics}
 \label{sec:ranking}
 
-Sensitivity analysis has been developed for functionals that are
-\emph{linear-fractional} in the outcome regression: sensitivity and specificity
-at a fixed threshold, positive and negative predictive value, average treatment
-effects \citep{zhao2019sensitivity, dorn2023sharp, yadlowsky2018bounds}. For
-those, sharp bounds follow from a one-dimensional search. The metric that
-actually governs model selection in the applications we care about --- AUROC ---
-is not of that form.
-
-Write $\psi(u,v) = \one\{u>v\} + \tfrac12\one\{u=v\}$ and let $\mu = P_X$. For a
-score $f$ and a law with regression $p$ and prevalence $\pi = \E_\mu[p]$,
+Existing sensitivity analysis handles functionals that are
+\emph{linear-fractional} in the outcome regression --- sensitivity and
+specificity at a threshold, predictive values, treatment effects
+\citep{zhao2019sensitivity, dorn2023sharp, yadlowsky2018bounds} --- for which
+sharp bounds follow from a one-dimensional search. AUROC, the metric that
+governs model selection in our applications, is not of that form. Write
+$\psi(u,v) = \one\{u>v\} + \tfrac12\one\{u=v\}$ and $\mu = P_X$. For a score
+$f$, regression $p$ and prevalence $\pi = \E_\mu[p]$,
 \begin{equation}
   \AUC(p)
   \;=\;
-  \frac{\displaystyle\iint \psi\big(f(x),f(x')\big)\,p(x)\big(1-p(x')\big)
-        \,d\mu(x)\,d\mu(x')}{\pi\,(1-\pi)} .
+  \frac{\E_{\mu\otimes\mu}\big[\psi\big(f(X),f(X')\big)\,p(X)\big(1-p(X')\big)\big]}
+       {\pi\,(1-\pi)} .
   \label{eq:auc-def}
 \end{equation}
-The numerator is \emph{bilinear} in $p$ and the denominator is quadratic, so
-$\AUC$ is neither convex nor concave over the box of \cref{lem:box}, and the
-pointwise decoupling that makes threshold metrics easy fails: AUROC couples
-every unit to every other.
+The numerator is bilinear in $p$ and the denominator quadratic, so $\AUC$ is
+neither convex nor concave over the box of \cref{lem:box}: AUROC couples every
+unit to every other, and the pointwise decoupling behind threshold metrics
+fails.
 
-\subsection{A rank identity}
-
-The obstruction dissolves through an identity. Define the \emph{mid-rank
-function} of $f$ under $\mu$,
+The obstruction dissolves through an identity. The \emph{mid-rank function} of
+$f$ under $\mu$,
 \begin{equation}
-  R(x) \;=\; \E_{X'\sim\mu}\big[\psi\big(f(x), f(X')\big)\big]
-        \;=\; \mu\big(f(X') < f(x)\big) + \tfrac12\,\mu\big(f(X')=f(x)\big),
+  \begin{aligned}
+  R(x) &= \E_{X'\sim\mu}\big[\psi\big(f(x), f(X')\big)\big] \\
+       &= \mu\big(f(X') < f(x)\big) + \tfrac12\,\mu\big(f(X')=f(x)\big),
+  \end{aligned}
   \label{eq:midrank}
 \end{equation}
-which is \emph{identified}: it depends only on the score and on $P_X$, both
-observed.
+is \emph{identified}: it depends only on the score and on $P_X$.
 
 \begin{theorem}[Rank identity]
 \label{thm:rank-identity}
@@ -49,19 +46,19 @@ In particular, \emph{at fixed prevalence $\pi$, AUROC is an affine functional of
 the outcome regression.}
 \end{theorem}
 
-The proof (\cref{app:ranking}) is two lines once one notices that the kernel
-operator $(\mathcal{K}h)(x) = \E_\mu[\psi(f(x),f(X'))h(X')]$ satisfies
-$\mathcal{K}+\mathcal{K}^{*} = \one\otimes\one$, because
-$\psi(u,v)+\psi(v,u)=1$ identically; hence the quadratic term
+The proof (\cref{app:ranking}) is two lines: because
+$\psi(u,v)+\psi(v,u)=1$ identically, the kernel operator
+$(\mathcal{K}h)(x) = \E_\mu[\psi(f(x),f(X'))\,h(X')]$ satisfies
+$\mathcal{K}+\mathcal{K}^{*} = \one\otimes\one$, so the quadratic term
 $\langle p, \mathcal{K}p\rangle$ equals $\pi^2/2$ for \emph{every} $p$ and
-disappears into a function of the prevalence alone. \Cref{eq:rank-identity} is a
+collapses into a function of prevalence alone. \Cref{eq:rank-identity} is a
 population form of the Mann--Whitney representation
 \citep{mann1947test, hanley1982meaning}; we have not seen it used to linearise
 AUROC in the outcome regression.
 
 \subsection{The sharp interval, exactly, in \texorpdfstring{$O(n\log n)$}{O(n log n)}}
 
-\Cref{thm:rank-identity} reduces the sharp interval to a two-stage problem:
+\Cref{thm:rank-identity} makes the sharp interval a two-stage problem:
 optimise the linear functional $\langle p,R\rangle$ over the box at fixed
 prevalence, then scan the prevalence.
 
@@ -117,9 +114,9 @@ cases, and AUROC is the new member.
 
 \subsection{Why the obvious recipe is wrong}
 
-Faced with an identified set $[\plo,\pup]$, the natural move is to evaluate the
-metric at its corners and report the range. For threshold metrics that is
-correct. For AUROC it is \emph{not valid}:
+The natural move is to evaluate the metric at the corners of $[\plo,\pup]$ and
+report the range. For threshold metrics that is correct; for AUROC it is
+\emph{not valid}:
 
 \begin{proposition}[Corner evaluation under-covers]
 \label{prop:corner}
@@ -130,10 +127,10 @@ $\{x:\delta(x)>0\}$. Consequently there exist laws in $\I_\Gamma$ whose AUROC
 lies outside $\mathcal{C}$, and $\mathcal{C}$ fails to cover the truth.
 \end{proposition}
 
-The reason is exactly the coupling \cref{thm:rank-identity} exposes. The
-extremal member of $\I_\Gamma$ is not a corner: it sets $p=\pup$ where the score
-ranks units \emph{high} and $p=\plo$ where it ranks them low, with a single
-fractional unit in between --- a mixed vertex no corner evaluation visits.
+The cause is exactly the coupling \cref{thm:rank-identity} exposes: the
+extremal member of $\I_\Gamma$ sets $p=\pup$ where the score ranks units
+\emph{high} and $p=\plo$ where it ranks them low, with a single fractional unit
+in between --- a mixed vertex no corner evaluation visits.
 Empirically (\cref{sec:experiments}) the corner interval covers the true
 deployment AUROC in $10\%$ of benchmark cells versus $100\%$ for the sharp
 interval, while being $14\times$ narrower --- narrow because it is wrong.

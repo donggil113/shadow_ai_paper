@@ -1,0 +1,61 @@
+{
+ "data_source": "real",
+ "source_file": "compas-scores-two-years.csv (ProPublica, Broward County FL)",
+ "n_raw": 7214,
+ "n_after_propublica_filter": 6172,
+ "n_with_jail_dates": 6172,
+ "n_cohort": 6054,
+ "n_released": 3784,
+ "n_detained": 2270,
+ "selection_rate": 0.6250412950115626,
+ "custody_days_released": {
+  "median": 0.94796875,
+  "q90": 1.593598379629632
+ },
+ "custody_days_detained": {
+  "median": 10.101707175925926,
+  "q90": 67.62065393518523,
+  "max": 179.95128472222223
+ },
+ "start_days_detained_median": 6.0,
+ "corr_start_custody": 0.7854724791389264,
+ "recorded": {
+  "p1": 0.39191331923890066,
+  "p0": 0.5484581497797357,
+  "odds_ratio": 1.8846076673848333
+ },
+ "exposure_adjusted": {
+  "365": {
+   "exposure_days": 365,
+   "frac_kept": 0.8637264618434093,
+   "frac_kept_released": 0.8808139534883721,
+   "frac_kept_detained": 0.8352422907488987,
+   "n_kept": 5229,
+   "p1": 0.27992799279927993,
+   "p0": 0.43723628691983124,
+   "odds_ratio": 1.9985715878578938
+  },
+  "540": {
+   "exposure_days": 540,
+   "frac_kept": 0.8351503138420878,
+   "frac_kept_released": 0.8535940803382663,
+   "frac_kept_detained": 0.8044052863436123,
+   "n_kept": 5056,
+   "p1": 0.3442724458204334,
+   "p0": 0.5098576122672508,
+   "odds_ratio": 1.9812889353321814
+  },
+  "730": {
+   "exposure_days": 730,
+   "frac_kept": 0.818797489263297,
+   "frac_kept_released": 0.8382663847780126,
+   "frac_kept_detained": 0.7863436123348018,
+   "n_kept": 4957,
+   "p1": 0.37957124842370743,
+   "p0": 0.5663865546218487,
+   "odds_ratio": 2.1350536969790617
+  }
+ },
+ "odds_ratio_change_730": 0.25044602959422835,
+ "incapacitation_masks_selection": true
+}

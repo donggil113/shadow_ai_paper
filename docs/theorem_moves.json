@@ -1,0 +1,7 @@
+{
+ "removed": {},
+ "changed": {
+  "lem:msm": "T5 layout only (02_setup): the MSM(Lambda) inequality moved from inline math to a display so the first line fits the ICML column; every math token and word unchanged.",
+  "lem:box": "T5 layout only (02_setup): the two displays split into aligned rows (\\qquad -> line break) to fit the ICML column; every math token and word unchanged."
+ }
+}
