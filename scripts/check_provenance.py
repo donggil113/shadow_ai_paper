@@ -68,6 +68,8 @@ def main() -> int:
             if m not in defined:
                 undefined.append((path, label, m)); continue
             src = provenance(m)
+            if src == "pending":
+                problems.append(f"{path}#{label or '-'}: \\{m} is a PENDING placeholder (result not yet computed)"); continue
             if (forbid and src in forbid) or (require and src not in require):
                 problems.append(f"{path}#{label or '-'}: \\{m} has provenance '{src}' ({why or 'rule'})")
 
@@ -102,6 +104,13 @@ def main() -> int:
                 for m in sorted(set(MACRO_RE.findall(strip_comments(open(os.path.join(dirpath, fn)).read())))):
                     if m not in defined and (rel, None, m) not in undefined:
                         undefined.append((rel, None, m))
+    for dirpath, _, files in os.walk(os.path.join(ROOT, "paper")):
+        for fn in files:
+            if fn.endswith(".tex") and fn != "numbers.tex":
+                rel = os.path.relpath(os.path.join(dirpath, fn), ROOT)
+                for m in sorted(set(MACRO_RE.findall(strip_comments(open(os.path.join(dirpath, fn)).read())))):
+                    if m in defined and provenance(m) == "pending" and not any(m in p for p in problems):
+                        problems.append(f"{rel}: \\{m} is a PENDING placeholder (result not yet computed)")
     seen = set()
     for rel, label, m in undefined:
         if m in seen:

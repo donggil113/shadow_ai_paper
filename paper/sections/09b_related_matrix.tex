@@ -1,0 +1,67 @@
+\section{Related-work matrix and extended discussion}
+\label{app:related-matrix}
+
+\begin{table*}[h]
+\centering\scriptsize
+\caption{\textbf{Positioning against the closest prior work.} ``Target'':
+what is identified or bounded. ``Sharp'': bounds are attained by admissible
+laws. ``Ranking'': a ranking metric (AUROC) is bounded. ``Learns'': a
+predictor is trained against the identified set. ``$\Gamma$ testable'': the
+sensitivity parameter can be bounded from data. ``Nuisance'': a coverage
+statement under estimated nuisances is given.}
+\label{tab:related}
+\begin{tabular}{lllccccc}
+\toprule
+work & assumption & target & sharp & ranking & learns & $\Gamma$ testable & nuisance\\
+\midrule
+\citet{manski1990nonparametric} & none & mean outcome & yes & no & no & --- & no\\
+\citet{rosenbaum2002observational} & $\Gamma$ on odds & test / effect & yes & no & no & no & no\\
+\citet{lakkaraju2017selective} & leniency IV & failure rate at a target rate & point & no & no & --- & no\\
+\citet{kallus2018confounding} & MSM($\Lambda$) & policy value & yes & no & policy & no & partial\\
+\citet{dearteaga2018learning} & expert consistency & labels for censored units & no & no & yes & --- & no\\
+\citet{coston2021characterizing} & MSM / IV & fairness metrics & yes & threshold & no & no & no\\
+\citet{rambachan2022counterfactual} & IV / bounds & counterfactual risk & yes & no & no & partial & no\\
+\citet{dorn2023sharp} & MSM($\Lambda$) & weighted means & yes & no & no & no & yes\\
+\textbf{this paper} & $\dcsm(\Gamma)\equiv$ MSM($\Lambda^2$) & AUROC, risk, regret & yes & \textbf{yes} & \textbf{yes} & \textbf{lower bound} & \textbf{Thm.~5}\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Extended related work}
+\label{app:related-full}
+
+\Cref{tab:related} positions the paper. \emph{Selective labels.}
+\citet{lakkaraju2017selective} named the problem and proposed contraction,
+which uses leniency variation to estimate a model's failure rate at a target
+acceptance rate; \citet{kleinberg2018human} applied it to bail;
+\citet{dearteaga2018learning} exploit expert consistency. Contraction
+identifies a point and needs the most lenient decision maker to accept at
+least the target rate; we characterise everything the data cannot rule out and
+use leniency to \emph{falsify} $\Gamma$ instead (\cref{prop:falsify}).
+\emph{Sensitivity analysis.} $\dcsm(\Gamma)$ is a decision-censoring form of
+Rosenbaum's bounds \citep{rosenbaum2002observational}, equivalent
+(\cref{lem:msm}) to Tan's marginal sensitivity model \citep{tan2006distributional},
+for which sharp bounds and inference exist for weighted averages and effects
+\citep{zhao2019sensitivity, yadlowsky2018bounds, dorn2023sharp}; Manski's
+bounds \citep{manski1990nonparametric} are the $\Gamma\to\infty$ endpoint.
+\citet{kallus2018confounding} learn \emph{policies} robustly under the same
+model, the closest antecedent to \cref{sec:learning}; their target is policy
+value, ours predictive risk, and our inner supremum is closed-form without a
+relaxation. \citet{coston2021characterizing} and
+\citet{rambachan2022counterfactual} bound fairness metrics and counterfactual
+risk under selective labels; none of this literature bounds a ranking metric
+sharply, the gap \cref{thm:sharp-auc} fills, and none states per-unit coverage
+under estimated nuisances, the gap \cref{thm:nuisance} addresses, using the
+double-machine-learning product rate \citep{chernozhukov2018double}.
+\emph{Missing data and DRO.} IPW and doubly robust estimation
+\citep{robins1994estimation} require $\Gamma=1$; selection models
+\citep{heckman1979sample} buy identification with joint normality. Formally
+\eqref{eq:dcl} is a DRO problem \citep{duchi2021learning}, but the ambiguity
+set is what the data fail to determine, not a modelling choice
+(\cref{rem:dro}). \emph{Ranking and
+uncertainty.} The rank identity is a population form of the Mann--Whitney
+representation \citep{mann1947test, hanley1982meaning}, not previously used
+to linearise AUROC in the outcome regression; the credal decomposition of
+\cref{cor:uq} follows \citet{abellan2005difference} and contrasts with
+ensembles \citep{lakshminarayanan2017simple, hullermeier2021aleatoric} that
+assume the training labels sample the deployment law.

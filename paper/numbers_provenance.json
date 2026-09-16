@@ -334,6 +334,56 @@
   "data_source": "semi-synthetic",
   "n_seeds": 5
  },
+ "nExpTwoLendingDclRegOneFiveRisk": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=1.5).risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoLendingDclRegOneFiveAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=1.5).auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoLendingDclRegOneFiveObsAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=1.5).obs_auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoLendingDclRegOneFiveWc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=1.5).worstcase_risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoLendingDclRegOneFiveRegret": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-reg(G=1.5).minimax_regret",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoLendingDclDirRegOneFiveRisk": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-dir-reg(G=1.5).risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoLendingDclDirRegOneFiveAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-dir-reg(G=1.5).auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoLendingDclDirRegOneFiveObsAuroc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-dir-reg(G=1.5).obs_auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoLendingDclDirRegOneFiveWc": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-dir-reg(G=1.5).worstcase_risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoLendingDclDirRegOneFiveRegret": {
+  "source": "exp2_summary.json:datasets.lending_club.DCL-dir-reg(G=1.5).minimax_regret",
+  "data_source": "pending",
+  "n_seeds": null
+ },
  "nExpTwoMimicSimErmRisk": {
   "source": "exp2_summary.json:datasets.mimic_sim.ERM-observed.risk",
   "data_source": "simulator",
@@ -583,6 +633,56 @@
   "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=3).minimax_regret",
   "data_source": "simulator",
   "n_seeds": 5
+ },
+ "nExpTwoMimicSimDclRegOneFiveRisk": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=1.5).risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimDclRegOneFiveAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=1.5).auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimDclRegOneFiveObsAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=1.5).obs_auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimDclRegOneFiveWc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=1.5).worstcase_risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimDclRegOneFiveRegret": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-reg(G=1.5).minimax_regret",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimDclDirRegOneFiveRisk": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-dir-reg(G=1.5).risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimDclDirRegOneFiveAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-dir-reg(G=1.5).auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimDclDirRegOneFiveObsAuroc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-dir-reg(G=1.5).obs_auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimDclDirRegOneFiveWc": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-dir-reg(G=1.5).worstcase_risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimDclDirRegOneFiveRegret": {
+  "source": "exp2_summary.json:datasets.mimic_sim.DCL-dir-reg(G=1.5).minimax_regret",
+  "data_source": "pending",
+  "n_seeds": null
  },
  "nExpTwoSlBenchErmRisk": {
   "source": "exp2_summary.json:datasets.sl_bench.ERM-observed.risk",
@@ -834,6 +934,56 @@
   "data_source": "synthetic",
   "n_seeds": 5
  },
+ "nExpTwoSlBenchDclRegOneFiveRisk": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=1.5).risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchDclRegOneFiveAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=1.5).auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchDclRegOneFiveObsAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=1.5).obs_auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchDclRegOneFiveWc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=1.5).worstcase_risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchDclRegOneFiveRegret": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-reg(G=1.5).minimax_regret",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchDclDirRegOneFiveRisk": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-dir-reg(G=1.5).risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchDclDirRegOneFiveAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-dir-reg(G=1.5).auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchDclDirRegOneFiveObsAuroc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-dir-reg(G=1.5).obs_auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchDclDirRegOneFiveWc": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-dir-reg(G=1.5).worstcase_risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchDclDirRegOneFiveRegret": {
+  "source": "exp2_summary.json:datasets.sl_bench.DCL-dir-reg(G=1.5).minimax_regret",
+  "data_source": "pending",
+  "n_seeds": null
+ },
  "nExpTwoSeeds": {
   "source": "exp2_summary.json:n_seeds",
   "data_source": "simulator",
@@ -943,6 +1093,16 @@
   "source": "exp8_summary.json:datasets.sl_bench.auc_width_bins20",
   "data_source": "synthetic",
   "n_seeds": 5
+ },
+ "nExpEightSlBenchBinCovPlugin": {
+  "source": "exp8_summary.json:datasets.sl_bench.binlevel_cov_plugin",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightSlBenchBinCovBinsTwenty": {
+  "source": "exp8_summary.json:datasets.sl_bench.binlevel_cov_bins20",
+  "data_source": "pending",
+  "n_seeds": null
  },
  "nExpEightSlBenchDrErrLo": {
   "source": "exp8_summary.json:datasets.sl_bench.dr_abs_err_lo",
@@ -1069,6 +1229,16 @@
   "data_source": "semi-synthetic",
   "n_seeds": 5
  },
+ "nExpEightLendingBinCovPlugin": {
+  "source": "exp8_summary.json:datasets.lending_club.binlevel_cov_plugin",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightLendingBinCovBinsTwenty": {
+  "source": "exp8_summary.json:datasets.lending_club.binlevel_cov_bins20",
+  "data_source": "pending",
+  "n_seeds": null
+ },
  "nExpEightLendingDrErrLo": {
   "source": "exp8_summary.json:datasets.lending_club.dr_abs_err_lo",
   "data_source": "semi-synthetic",
@@ -1089,6 +1259,41 @@
   "data_source": "semi-synthetic",
   "n_seeds": 5
  },
+ "nExpEightCompasCovPlugin": {
+  "source": "exp8_summary.json:datasets.compas.cov_plugin",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightCompasCovBinsTen": {
+  "source": "exp8_summary.json:datasets.compas.cov_bins10",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightCompasCovBinsTwenty": {
+  "source": "exp8_summary.json:datasets.compas.cov_bins20",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightCompasCovBinsTenSmooth": {
+  "source": "exp8_summary.json:datasets.compas.cov_bins10_smooth",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightCompasCovBinsTwentySmooth": {
+  "source": "exp8_summary.json:datasets.compas.cov_bins20_smooth",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightCompasCovOracleE": {
+  "source": "exp8_summary.json:datasets.compas.cov_oracle_e_est_p1",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightCompasCovOracleP": {
+  "source": "exp8_summary.json:datasets.compas.cov_est_e_oracle_p1",
+  "data_source": "pending",
+  "n_seeds": null
+ },
  "nExpEightCompasWidthPlugin": {
   "source": "exp8_summary.json:datasets.compas.width_plugin",
   "data_source": "real",
@@ -1104,10 +1309,40 @@
   "data_source": "real",
   "n_seeds": 5
  },
+ "nExpEightCompasMaeE": {
+  "source": "exp8_summary.json:datasets.compas.mae_e",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightCompasMaeP": {
+  "source": "exp8_summary.json:datasets.compas.mae_p1",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightCompasDrCovPrev": {
+  "source": "exp8_summary.json:datasets.compas.dr_covers_prevalence_interval",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightCompasPlugCovPrev": {
+  "source": "exp8_summary.json:datasets.compas.plug_covers_prevalence_interval",
+  "data_source": "pending",
+  "n_seeds": null
+ },
  "nExpEightCompasDrCovRealised": {
   "source": "exp8_summary.json:datasets.compas.dr_outer_covers_realised",
   "data_source": "real",
   "n_seeds": 5
+ },
+ "nExpEightCompasAucCovPlugin": {
+  "source": "exp8_summary.json:datasets.compas.auc_cov_plugin",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightCompasAucCovBinsTwenty": {
+  "source": "exp8_summary.json:datasets.compas.auc_cov_bins20",
+  "data_source": "pending",
+  "n_seeds": null
  },
  "nExpEightCompasAucCovEmpPlugin": {
   "source": "exp8_summary.json:datasets.compas.auc_cov_emp_plugin",
@@ -1139,6 +1374,26 @@
   "data_source": "real",
   "n_seeds": 5
  },
+ "nExpEightCompasDrErrLo": {
+  "source": "exp8_summary.json:datasets.compas.dr_abs_err_lo",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightCompasPlugErrLo": {
+  "source": "exp8_summary.json:datasets.compas.plug_abs_err_lo",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightCompasDrErrHi": {
+  "source": "exp8_summary.json:datasets.compas.dr_abs_err_hi",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpEightCompasPlugErrHi": {
+  "source": "exp8_summary.json:datasets.compas.plug_abs_err_hi",
+  "data_source": "pending",
+  "n_seeds": null
+ },
  "nExpEightSeeds": {
   "source": "exp8_summary.json:n_seeds",
   "data_source": "real",
@@ -1147,6 +1402,286 @@
  "nExpEightAlphaPct": {
   "source": "exp8_summary.json:alpha*100",
   "data_source": "real",
+  "n_seeds": null
+ },
+ "nExpThreeSeeds": {
+  "source": "exp3_summary.json:n_seeds",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeEpiLogTwoK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n2000.naive_epistemic",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeEpiMlpTwoK": {
+  "source": "exp3_summary.json:by_cell_ci.mlp_n2000.naive_epistemic",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeCensTwoK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n2000.censoring",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeRatioTwoK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n2000.ratio_epistemic_to_censoring",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeEpiLogFiveK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n5000.naive_epistemic",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeEpiMlpFiveK": {
+  "source": "exp3_summary.json:by_cell_ci.mlp_n5000.naive_epistemic",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeCensFiveK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n5000.censoring",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeRatioFiveK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n5000.ratio_epistemic_to_censoring",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeEpiLogTwelveK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n12000.naive_epistemic",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeEpiMlpTwelveK": {
+  "source": "exp3_summary.json:by_cell_ci.mlp_n12000.naive_epistemic",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeCensTwelveK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n12000.censoring",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeRatioTwelveK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n12000.ratio_epistemic_to_censoring",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeEpiLogThirtyK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n30000.naive_epistemic",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeEpiMlpThirtyK": {
+  "source": "exp3_summary.json:by_cell_ci.mlp_n30000.naive_epistemic",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeCensThirtyK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n30000.censoring",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeRatioThirtyK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n30000.ratio_epistemic_to_censoring",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeEpiLogSeventyK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n70000.naive_epistemic",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeEpiMlpSeventyK": {
+  "source": "exp3_summary.json:by_cell_ci.mlp_n70000.naive_epistemic",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeCensSeventyK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n70000.censoring",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeRatioSeventyK": {
+  "source": "exp3_summary.json:by_cell_ci.logistic_n70000.ratio_epistemic_to_censoring",
+  "data_source": "synthetic",
+  "n_seeds": 5
+ },
+ "nExpThreeSlopeLog": {
+  "source": "exp3_summary.json:epistemic_decay_exponent_logistic",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeSlopeMlp": {
+  "source": "exp3_summary.json:epistemic_decay_exponent_mlp",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeAleaBias": {
+  "source": "exp3_summary.json:oracle_mean_aleatoric_bias",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeEstBoxMin": {
+  "source": "exp3_summary.json:est_p_in_box_min",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeEpiDrop": {
+  "source": "exp3_summary.json:epistemic_first_logistic/epistemic_last_logistic",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpFourValid": {
+  "source": "exp4_summary.json:falsification_always_valid",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourRefutesMar": {
+  "source": "exp4_summary.json:refutes_MAR_when_confounded",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourFalseAlarm": {
+  "source": "exp4_summary.json:false_alarm_when_MAR",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourSeedsMis": {
+  "source": "exp4_summary.json:n_seeds_misspecification",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourRecoverMin": {
+  "source": "csv:exp4a_falsification.csv:df.recovered_fraction.min()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourRecoverMax": {
+  "source": "csv:exp4a_falsification.csv:df.recovered_fraction.max()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourNCells": {
+  "source": "csv:exp4a_falsification.csv:len(df)",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourGminAtThree": {
+  "source": "csv:exp4a_falsification.csv:df[(df.target==3.0)&(df.kappa_heterogeneity==0)].gamma_min_q95.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourLendingBreakEvenFiftyFive": {
+  "source": "csv:exp4b_breakeven.csv:df[df.dataset=='lending_club'].breakeven_auroc_55.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourLendingBreakEvenFifty": {
+  "source": "csv:exp4b_breakeven.csv:df[df.dataset=='lending_club'].breakeven_auroc_50.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourLendingBreakEvenSixty": {
+  "source": "csv:exp4b_breakeven.csv:df[df.dataset=='lending_club'].breakeven_auroc_60.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourLendingDclBeatsUpto": {
+  "source": "csv:exp4b_breakeven.csv:df[df.dataset=='lending_club'].gamma_dcl_beats_incumbent_upto.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourMimicSimBreakEvenFiftyFive": {
+  "source": "csv:exp4b_breakeven.csv:df[df.dataset=='mimic_sim'].breakeven_auroc_55.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourMimicSimBreakEvenFifty": {
+  "source": "csv:exp4b_breakeven.csv:df[df.dataset=='mimic_sim'].breakeven_auroc_50.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourMimicSimBreakEvenSixty": {
+  "source": "csv:exp4b_breakeven.csv:df[df.dataset=='mimic_sim'].breakeven_auroc_60.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourMimicSimDclBeatsUpto": {
+  "source": "csv:exp4b_breakeven.csv:df[df.dataset=='mimic_sim'].gamma_dcl_beats_incumbent_upto.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourSlBenchBreakEvenFiftyFive": {
+  "source": "csv:exp4b_breakeven.csv:df[df.dataset=='sl_bench'].breakeven_auroc_55.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourSlBenchBreakEvenFifty": {
+  "source": "csv:exp4b_breakeven.csv:df[df.dataset=='sl_bench'].breakeven_auroc_50.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourSlBenchBreakEvenSixty": {
+  "source": "csv:exp4b_breakeven.csv:df[df.dataset=='sl_bench'].breakeven_auroc_60.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourSlBenchDclBeatsUpto": {
+  "source": "csv:exp4b_breakeven.csv:df[df.dataset=='sl_bench'].gamma_dcl_beats_incumbent_upto.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourMisCovLow": {
+  "source": "csv:exp4c_misspecification.csv:df[df.gamma/df.gamma0<=0.5].covers.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourMisCovHigh": {
+  "source": "csv:exp4c_misspecification.csv:df[df.gamma/df.gamma0>0.5].covers.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourMisWidthLow": {
+  "source": "csv:exp4c_misspecification.csv:df[df.gamma/df.gamma0<=0.5].width.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourMisWidthHigh": {
+  "source": "csv:exp4c_misspecification.csv:df[df.gamma/df.gamma0>3].width.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveDevRate": {
+  "source": "exp5_summary.json:deviation_rate_exponent",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveRtwoLog": {
+  "source": "exp5_summary.json:r2_vs_log_gamma",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveRtwoLin": {
+  "source": "exp5_summary.json:r2_vs_gamma",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveExcessRate": {
+  "source": "exp5_summary.json:excess_rate_exponent",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveSeedsDev": {
+  "source": "exp5_summary.json:n_seeds_deviation",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveCoefGrowthPct": {
+  "source": "csv:exp5_scaling.csv:100*(df.coefficient.max()/df.coefficient.min()-1)",
+  "data_source": "pending",
   "n_seeds": null
  },
  "nExpNineEqualInstances": {
@@ -1197,6 +1732,66 @@
  "nExpNineNMax": {
   "source": "exp9_ranking_search.json:n_max",
   "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTenRankerGain": {
+  "source": "exp10_summary.json:ranker_max_gain_over_midpoint",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTenRankerGainTrain": {
+  "source": "exp10_summary.json:ranker_max_gain_train",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTenSpreadPlugin": {
+  "source": "exp10_summary.json:max_spread_plugin_orderings",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTenSeeds": {
+  "source": "exp10_summary.json:n_seeds",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTenSlBenchWcMid": {
+  "source": "exp10_summary.json:datasets.sl_bench.wc_mid_linear",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTenSlBenchWcRanker": {
+  "source": "exp10_summary.json:datasets.sl_bench.wc_ranker",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTenSlBenchWcWidth": {
+  "source": "exp10_summary.json:datasets.sl_bench.wc_width_only",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTenSlBenchGain": {
+  "source": "exp10_summary.json:datasets.sl_bench.gain_ranker_over_mid_linear",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTenLendingWcMid": {
+  "source": "exp10_summary.json:datasets.lending_club.wc_mid_linear",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTenLendingWcRanker": {
+  "source": "exp10_summary.json:datasets.lending_club.wc_ranker",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTenLendingWcWidth": {
+  "source": "exp10_summary.json:datasets.lending_club.wc_width_only",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpTenLendingGain": {
+  "source": "exp10_summary.json:datasets.lending_club.gain_ranker_over_mid_linear",
+  "data_source": "pending",
   "n_seeds": null
  },
  "nCompasTarNCohort": {
@@ -1272,6 +1867,1686 @@
  "nCompasTarPOneExposure": {
   "source": "compas_time_at_risk.json:exposure_adjusted.730.p1",
   "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasCovAtOR": {
+  "source": "exp6_summary.json:coverage.recorded.at_own_or.covers",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasCovAtOne": {
+  "source": "exp6_summary.json:coverage.recorded.at_gamma_1.covers",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasCornerCovAtOR": {
+  "source": "exp6_summary.json:coverage.recorded.at_own_or.naive_covers",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasCornerCovAtOne": {
+  "source": "exp6_summary.json:coverage.recorded.at_gamma_1.naive_covers",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasWidthAtOR": {
+  "source": "exp6_summary.json:coverage.recorded.at_own_or.width",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasWidthAtOne": {
+  "source": "exp6_summary.json:coverage.recorded.at_gamma_1.width",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasOR": {
+  "source": "exp6_summary.json:coverage.recorded.marginal_odds_ratio",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasN": {
+  "source": "exp6_summary.json:coverage.recorded.n",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasObsMinusTrue": {
+  "source": "exp6_summary.json:coverage.recorded.observed_minus_true",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMErmRisk": {
+  "source": "exp6_summary.json:methods.recorded.ERM-observed.risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMErmAuroc": {
+  "source": "exp6_summary.json:methods.recorded.ERM-observed.auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMErmObsAuroc": {
+  "source": "exp6_summary.json:methods.recorded.ERM-observed.obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMErmWc": {
+  "source": "exp6_summary.json:methods.recorded.ERM-observed.worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMErmRegret": {
+  "source": "exp6_summary.json:methods.recorded.ERM-observed.minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMIpwRisk": {
+  "source": "exp6_summary.json:methods.recorded.IPW.risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMIpwAuroc": {
+  "source": "exp6_summary.json:methods.recorded.IPW.auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMIpwObsAuroc": {
+  "source": "exp6_summary.json:methods.recorded.IPW.obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMIpwWc": {
+  "source": "exp6_summary.json:methods.recorded.IPW.worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMIpwRegret": {
+  "source": "exp6_summary.json:methods.recorded.IPW.minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMAipwRisk": {
+  "source": "exp6_summary.json:methods.recorded.AIPW.risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMAipwAuroc": {
+  "source": "exp6_summary.json:methods.recorded.AIPW.auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMAipwObsAuroc": {
+  "source": "exp6_summary.json:methods.recorded.AIPW.obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMAipwWc": {
+  "source": "exp6_summary.json:methods.recorded.AIPW.worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMAipwRegret": {
+  "source": "exp6_summary.json:methods.recorded.AIPW.minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMImpRisk": {
+  "source": "exp6_summary.json:methods.recorded.Imputation.risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMImpAuroc": {
+  "source": "exp6_summary.json:methods.recorded.Imputation.auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMImpObsAuroc": {
+  "source": "exp6_summary.json:methods.recorded.Imputation.obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMImpWc": {
+  "source": "exp6_summary.json:methods.recorded.Imputation.worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMImpRegret": {
+  "source": "exp6_summary.json:methods.recorded.Imputation.minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMHeckmanRisk": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMHeckmanRiskMin": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.risk.min",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasMHeckmanRiskMax": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.risk.max",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasMHeckmanAuroc": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMHeckmanAurocMin": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.auroc.min",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasMHeckmanAurocMax": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.auroc.max",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasMHeckmanObsAuroc": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMHeckmanObsAurocMin": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.obs_auroc.min",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasMHeckmanObsAurocMax": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.obs_auroc.max",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasMHeckmanWc": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMHeckmanWcMin": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.worstcase_risk.min",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasMHeckmanWcMax": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.worstcase_risk.max",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasMHeckmanRegret": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMHeckmanRegretMin": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.minimax_regret.min",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasMHeckmanRegretMax": {
+  "source": "exp6_summary.json:methods.recorded.Heckman.minimax_regret.max",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasMManskiRisk": {
+  "source": "exp6_summary.json:methods.recorded.Manski(G=inf).risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMManskiAuroc": {
+  "source": "exp6_summary.json:methods.recorded.Manski(G=inf).auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMManskiObsAuroc": {
+  "source": "exp6_summary.json:methods.recorded.Manski(G=inf).obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMManskiWc": {
+  "source": "exp6_summary.json:methods.recorded.Manski(G=inf).worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMManskiRegret": {
+  "source": "exp6_summary.json:methods.recorded.Manski(G=inf).minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMOracleRisk": {
+  "source": "exp6_summary.json:methods.recorded.ORACLE(uncensored).risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMOracleAuroc": {
+  "source": "exp6_summary.json:methods.recorded.ORACLE(uncensored).auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMOracleObsAuroc": {
+  "source": "exp6_summary.json:methods.recorded.ORACLE(uncensored).obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMOracleWc": {
+  "source": "exp6_summary.json:methods.recorded.ORACLE(uncensored).worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMOracleRegret": {
+  "source": "exp6_summary.json:methods.recorded.ORACLE(uncensored).minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclTwoRisk": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=2).risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclTwoAuroc": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=2).auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclTwoObsAuroc": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=2).obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclTwoWc": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=2).worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclTwoRegret": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=2).minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclRegTwoRisk": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=2).risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclRegTwoAuroc": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=2).auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclRegTwoObsAuroc": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=2).obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclRegTwoWc": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=2).worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclRegTwoRegret": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=2).minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclOneFiveRisk": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=1.5).risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasMDclOneFiveAuroc": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=1.5).auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasMDclOneFiveObsAuroc": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=1.5).obs_auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasMDclOneFiveWc": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=1.5).worstcase_risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasMDclOneFiveRegret": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=1.5).minimax_regret",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasMDclRegOneFiveRisk": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=1.5).risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasMDclRegOneFiveAuroc": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=1.5).auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasMDclRegOneFiveObsAuroc": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=1.5).obs_auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasMDclRegOneFiveWc": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=1.5).worstcase_risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasMDclRegOneFiveRegret": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=1.5).minimax_regret",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasMDclThreeRisk": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=3).risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclThreeAuroc": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=3).auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclThreeObsAuroc": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=3).obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclThreeWc": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=3).worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclThreeRegret": {
+  "source": "exp6_summary.json:methods.recorded.DCL(G=3).minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclRegThreeRisk": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=3).risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclRegThreeAuroc": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=3).auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclRegThreeObsAuroc": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=3).obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclRegThreeWc": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=3).worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasMDclRegThreeRegret": {
+  "source": "exp6_summary.json:methods.recorded.DCL-reg(G=3).minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpCovAtOR": {
+  "source": "exp6_summary.json:coverage.exposure_adjusted.at_own_or.covers",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpCovAtOne": {
+  "source": "exp6_summary.json:coverage.exposure_adjusted.at_gamma_1.covers",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpCornerCovAtOR": {
+  "source": "exp6_summary.json:coverage.exposure_adjusted.at_own_or.naive_covers",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpCornerCovAtOne": {
+  "source": "exp6_summary.json:coverage.exposure_adjusted.at_gamma_1.naive_covers",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpWidthAtOR": {
+  "source": "exp6_summary.json:coverage.exposure_adjusted.at_own_or.width",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpWidthAtOne": {
+  "source": "exp6_summary.json:coverage.exposure_adjusted.at_gamma_1.width",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpOR": {
+  "source": "exp6_summary.json:coverage.exposure_adjusted.marginal_odds_ratio",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpN": {
+  "source": "exp6_summary.json:coverage.exposure_adjusted.n",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpObsMinusTrue": {
+  "source": "exp6_summary.json:coverage.exposure_adjusted.observed_minus_true",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMErmRisk": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.ERM-observed.risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMErmAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.ERM-observed.auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMErmObsAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.ERM-observed.obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMErmWc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.ERM-observed.worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMErmRegret": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.ERM-observed.minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMIpwRisk": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.IPW.risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMIpwAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.IPW.auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMIpwObsAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.IPW.obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMIpwWc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.IPW.worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMIpwRegret": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.IPW.minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMAipwRisk": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.AIPW.risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMAipwAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.AIPW.auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMAipwObsAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.AIPW.obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMAipwWc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.AIPW.worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMAipwRegret": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.AIPW.minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMImpRisk": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Imputation.risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMImpAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Imputation.auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMImpObsAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Imputation.obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMImpWc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Imputation.worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMImpRegret": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Imputation.minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMHeckmanRisk": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMHeckmanRiskMin": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.risk.min",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpMHeckmanRiskMax": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.risk.max",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpMHeckmanAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMHeckmanAurocMin": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.auroc.min",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpMHeckmanAurocMax": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.auroc.max",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpMHeckmanObsAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMHeckmanObsAurocMin": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.obs_auroc.min",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpMHeckmanObsAurocMax": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.obs_auroc.max",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpMHeckmanWc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMHeckmanWcMin": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.worstcase_risk.min",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpMHeckmanWcMax": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.worstcase_risk.max",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpMHeckmanRegret": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMHeckmanRegretMin": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.minimax_regret.min",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpMHeckmanRegretMax": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Heckman.minimax_regret.max",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpMManskiRisk": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Manski(G=inf).risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMManskiAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Manski(G=inf).auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMManskiObsAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Manski(G=inf).obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMManskiWc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Manski(G=inf).worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMManskiRegret": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.Manski(G=inf).minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMOracleRisk": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.ORACLE(uncensored).risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMOracleAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.ORACLE(uncensored).auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMOracleObsAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.ORACLE(uncensored).obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMOracleWc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.ORACLE(uncensored).worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMOracleRegret": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.ORACLE(uncensored).minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclTwoRisk": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=2).risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclTwoAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=2).auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclTwoObsAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=2).obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclTwoWc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=2).worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclTwoRegret": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=2).minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclRegTwoRisk": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=2).risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclRegTwoAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=2).auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclRegTwoObsAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=2).obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclRegTwoWc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=2).worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclRegTwoRegret": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=2).minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclOneFiveRisk": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=1.5).risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasExpMDclOneFiveAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=1.5).auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasExpMDclOneFiveObsAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=1.5).obs_auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasExpMDclOneFiveWc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=1.5).worstcase_risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasExpMDclOneFiveRegret": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=1.5).minimax_regret",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasExpMDclRegOneFiveRisk": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=1.5).risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasExpMDclRegOneFiveAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=1.5).auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasExpMDclRegOneFiveObsAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=1.5).obs_auroc",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasExpMDclRegOneFiveWc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=1.5).worstcase_risk",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasExpMDclRegOneFiveRegret": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=1.5).minimax_regret",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nCompasExpMDclThreeRisk": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=3).risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclThreeAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=3).auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclThreeObsAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=3).obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclThreeWc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=3).worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclThreeRegret": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL(G=3).minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclRegThreeRisk": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=3).risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclRegThreeAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=3).auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclRegThreeObsAuroc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=3).obs_auroc",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclRegThreeWc": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=3).worstcase_risk",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nCompasExpMDclRegThreeRegret": {
+  "source": "exp6_summary.json:methods.exposure_adjusted.DCL-reg(G=3).minimax_regret",
+  "data_source": "real",
+  "n_seeds": 5
+ },
+ "nExpSixSeeds": {
+  "source": "exp6_summary.json:n_seeds",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasRegretRatioErm": {
+  "source": "exp6_summary.json:expr:d['methods']['recorded']['ERM-observed']['minimax_regret']['mean']/d['methods']['recorded']['DCL-reg(G=2)']['minimax_regret']['mean']",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasRegretRatioHeckman": {
+  "source": "exp6_summary.json:expr:d['methods']['recorded']['Heckman']['minimax_regret']['mean']/d['methods']['recorded']['DCL-reg(G=2)']['minimax_regret']['mean']",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpRegretRatioErm": {
+  "source": "exp6_summary.json:expr:d['methods']['exposure_adjusted']['ERM-observed']['minimax_regret']['mean']/d['methods']['exposure_adjusted']['DCL-reg(G=2)']['minimax_regret']['mean']",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCompasExpRegretRatioHeckman": {
+  "source": "exp6_summary.json:expr:d['methods']['exposure_adjusted']['Heckman']['minimax_regret']['mean']/d['methods']['exposure_adjusted']['DCL-reg(G=2)']['minimax_regret']['mean']",
+  "data_source": "real",
+  "n_seeds": null
+ },
+ "nCexPloOne": {
+  "source": "exp0_counterexample.json:expr:d['lo'][0]",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexPupOne": {
+  "source": "exp0_counterexample.json:expr:d['hi'][0]",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexPStarOne": {
+  "source": "exp0_counterexample.json:expr:d['p_star_upper'][0]",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexPloTwo": {
+  "source": "exp0_counterexample.json:expr:d['lo'][1]",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexPupTwo": {
+  "source": "exp0_counterexample.json:expr:d['hi'][1]",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexPStarTwo": {
+  "source": "exp0_counterexample.json:expr:d['p_star_upper'][1]",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexPloThree": {
+  "source": "exp0_counterexample.json:expr:d['lo'][2]",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexPupThree": {
+  "source": "exp0_counterexample.json:expr:d['hi'][2]",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexPStarThree": {
+  "source": "exp0_counterexample.json:expr:d['p_star_upper'][2]",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexAucLo": {
+  "source": "exp0_counterexample.json:auc_lo",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexAucMid": {
+  "source": "exp0_counterexample.json:auc_mid",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexAucHi": {
+  "source": "exp0_counterexample.json:auc_hi",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexCornerWidth": {
+  "source": "exp0_counterexample.json:corner_width",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexSharpLo": {
+  "source": "exp0_counterexample.json:sharp_lo",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexSharpHi": {
+  "source": "exp0_counterexample.json:sharp_hi",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexSharpWidth": {
+  "source": "exp0_counterexample.json:sharp_width",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexAucPStar": {
+  "source": "exp0_counterexample.json:auc_p_star",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nCexMiss": {
+  "source": "exp0_counterexample.json:miss",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneNCells": {
+  "source": "csv:exp1b_validity.csv:int(df[df.seed==df.seed.min()].shape[0])",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpOneNInstances": {
+  "source": "csv:exp1b_validity.csv:len(df)",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanRisk": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].risk.mean()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanRiskMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].risk.min()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanRiskMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].risk.max()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanAuroc": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].auroc.mean()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanAurocMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].auroc.min()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanAurocMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].auroc.max()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanObsAuroc": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].obs_auroc.mean()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanObsAurocMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].obs_auroc.min()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanObsAurocMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].obs_auroc.max()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanWc": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].worstcase_risk.mean()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanWcMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].worstcase_risk.min()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanWcMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].worstcase_risk.max()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanRegret": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].minimax_regret.mean()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanRegretMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].minimax_regret.min()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingHeckmanRegretMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='lending_club')&df.method.str.startswith('Heckman')].minimax_regret.max()",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingErmObsMinusTrue": {
+  "source": "exp2_summary.json:expr:d['datasets']['lending_club']['ERM-observed']['obs_auroc']['mean']-d['datasets']['lending_club']['ERM-observed']['auroc']['mean']",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingRegretRatioErm": {
+  "source": "exp2_summary.json:expr:d['datasets']['lending_club']['ERM-observed']['minimax_regret']['mean']/d['datasets']['lending_club']['DCL-reg(G=2)']['minimax_regret']['mean']",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingWcRatioErmOverDcl": {
+  "source": "exp2_summary.json:expr:d['datasets']['lending_club']['ERM-observed']['worstcase_risk']['mean']/d['datasets']['lending_club']['DCL(G=2)']['worstcase_risk']['mean']",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingGammaZero": {
+  "source": "csv:exp2_learning_raw.csv:df[df.dataset=='lending_club'].gamma0.iloc[0]",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoLendingManskiRiskRatioErm": {
+  "source": "exp2_summary.json:expr:d['datasets']['lending_club']['Manski(G=inf)']['risk']['mean']/d['datasets']['lending_club']['ERM-observed']['risk']['mean']",
+  "data_source": "semi-synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanRisk": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].risk.mean()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanRiskMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].risk.min()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanRiskMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].risk.max()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanAuroc": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].auroc.mean()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanAurocMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].auroc.min()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanAurocMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].auroc.max()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanObsAuroc": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].obs_auroc.mean()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanObsAurocMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].obs_auroc.min()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanObsAurocMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].obs_auroc.max()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanWc": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].worstcase_risk.mean()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanWcMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].worstcase_risk.min()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanWcMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].worstcase_risk.max()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanRegret": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].minimax_regret.mean()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanRegretMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].minimax_regret.min()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimHeckmanRegretMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='mimic_sim')&df.method.str.startswith('Heckman')].minimax_regret.max()",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimErmObsMinusTrue": {
+  "source": "exp2_summary.json:expr:d['datasets']['mimic_sim']['ERM-observed']['obs_auroc']['mean']-d['datasets']['mimic_sim']['ERM-observed']['auroc']['mean']",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimRegretRatioErm": {
+  "source": "exp2_summary.json:expr:d['datasets']['mimic_sim']['ERM-observed']['minimax_regret']['mean']/d['datasets']['mimic_sim']['DCL-reg(G=3)']['minimax_regret']['mean']",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimWcRatioErmOverDcl": {
+  "source": "exp2_summary.json:expr:d['datasets']['mimic_sim']['ERM-observed']['worstcase_risk']['mean']/d['datasets']['mimic_sim']['DCL(G=3)']['worstcase_risk']['mean']",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimGammaZero": {
+  "source": "csv:exp2_learning_raw.csv:df[df.dataset=='mimic_sim'].gamma0.iloc[0]",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoMimicSimManskiRiskRatioErm": {
+  "source": "exp2_summary.json:expr:d['datasets']['mimic_sim']['Manski(G=inf)']['risk']['mean']/d['datasets']['mimic_sim']['ERM-observed']['risk']['mean']",
+  "data_source": "simulator",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanRisk": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].risk.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanRiskMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].risk.min()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanRiskMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].risk.max()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanAuroc": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].auroc.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanAurocMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].auroc.min()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanAurocMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].auroc.max()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanObsAuroc": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].obs_auroc.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanObsAurocMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].obs_auroc.min()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanObsAurocMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].obs_auroc.max()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanWc": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].worstcase_risk.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanWcMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].worstcase_risk.min()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanWcMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].worstcase_risk.max()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanRegret": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].minimax_regret.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanRegretMin": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].minimax_regret.min()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchHeckmanRegretMax": {
+  "source": "csv:exp2_learning_raw.csv:df[(df.dataset=='sl_bench')&df.method.str.startswith('Heckman')].minimax_regret.max()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchErmObsMinusTrue": {
+  "source": "exp2_summary.json:expr:d['datasets']['sl_bench']['ERM-observed']['obs_auroc']['mean']-d['datasets']['sl_bench']['ERM-observed']['auroc']['mean']",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchRegretRatioErm": {
+  "source": "exp2_summary.json:expr:d['datasets']['sl_bench']['ERM-observed']['minimax_regret']['mean']/d['datasets']['sl_bench']['DCL-reg(G=3)']['minimax_regret']['mean']",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchWcRatioErmOverDcl": {
+  "source": "exp2_summary.json:expr:d['datasets']['sl_bench']['ERM-observed']['worstcase_risk']['mean']/d['datasets']['sl_bench']['DCL(G=3)']['worstcase_risk']['mean']",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchGammaZero": {
+  "source": "csv:exp2_learning_raw.csv:df[df.dataset=='sl_bench'].gamma0.iloc[0]",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpTwoSlBenchManskiRiskRatioErm": {
+  "source": "exp2_summary.json:expr:d['datasets']['sl_bench']['Manski(G=inf)']['risk']['mean']/d['datasets']['sl_bench']['ERM-observed']['risk']['mean']",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeCensChangePct": {
+  "source": "exp3_summary.json:censoring_last_logistic/censoring_first_logistic",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeRatioLast": {
+  "source": "exp3_summary.json:ratio_last_logistic",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeOracleInBox": {
+  "source": "exp3_summary.json:oracle_p1_always_in_box",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeCalLogTwoK": {
+  "source": "csv:exp3_uq_decomposition.csv:df[(df.ensemble=='logistic')&(df.n==2000)].mean_abs_calibration_error.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeCalMlpTwoK": {
+  "source": "csv:exp3_uq_decomposition.csv:df[(df.ensemble=='mlp')&(df.n==2000)].mean_abs_calibration_error.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeCalLogFiveK": {
+  "source": "csv:exp3_uq_decomposition.csv:df[(df.ensemble=='logistic')&(df.n==5000)].mean_abs_calibration_error.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeCalMlpFiveK": {
+  "source": "csv:exp3_uq_decomposition.csv:df[(df.ensemble=='mlp')&(df.n==5000)].mean_abs_calibration_error.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeCalLogTwelveK": {
+  "source": "csv:exp3_uq_decomposition.csv:df[(df.ensemble=='logistic')&(df.n==12000)].mean_abs_calibration_error.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeCalMlpTwelveK": {
+  "source": "csv:exp3_uq_decomposition.csv:df[(df.ensemble=='mlp')&(df.n==12000)].mean_abs_calibration_error.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeCalLogThirtyK": {
+  "source": "csv:exp3_uq_decomposition.csv:df[(df.ensemble=='logistic')&(df.n==30000)].mean_abs_calibration_error.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeCalMlpThirtyK": {
+  "source": "csv:exp3_uq_decomposition.csv:df[(df.ensemble=='mlp')&(df.n==30000)].mean_abs_calibration_error.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeCalLogSeventyK": {
+  "source": "csv:exp3_uq_decomposition.csv:df[(df.ensemble=='logistic')&(df.n==70000)].mean_abs_calibration_error.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeCalMlpSeventyK": {
+  "source": "csv:exp3_uq_decomposition.csv:df[(df.ensemble=='mlp')&(df.n==70000)].mean_abs_calibration_error.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeNuisMaeMin": {
+  "source": "csv:exp3_uq_identification.csv:min(df.nuis_mae_e.min(), df.nuis_mae_p1.min())",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeNuisMaeMax": {
+  "source": "csv:exp3_uq_identification.csv:max(df.nuis_mae_e.max(), df.nuis_mae_p1.max())",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeEstBoxMax": {
+  "source": "csv:exp3_uq_identification.csv:df.est_p_in_box.max()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeAleaBiasRelPct": {
+  "source": "csv:exp3_uq_identification.csv:100*(df.oracle_naive_bias/df.true_aleatoric).mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpThreeCalRatioMlpOverLog": {
+  "source": "csv:exp3_uq_decomposition.csv:df[df.ensemble=='mlp'].mean_abs_calibration_error.mean()/df[df.ensemble=='logistic'].mean_abs_calibration_error.mean()",
+  "data_source": "synthetic",
+  "n_seeds": null
+ },
+ "nExpFourOneHomGzCond": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity==0)].gamma0_cond.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneHomGmin": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity==0)].gamma_min.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneHomGminQ": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity==0)].gamma_min_q95.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneHomRec": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity==0)].recovered_fraction.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneHetGzCond": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity>0)].gamma0_cond.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneHetGmin": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity>0)].gamma_min.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneHetGminQ": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity>0)].gamma_min_q95.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneHetRec": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.0))&(df.kappa_heterogeneity>0)].recovered_fraction.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneFiveHomGzCond": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity==0)].gamma0_cond.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneFiveHomGmin": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity==0)].gamma_min.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneFiveHomGminQ": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity==0)].gamma_min_q95.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneFiveHomRec": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity==0)].recovered_fraction.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneFiveHetGzCond": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity>0)].gamma0_cond.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneFiveHetGmin": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity>0)].gamma_min.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneFiveHetGminQ": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity>0)].gamma_min_q95.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourOneFiveHetRec": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,1.5))&(df.kappa_heterogeneity>0)].recovered_fraction.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourTwoHomGzCond": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity==0)].gamma0_cond.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourTwoHomGmin": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity==0)].gamma_min.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourTwoHomGminQ": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity==0)].gamma_min_q95.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourTwoHomRec": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity==0)].recovered_fraction.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourTwoHetGzCond": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity>0)].gamma0_cond.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourTwoHetGmin": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity>0)].gamma_min.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourTwoHetGminQ": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity>0)].gamma_min_q95.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourTwoHetRec": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,2.0))&(df.kappa_heterogeneity>0)].recovered_fraction.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourThreeHomGzCond": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity==0)].gamma0_cond.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourThreeHomGmin": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity==0)].gamma_min.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourThreeHomGminQ": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity==0)].gamma_min_q95.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourThreeHomRec": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity==0)].recovered_fraction.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourThreeHetGzCond": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity>0)].gamma0_cond.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourThreeHetGmin": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity>0)].gamma_min.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourThreeHetGminQ": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity>0)].gamma_min_q95.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourThreeHetRec": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,3.0))&(df.kappa_heterogeneity>0)].recovered_fraction.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourFiveHomGzCond": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity==0)].gamma0_cond.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourFiveHomGmin": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity==0)].gamma_min.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourFiveHomGminQ": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity==0)].gamma_min_q95.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourFiveHomRec": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity==0)].recovered_fraction.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourFiveHetGzCond": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity>0)].gamma0_cond.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourFiveHetGmin": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity>0)].gamma_min.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourFiveHetGminQ": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity>0)].gamma_min_q95.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourFiveHetRec": {
+  "source": "csv:exp4a_falsification.csv:df[(np.isclose(df.target,5.0))&(df.kappa_heterogeneity>0)].recovered_fraction.mean()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourMisRange": {
+  "source": "csv:exp4c_misspecification.csv:df.gamma.max()/df.gamma.min()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourMisWidthMin": {
+  "source": "csv:exp4c_misspecification.csv:df.groupby('gamma').width.mean().min()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourMisWidthMax": {
+  "source": "csv:exp4c_misspecification.csv:df.groupby('gamma').width.mean().max()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFourMisSeeds": {
+  "source": "csv:exp4c_misspecification.csv:df.seed.nunique()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveOneFiveB": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,1.5)].B.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveOneFiveRate": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,1.5)].rate_exponent.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveOneFiveCoef": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,1.5)].coefficient.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveTwoB": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,2)].B.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveTwoRate": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,2)].rate_exponent.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveTwoCoef": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,2)].coefficient.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveThreeB": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,3)].B.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveThreeRate": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,3)].rate_exponent.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveThreeCoef": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,3)].coefficient.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveSixB": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,6)].B.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveSixRate": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,6)].rate_exponent.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveSixCoef": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,6)].coefficient.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveTwelveB": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,12)].B.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveTwelveRate": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,12)].rate_exponent.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveTwelveCoef": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,12)].coefficient.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveTwentyFourB": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,24)].B.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveTwentyFourRate": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,24)].rate_exponent.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveTwentyFourCoef": {
+  "source": "csv:exp5_scaling.csv:df[np.isclose(df.gamma,24)].coefficient.iloc[0]",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveRateMin": {
+  "source": "csv:exp5_scaling.csv:df.rate_exponent.min()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveRateMax": {
+  "source": "csv:exp5_scaling.csv:df.rate_exponent.max()",
+  "data_source": "pending",
+  "n_seeds": null
+ },
+ "nExpFiveGammaRange": {
+  "source": "csv:exp5_scaling.csv:df.gamma.max()/df.gamma.min()",
+  "data_source": "pending",
   "n_seeds": null
  }
 }

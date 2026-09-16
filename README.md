@@ -133,3 +133,31 @@ reproduce:
 3. **`Γ_min ≤ Γ₀` is about the *conditional* `Γ₀`.** Marginalising over decision
    makers averages the tilts and shrinks the log odds ratio, so the falsification
    bound must be compared against the within-decision-maker parameter.
+
+## Refuted hypotheses (recorded, not hidden)
+
+Rule 5 of `CLAUDE.md`: when a hypothesis is refuted we record (a) the fact,
+(b) the diagnosed cause, (c) the corrected claim — here and in the paper
+(Section "Negative results, limitations and outlook"; `audit/A_AUDIT.md`).
+
+| hypothesis (before) | fact | diagnosed cause | corrected claim (after) |
+|---|---|---|---|
+| The midpoint ordering `x ↦ p̃(x)` is minimax-optimal for worst-case AUROC in general. | Refuted. Exhaustive search over all orderings (n ≤ 7, `audit/t3_ranking_search.py`) beats the midpoint ordering in 30% of unequal-width instances (mean gap 0.006 AUROC, max 0.155); 0 violations in 4,160 equal-width instances. | With unequal widths the adversary's "fill" term in the rank identity couples to the ordering through which capacities sit at the low ranks; the rearrangement argument only decouples when widths are equal. | Proposition (equal widths): the plug-in ordering maximises both worst- and best-case AUROC. Unequal widths: no fixed functional of the box is optimal; the midpoint remains the recommended default (measured gains on benchmarks are negligible, `experiments/exp10_ranker.py`). |
+| The identified box with cross-fitted nuisances is a per-unit confidence set. | Refuted. It contains the true `p(x)` for 44–55% of units (`experiments/exp8_nuisance_coverage.py`, 5 seeds). | Per-unit statements inherit the full nuisance error; the outcome model `p̂₁`, not the propensity, is the binding term (coverage restored by an oracle `p₁`, not by an oracle `e`). | Theorem 5: aggregate endpoints are √n-estimable with second-order bias (DR); per-unit coverage requires explicit nuisance intervals; inflated boxes from binned exact intervals reach ≥ 90% with 20 bins at roughly twice the width. No assumption-free pointwise interval exists (Low 1997). |
+| COMPAS provides "ground truth" for the censored outcomes. | Overstated. Detention incapacitates; holding time at risk fixed raises the detained/released odds ratio from 1.885 to 2.135 (`audit/compas_time_at_risk.py`). | Detained defendants spend part of the two-year window in custody, mechanically lowering their recorded rearrest rate. | COMPAS provides *recorded* outcomes on both sides of a real decision; both the recorded and the exposure-adjusted anchors are reported; the recorded anchor is conservative. |
+| H_A1 (medical arm): Γ_min ∈ [1.5, 3.0] on MIMIC-IV-ECG × ECHO. | **Open** — the pipeline is implemented and fixture-tested but the credentialed data are only on the user's server. | — | Pending; no medical number is reported in the main text (simulator results live in the appendix "Simulator validation" only, and a checker forbids them elsewhere). |
+
+## Numbers pipeline and checks
+
+* `python3 scripts/make_numbers.py` regenerates `paper/numbers.tex` (every
+  number in the paper is a macro) and `paper/numbers_provenance.json`
+  (macro → results file, path, `data_source`, seeds).
+* `python3 scripts/verify_paper_numbers.py` must pass: numbers.tex not stale,
+  no hand-typed numeric literal outside `paper/NUMBER_ALLOWLIST.txt`, provenance
+  check (`scripts/check_provenance.py`: no simulator macro in the main text or
+  in real-data/clinical scopes, no undefined or pending macro), ≥ 5 seeds behind
+  every CI-bearing macro.
+* `python3 scripts/check_theorem_preservation.py verify` guards the formal
+  statements against silent edits; `bash scripts/build_paper.sh` builds and
+  enforces the 9-page main-text budget.
+* `python3 scripts/make_status.py` regenerates `STATUS.md` from `docs/claims.json`.

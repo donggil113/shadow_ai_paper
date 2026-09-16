@@ -4,13 +4,187 @@
   "oracle_true_always_inside": true,
   "oracle_mean_aleatoric_bias": 0.050604651218850966,
   "est_p_in_box_min": 0.446,
-  "epistemic_decay_exponent_logistic": -0.866238690841281,
-  "epistemic_decay_exponent_mlp": -0.11720753302470842,
-  "epistemic_first_logistic": 0.016795891725103203,
-  "epistemic_last_logistic": 0.0007349707803148721,
-  "censoring_first_logistic": 0.12783112471002706,
-  "censoring_last_logistic": 0.14383627524356785,
-  "ratio_last_logistic": 0.0051097734495021896,
+  "epistemic_decay_exponent_logistic": -0.8596579657631285,
+  "epistemic_decay_exponent_mlp": -0.09150408115865379,
+  "epistemic_first_logistic": 0.015348262887318975,
+  "epistemic_last_logistic": 0.0007242451243430747,
+  "censoring_first_logistic": 0.1306860318914856,
+  "censoring_last_logistic": 0.1401280178284416,
+  "ratio_last_logistic": 0.005168270253463847,
   "mlp_inside_identified": false,
-  "logistic_inside_identified": false
+  "logistic_inside_identified": false,
+  "n_seeds": 5,
+  "by_cell_ci": {
+    "logistic_n2000": {
+      "naive_epistemic": {
+        "mean": 0.015348262887318975,
+        "ci95": 0.0015828748706146454,
+        "n": 5
+      },
+      "censoring": {
+        "mean": 0.1306860318914856,
+        "ci95": 0.0028092925841276396,
+        "n": 5
+      },
+      "ratio_epistemic_to_censoring": {
+        "mean": 0.1174960038518222,
+        "ci95": 0.012930612534403094,
+        "n": 5
+      }
+    },
+    "logistic_n5000": {
+      "naive_epistemic": {
+        "mean": 0.006958957126414487,
+        "ci95": 0.0008345902263066048,
+        "n": 5
+      },
+      "censoring": {
+        "mean": 0.13330432015416632,
+        "ci95": 0.00542458754013541,
+        "n": 5
+      },
+      "ratio_epistemic_to_censoring": {
+        "mean": 0.052224693392318444,
+        "ci95": 0.006269722524907254,
+        "n": 5
+      }
+    },
+    "logistic_n12000": {
+      "naive_epistemic": {
+        "mean": 0.003259376042966494,
+        "ci95": 0.0004341195922639601,
+        "n": 5
+      },
+      "censoring": {
+        "mean": 0.1334997249147365,
+        "ci95": 0.0038760447246185036,
+        "n": 5
+      },
+      "ratio_epistemic_to_censoring": {
+        "mean": 0.024439344879717877,
+        "ci95": 0.0035201974011303174,
+        "n": 5
+      }
+    },
+    "logistic_n30000": {
+      "naive_epistemic": {
+        "mean": 0.001483673893771554,
+        "ci95": 0.00020883427344243612,
+        "n": 5
+      },
+      "censoring": {
+        "mean": 0.13365111440686994,
+        "ci95": 0.0055921052812747864,
+        "n": 5
+      },
+      "ratio_epistemic_to_censoring": {
+        "mean": 0.011086119839706057,
+        "ci95": 0.0012699952271562167,
+        "n": 5
+      }
+    },
+    "logistic_n70000": {
+      "naive_epistemic": {
+        "mean": 0.0007242451243430747,
+        "ci95": 4.887936193365347e-05,
+        "n": 5
+      },
+      "censoring": {
+        "mean": 0.1401280178284416,
+        "ci95": 0.006978912264339526,
+        "n": 5
+      },
+      "ratio_epistemic_to_censoring": {
+        "mean": 0.005168270253463847,
+        "ci95": 0.00023481725933506564,
+        "n": 5
+      }
+    },
+    "mlp_n2000": {
+      "naive_epistemic": {
+        "mean": 0.19483991693115632,
+        "ci95": 0.018097830621455372,
+        "n": 5
+      },
+      "censoring": {
+        "mean": 0.1306860318914856,
+        "ci95": 0.0028092925841276396,
+        "n": 5
+      },
+      "ratio_epistemic_to_censoring": {
+        "mean": 1.492354619843185,
+        "ci95": 0.1618267807667333,
+        "n": 5
+      }
+    },
+    "mlp_n5000": {
+      "naive_epistemic": {
+        "mean": 0.2649630635932835,
+        "ci95": 0.022532611027165875,
+        "n": 5
+      },
+      "censoring": {
+        "mean": 0.13330432015416632,
+        "ci95": 0.00542458754013541,
+        "n": 5
+      },
+      "ratio_epistemic_to_censoring": {
+        "mean": 1.9910744203815862,
+        "ci95": 0.2192054932103731,
+        "n": 5
+      }
+    },
+    "mlp_n12000": {
+      "naive_epistemic": {
+        "mean": 0.2506041937700275,
+        "ci95": 0.1127299344768248,
+        "n": 5
+      },
+      "censoring": {
+        "mean": 0.1334997249147365,
+        "ci95": 0.0038760447246185036,
+        "n": 5
+      },
+      "ratio_epistemic_to_censoring": {
+        "mean": 1.8782826428344594,
+        "ci95": 0.8498724412012506,
+        "n": 5
+      }
+    },
+    "mlp_n30000": {
+      "naive_epistemic": {
+        "mean": 0.22815417268196336,
+        "ci95": 0.009457048590914667,
+        "n": 5
+      },
+      "censoring": {
+        "mean": 0.13365111440686994,
+        "ci95": 0.0055921052812747864,
+        "n": 5
+      },
+      "ratio_epistemic_to_censoring": {
+        "mean": 1.7093653430937565,
+        "ci95": 0.12249485628434617,
+        "n": 5
+      }
+    },
+    "mlp_n70000": {
+      "naive_epistemic": {
+        "mean": 0.13866178394496909,
+        "ci95": 0.005000592460800721,
+        "n": 5
+      },
+      "censoring": {
+        "mean": 0.1401280178284416,
+        "ci95": 0.006978912264339526,
+        "n": 5
+      },
+      "ratio_epistemic_to_censoring": {
+        "mean": 0.9909810841034593,
+        "ci95": 0.06689328566165334,
+        "n": 5
+      }
+    }
+  },
+  "data_source": "synthetic"
 }

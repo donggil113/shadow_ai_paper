@@ -43,7 +43,13 @@ OUT_JSON = os.path.join(ROOT, "paper", "numbers_provenance.json")
 R = []
 
 
+_SEEN = set()
+
+
 def reg(macro, file, path, fmt, dataset=None):
+    if macro in _SEEN or not re.fullmatch(r"n[A-Z][A-Za-z]*", macro):
+        raise ValueError(f"macro {macro!r} duplicated or not letters-only")
+    _SEEN.add(macro)
     R.append(dict(macro=macro, file=file, path=path, fmt=fmt, dataset=dataset))
 
 
@@ -68,12 +74,7 @@ reg("nExpOneRuntimeHundredK", "csv:exp1c_runtime.csv", "df[df.n==100000].seconds
 reg("nExpOneRuntimeFourHundredK", "csv:exp1c_runtime.csv", "df[df.n==400000].seconds.iloc[0]", "f1")
 
 # ---- exp6: COMPAS coverage (real) ----------------------------------------
-reg("nCompasOddsRatio", "exp6_summary.json", "compas_marginal_odds_ratio", "f3")
-reg("nCompasCovGammaOne", "exp6_summary.json", "compas_coverage_at_gamma_1", "pct0")
-reg("nCompasCovAtOR", "exp6_summary.json", "compas_coverage_at_or", "pct0")
-reg("nCompasCornerCovAtOR", "exp6_summary.json", "compas_naive_coverage_at_or", "pct0")
-reg("nCompasWidthAtOR", "exp6_summary.json", "compas_width_at_or", "f3")
-reg("nCompasObsMinusTrue", "exp6_summary.json", "compas_observed_minus_true", "f4s")
+# (COMPAS coverage / methods macros are registered below from the 5-seed exp6 summary.)
 
 # ---- exp2: learning comparison (per dataset, 5 seeds) --------------------
 for ds, tag in (("lending_club", "Lending"), ("mimic_sim", "MimicSim"), ("sl_bench", "SlBench")):
@@ -111,11 +112,12 @@ reg("nExpEightAlphaPct", "exp8_summary.json", "alpha*100", "int")
 
 # ---- exp3: uncertainty decomposition (5 seeds) --------------------------
 reg("nExpThreeSeeds", "exp3_summary.json", "n_seeds", "int")
-for n in (2000, 5000, 12000, 30000, 70000):
-    reg(f"nExpThreeEpiLog{n}", "exp3_summary.json", f"by_cell_ci.logistic_n{n}.naive_epistemic", "ci:f4")
-    reg(f"nExpThreeEpiMlp{n}", "exp3_summary.json", f"by_cell_ci.mlp_n{n}.naive_epistemic", "ci:f3")
-    reg(f"nExpThreeCens{n}", "exp3_summary.json", f"by_cell_ci.logistic_n{n}.censoring", "ci:f4")
-    reg(f"nExpThreeRatio{n}", "exp3_summary.json", f"by_cell_ci.logistic_n{n}.ratio_epistemic_to_censoring", "ci:f3")
+NTAG = {2000: "TwoK", 5000: "FiveK", 12000: "TwelveK", 30000: "ThirtyK", 70000: "SeventyK"}   # LaTeX macro names: letters only
+for n, nt in NTAG.items():
+    reg(f"nExpThreeEpiLog{nt}", "exp3_summary.json", f"by_cell_ci.logistic_n{n}.naive_epistemic", "ci:f4")
+    reg(f"nExpThreeEpiMlp{nt}", "exp3_summary.json", f"by_cell_ci.mlp_n{n}.naive_epistemic", "ci:f3")
+    reg(f"nExpThreeCens{nt}", "exp3_summary.json", f"by_cell_ci.logistic_n{n}.censoring", "ci:f4")
+    reg(f"nExpThreeRatio{nt}", "exp3_summary.json", f"by_cell_ci.logistic_n{n}.ratio_epistemic_to_censoring", "ci:f3")
 reg("nExpThreeSlopeLog", "exp3_summary.json", "epistemic_decay_exponent_logistic", "f2")
 reg("nExpThreeSlopeMlp", "exp3_summary.json", "epistemic_decay_exponent_mlp", "f2")
 reg("nExpThreeAleaBias", "exp3_summary.json", "oracle_mean_aleatoric_bias", "f3s")
@@ -206,11 +208,95 @@ for oc, otag in (("recorded", ""), ("exposure_adjusted", "Exp")):
                 reg(f"nCompas{otag}M{mtag}{ktag}Min", "exp6_summary.json", f"methods.{oc}.{m}.{k}.min", "f3")
                 reg(f"nCompas{otag}M{mtag}{ktag}Max", "exp6_summary.json", f"methods.{oc}.{m}.{k}.max", "f3")
 reg("nExpSixSeeds", "exp6_summary.json", "n_seeds", "int")
+for oc, otag in (("recorded", ""), ("exposure_adjusted", "Exp")):
+    reg(f"nCompas{otag}RegretRatioErm", "exp6_summary.json",
+        f"expr:d['methods']['{oc}']['ERM-observed']['minimax_regret']['mean']/d['methods']['{oc}']['DCL-reg(G=2)']['minimax_regret']['mean']", "x1")
+    reg(f"nCompas{otag}RegretRatioHeckman", "exp6_summary.json",
+        f"expr:d['methods']['{oc}']['Heckman']['minimax_regret']['mean']/d['methods']['{oc}']['DCL-reg(G=2)']['minimax_regret']['mean']", "x1")
+
+
+# ---- exp0: three-point counterexample (synthetic; appendix) ---------------
+for i, tag in enumerate(("One", "Two", "Three")):
+    reg(f"nCexPlo{tag}", "exp0_counterexample.json", f"expr:d['lo'][{i}]", "f2")
+    reg(f"nCexPup{tag}", "exp0_counterexample.json", f"expr:d['hi'][{i}]", "f2")
+    reg(f"nCexPStar{tag}", "exp0_counterexample.json", f"expr:d['p_star_upper'][{i}]", "f2")
+for k, tag, fmt in (("auc_lo", "AucLo", "f4"), ("auc_mid", "AucMid", "f4"), ("auc_hi", "AucHi", "f4"),
+                    ("corner_width", "CornerWidth", "f3"), ("sharp_lo", "SharpLo", "f4"), ("sharp_hi", "SharpHi", "f4"),
+                    ("sharp_width", "SharpWidth", "f3"), ("auc_p_star", "AucPStar", "f4"), ("miss", "Miss", "f3")):
+    reg(f"nCex{tag}", "exp0_counterexample.json", k, fmt)
+
+# ---- exp1 extras ---------------------------------------------------------
+reg("nExpOneNCells", "csv:exp1b_validity.csv", "int(df[df.seed==df.seed.min()].shape[0])", "int")
+reg("nExpOneNInstances", "csv:exp1b_validity.csv", "len(df)", "int")
+
+# ---- exp2 extras: pooled Heckman, blind spot, regret ratios ---------------
+for ds, tag in (("lending_club", "Lending"), ("mimic_sim", "MimicSim"), ("sl_bench", "SlBench")):
+    for k, ktag in (("risk", "Risk"), ("auroc", "Auroc"), ("obs_auroc", "ObsAuroc"),
+                    ("worstcase_risk", "Wc"), ("minimax_regret", "Regret")):
+        reg(f"nExpTwo{tag}Heckman{ktag}", "csv:exp2_learning_raw.csv",
+            f"df[(df.dataset=='{ds}')&df.method.str.startswith('Heckman')].{k}.mean()", "f4", dataset=ds)
+        reg(f"nExpTwo{tag}Heckman{ktag}Min", "csv:exp2_learning_raw.csv",
+            f"df[(df.dataset=='{ds}')&df.method.str.startswith('Heckman')].{k}.min()", "f3", dataset=ds)
+        reg(f"nExpTwo{tag}Heckman{ktag}Max", "csv:exp2_learning_raw.csv",
+            f"df[(df.dataset=='{ds}')&df.method.str.startswith('Heckman')].{k}.max()", "f3", dataset=ds)
+    reg(f"nExpTwo{tag}ErmObsMinusTrue", "exp2_summary.json",
+        f"expr:d['datasets']['{ds}']['ERM-observed']['obs_auroc']['mean']-d['datasets']['{ds}']['ERM-observed']['auroc']['mean']",
+        "f3s", dataset=ds)
+    gds = {"lending_club": "2", "sl_bench": "3", "mimic_sim": "3"}[ds]     # Gamma used for DCL on each testbed (>= Gamma_0)
+    reg(f"nExpTwo{tag}RegretRatioErm", "exp2_summary.json",
+        f"expr:d['datasets']['{ds}']['ERM-observed']['minimax_regret']['mean']/d['datasets']['{ds}']['DCL-reg(G={gds})']['minimax_regret']['mean']",
+        "x1", dataset=ds)
+    reg(f"nExpTwo{tag}WcRatioErmOverDcl", "exp2_summary.json",
+        f"expr:d['datasets']['{ds}']['ERM-observed']['worstcase_risk']['mean']/d['datasets']['{ds}']['DCL(G={gds})']['worstcase_risk']['mean']",
+        "x1", dataset=ds)
+    reg(f"nExpTwo{tag}GammaZero", "csv:exp2_learning_raw.csv", f"df[df.dataset=='{ds}'].gamma0.iloc[0]", "f2", dataset=ds)
+    reg(f"nExpTwo{tag}ManskiRiskRatioErm", "exp2_summary.json",
+        f"expr:d['datasets']['{ds}']['Manski(G=inf)']['risk']['mean']/d['datasets']['{ds}']['ERM-observed']['risk']['mean']",
+        "x1", dataset=ds)
+
+# ---- exp3 extras ---------------------------------------------------------
+reg("nExpThreeCensChangePct", "exp3_summary.json", "censoring_last_logistic/censoring_first_logistic", "pchg0")
+reg("nExpThreeRatioLast", "exp3_summary.json", "ratio_last_logistic", "f3")
+reg("nExpThreeOracleInBox", "exp3_summary.json", "oracle_p1_always_in_box", "pct0")
+for n, nt in NTAG.items():
+    reg(f"nExpThreeCalLog{nt}", "csv:exp3_uq_decomposition.csv",
+        f"df[(df.ensemble=='logistic')&(df.n=={n})].mean_abs_calibration_error.mean()", "f3")
+    reg(f"nExpThreeCalMlp{nt}", "csv:exp3_uq_decomposition.csv",
+        f"df[(df.ensemble=='mlp')&(df.n=={n})].mean_abs_calibration_error.mean()", "f3")
+reg("nExpThreeNuisMaeMin", "csv:exp3_uq_identification.csv", "min(df.nuis_mae_e.min(), df.nuis_mae_p1.min())", "f2")
+reg("nExpThreeNuisMaeMax", "csv:exp3_uq_identification.csv", "max(df.nuis_mae_e.max(), df.nuis_mae_p1.max())", "f2")
+reg("nExpThreeEstBoxMax", "csv:exp3_uq_identification.csv", "df.est_p_in_box.max()", "pct0")
+reg("nExpThreeAleaBiasRelPct", "csv:exp3_uq_identification.csv", "100*(df.oracle_naive_bias/df.true_aleatoric).mean()", "int")
+reg("nExpThreeCalRatioMlpOverLog", "csv:exp3_uq_decomposition.csv",
+    "df[df.ensemble=='mlp'].mean_abs_calibration_error.mean()/df[df.ensemble=='logistic'].mean_abs_calibration_error.mean()", "x1")
+
+# ---- exp4 table rows -----------------------------------------------------
+for t, ttag in ((1.0, "One"), (1.5, "OneFive"), (2.0, "Two"), (3.0, "Three"), (5.0, "Five")):
+    for hcond, htag in (("==0", "Hom"), (">0", "Het")):
+        cond = f"(np.isclose(df.target,{t}))&(df.kappa_heterogeneity{hcond})"
+        for k, ktag in (("gamma0_cond", "GzCond"), ("gamma_min", "Gmin"), ("gamma_min_q95", "GminQ"),
+                        ("recovered_fraction", "Rec")):
+            reg(f"nExpFour{ttag}{htag}{ktag}", "csv:exp4a_falsification.csv", f"df[{cond}].{k}.mean()", "f2")
+reg("nExpFourMisRange", "csv:exp4c_misspecification.csv", "df.gamma.max()/df.gamma.min()", "int")
+reg("nExpFourMisWidthMin", "csv:exp4c_misspecification.csv", "df.groupby('gamma').width.mean().min()", "f2")
+reg("nExpFourMisWidthMax", "csv:exp4c_misspecification.csv", "df.groupby('gamma').width.mean().max()", "f2")
+reg("nExpFourMisSeeds", "csv:exp4c_misspecification.csv", "df.seed.nunique()", "int")
+
+# ---- exp5 table ----------------------------------------------------------
+for g, gtag in ((1.5, "OneFive"), (2, "Two"), (3, "Three"), (6, "Six"), (12, "Twelve"), (24, "TwentyFour")):
+    for k, ktag, fmt in (("B", "B", "f2"), ("rate_exponent", "Rate", "f3"), ("coefficient", "Coef", "f3")):
+        reg(f"nExpFive{gtag}{ktag}", "csv:exp5_scaling.csv", f"df[np.isclose(df.gamma,{g})].{k}.iloc[0]", fmt)
+reg("nExpFiveRateMin", "csv:exp5_scaling.csv", "df.rate_exponent.min()", "f3")
+reg("nExpFiveRateMax", "csv:exp5_scaling.csv", "df.rate_exponent.max()", "f3")
+reg("nExpFiveGammaRange", "csv:exp5_scaling.csv", "df.gamma.max()/df.gamma.min()", "int")
 
 
 # --------------------------------------------------------------------------- #
 def _get(d, path):
-    """Dotted path with arithmetic on the last hop ('a/b', 'a*100')."""
+    """Dotted path with arithmetic on the last hop ('a/b', 'a*100'), or a python
+    expression over the JSON when the path starts with 'expr:' (d = the JSON)."""
+    if path.startswith("expr:"):
+        return eval(path[5:], {"d": d, "np": np, "len": len, "min": min, "max": max})
     if re.search(r"[*/]", path.split(".")[-1]) and not path.startswith("csv:"):
         base, expr = path.rsplit(".", 1) if "." in path else ("", path)
         toks = re.split(r"([*/])", expr)
@@ -245,6 +331,8 @@ def fmt_value(v, fmt):
         return f"{100*float(v):.0f}\\%"
     if fmt == "pct1":
         return f"{100*float(v):.1f}\\%"
+    if fmt == "pchg0":                    # ratio -> signed percent change
+        return f"{100*(float(v)-1):+.0f}\\%"
     if fmt == "x1":
         return f"{float(v):.1f}"
     if fmt == "sci1":
@@ -273,8 +361,8 @@ def build():
                 df = cache[path]
                 v = eval(e["path"], {"df": df, "np": np, "len": len})
                 # provenance of CSVs: inherit from the sibling summary JSON if any
-                sib = re.sub(r"[abc]?_[a-z_]+\.csv$", "_summary.json", f[4:])
-                sib = re.sub(r"^(exp\d)[abc]_.*$", r"\1_summary.json", f[4:])
+                mm = re.match(r"^(exp\d+)[a-z]?_", f[4:])
+                sib = f"{mm.group(1)}_summary.json" if mm else f[4:]
                 ds_src = _provenance(sib, e["dataset"])
                 src_desc = f"csv:{f[4:]}:{e['path']}"
                 ci = None
@@ -291,6 +379,13 @@ def build():
                     v = v["mean"]
         except (FileNotFoundError, KeyError, IndexError, AttributeError, ValueError, json.JSONDecodeError, pd.errors.ParserError) as exc:
             warnings.append(f"{e['macro']}: {src_desc} -> {type(exc).__name__}: {exc}")
+            # PENDING placeholder: lets the paper compile while a result is being
+            # (re)computed; check_provenance.py fails on any 'pending' macro, so a
+            # placeholder can never survive into a verified build.
+            lines.append(f"\\newcommand{{\\{e['macro']}}}{{\\textbf{{??}}}}")
+            if e["fmt"].startswith("ci:"):
+                lines.append(f"\\newcommand{{\\{e['macro']}CI}}{{\\textbf{{??}}}}")
+            prov[e["macro"]] = dict(source=src_desc, data_source="pending", n_seeds=None)
             continue
         base_fmt = e["fmt"][3:] if e["fmt"].startswith("ci:") else e["fmt"]
         lines.append(f"\\newcommand{{\\{e['macro']}}}{{{fmt_value(v, base_fmt)}}}")
