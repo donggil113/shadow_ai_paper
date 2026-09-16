@@ -52,3 +52,31 @@ full COMPAS time-at-risk audit, reproducibility.
 - 5 seeds + 95% CI wherever a difference is claimed (rule 4).
 - `\label{lastmainpage}` immediately before `\appendix` for the page-budget
   check in scripts/build_paper.sh.
+
+## Outcome (2026-09-16)
+
+Final main-text order (9.0 pages, ICML substitute style, 0 undefined
+references, 0 overfull boxes; `bash scripts/build_paper.sh`):
+
+1. Introduction (0.9 p) — general framing, COMPAS figure first, contributions.
+2. Setup (0.7 p) — DCSM(Γ), Lemmas msm/box, directional remark.
+3. Sharp partial identification of ranking metrics (1.2 p) — rank identity,
+   sharp interval, corner evaluation; unified class moved to App. B.
+4. Decision-censored learning (1.1 p) — Thm dcl, Prop regret, Prop midrank
+   (equal widths) + counterexample summary; DRO/budget remarks and the validity
+   corollary moved to App. B.
+5. The nuisance bottleneck (1.0 p) — Thm 5 (a)-(c) + coverage table.
+6. Γ is unavoidable — and falsifiable (0.6 p).
+7. Generalisation (0.3 p; full statements in App. B_generalization).
+8. Uncertainty quantification (0.6 p) — Cor uq + three-way decomposition.
+9. Experiments (2.0 p) — COMPAS first (merged results table), sharpness,
+   learning, falsification/break-even/generalisation/uncertainty paragraphs.
+10. Related work (0.3 p; matrix + extended text in App. D).
+11. Negative results, limitations and outlook (0.4 p).
+
+Appendices (one-column): A proofs; B generalisation statements; B details
+(counterexample, unified class, learning remarks, budgeted DCSM, ranking
+algorithm, ranking search audit, nuisance estimation, reproducibility);
+C additional results (full tables with CIs, COMPAS audit, hidden-signal
+guard, falsification/misspecification, scaling, UQ table, nuisance variants,
+simulator validation, medical-arm status); D related-work matrix.
