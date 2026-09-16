@@ -98,8 +98,30 @@ gradient signal decays.
 As reported in \cref{sec:learning}, the fixed algorithm converges but does not
 beat its plug-in warm start on any instance we tried.
 
+\subsection{Exhaustive search for the minimax-AUROC ordering}
+\label{app:audit-ranking}
+
+\Cref{prop:midrank} covers equal widths. To test whether the plug-in ordering
+is optimal more generally we enumerated \emph{every} ordering of $n\le\nExpNineNMax$
+units, scoring each by the exact inner value $\min_{p\in\I}\AUC(\sigma,p)$ of
+\cref{thm:sharp-auc}, on random boxes (\texttt{audit/t3\_ranking\_search.py};
+$\nExpNineEqualInstances$ equal-width and $\nExpNineUnequalInstances$
+unequal-width instances). Equal widths: $\nExpNineEqualViolations$ violations,
+as the proposition requires. Unequal widths: the midpoint ordering is beaten
+in $\nExpNineMidBeatenPct$ of instances overall and in
+$\nExpNineMidBeatenSevenPct$ at $n=\nExpNineNMax$, by $\nExpNineMidGapMean$
+AUROC on average and $\nExpNineMidGapMax$ at most; the $\plo$ ordering is
+beaten in $\nExpNineLoBeatenPct$. No ordering of the form
+$\plo-c\,\delta$ with a fixed $c$ attains the optimum on every instance, but
+the optimum is attained by some member of the family $\plo+c\,\delta$,
+$c\in[0,1]$, in $\nExpNineFamilyPct$ of instances. The counterexample instances
+are listed in \texttt{audit/t3\_counterexamples.csv}; the largest gaps occur
+when several intervals are clipped at the same upper endpoint, so that the
+adversary can equalise their outcome probabilities and the ordering among them
+is decided by the lower endpoints alone.
+
 \subsection{Estimation of the nuisances}
-\label{app:nuisance}
+\label{app:nuisance-est}
 
 The bounds live on the probability scale, so \emph{calibration matters more than
 discrimination}. We fit $\hat e$ and $\hat p_1$ with gradient-boosted trees

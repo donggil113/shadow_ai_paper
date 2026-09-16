@@ -1,0 +1,31 @@
+{
+ "data_source": "synthetic",
+ "description": "exhaustive permutation search for the worst-case-AUROC-optimal ranking; audit/t3_ranking_search.py",
+ "equal_n_instances": 4160,
+ "equal_violations": 0,
+ "equal_max_gap": 0.0,
+ "unequal_n_instances": 4160,
+ "unequal_mid_beaten_frac": 0.29783653846153846,
+ "unequal_lo_beaten_frac": 0.4129807692307692,
+ "unequal_mid_gap_mean": 0.006222100491864665,
+ "unequal_mid_gap_max": 0.1548960928355897,
+ "unequal_lo_gap_mean": 0.01973434954942739,
+ "unequal_lo_gap_max": 0.2531938651321707,
+ "unequal_mid_beaten_frac_by_n": {
+  "3": 0.16133333333333333,
+  "4": 0.254,
+  "5": 0.48625,
+  "6": 0.59,
+  "7": 0.8333333333333334
+ },
+ "unequal_mid_gap_mean_by_n": {
+  "3": 0.006442306870170441,
+  "4": 0.005250813709872973,
+  "5": 0.007226702849702959,
+  "6": 0.0069935742088875884,
+  "7": 0.007747043894387296
+ },
+ "convex_family_attains_optimum_frac": 0.9430288461538462,
+ "n_max": 7,
+ "n_min": 3
+}
