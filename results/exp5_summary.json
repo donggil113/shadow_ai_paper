@@ -1,11 +1,14 @@
 {
   "B0": 4.963290405031583,
-  "deviation_rate_exponent": -0.5065417140323146,
-  "slope_vs_log_gamma": 0.20147024718587528,
-  "r2_vs_log_gamma": 0.8916130944388377,
-  "slope_vs_gamma": 0.020518585616355684,
-  "r2_vs_gamma": 0.6035693696787416,
-  "slope_vs_B": 0.20147024718587483,
-  "r2_vs_B": 0.8916130944388378,
-  "excess_rate_exponent": -1.0839661160670548
+  "deviation_rate_exponent": -0.506541714032315,
+  "slope_vs_log_gamma": 0.20147024718587564,
+  "r2_vs_log_gamma": 0.8916130944388384,
+  "slope_vs_gamma": 0.020518585616355754,
+  "r2_vs_gamma": 0.6035693696787421,
+  "slope_vs_B": 0.2014702471858755,
+  "r2_vs_B": 0.8916130944388387,
+  "excess_rate_exponent": -1.0837661268846814,
+  "n_seeds_deviation": 8,
+  "n_seeds_excess": 5,
+  "data_source": "synthetic"
 }
