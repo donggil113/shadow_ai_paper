@@ -11,12 +11,13 @@ $\mathcal{P}_{\Gamma,\eta}$ be the set of laws satisfying $\dcsm(\Gamma)$ with
 $\Prb(T=0)\ge\eta$. Then for \emph{every} sample size $n$ and every estimator
 $\hat R_n$ measurable with respect to $\{O_i\}_{i\le n}$,
 \begin{equation}
-  \sup_{P\in\mathcal{P}_{\Gamma,\eta}}
+\begin{aligned}
+  &\sup_{P\in\mathcal{P}_{\Gamma,\eta}}
   \Prb_P\!\left(\big|\hat R_n - R_P(f)\big| \;\ge\; \tfrac{\Delta}{2}\right)
-  \;\ge\; \tfrac12,
-  \qquad
-  \Delta \;=\; \eta\,\frac{\Gamma-1}{\Gamma+1}\,
+  \;\ge\; \tfrac12,\\
+  &\Delta \;=\; \eta\,\frac{\Gamma-1}{\Gamma+1}\,
   \E\big[g_\ell(f(X))\,\big|\,T=0\big],
+\end{aligned}
   \label{eq:impossible}
 \end{equation}
 where $g_\ell(z)=|\ell(z,1)-\ell(z,0)|$. Consequently no estimator is
@@ -26,11 +27,10 @@ smaller than a constant depending on $\Gamma$ and the censoring rate.
 \end{theorem}
 
 The proof (\cref{app:impossibility}) is a Le Cam two-point argument
-\citep{lecam1973convergence, tsybakov2009introduction} made trivial by the
-structure of the problem: two laws in $\mathcal{P}_{\Gamma,\eta}$ can be
-constructed with \emph{identical} observed-data distributions --- $p_0$ never
-enters $P_{\mathrm{obs}}$ --- yet deployment risks differing by $\Delta$. Since
-$\hat R_n$ has the same law under both, it cannot be close to both.
+\citep{lecam1973convergence}: two laws in $\mathcal{P}_{\Gamma,\eta}$ with
+\emph{identical} observed-data distributions --- $p_0$ never enters
+$P_{\mathrm{obs}}$ --- have deployment risks differing by $\Delta$, and an
+estimator with the same law under both cannot be close to both.
 
 \begin{corollary}[$\Gamma$ is not identified]
 \label{cor:gamma-unidentified}
@@ -39,22 +39,19 @@ $\dcsm(\Gamma)$ equals the set compatible with $\dcsm(\Gamma')$ --- namely all o
 them. No test based on $(X,T,TY)$ has power against $\dcsm(\Gamma)$.
 \end{corollary}
 
-Together these say $\Gamma$ is a \emph{fundamental parameter}: it must come from
-outside the data, it indexes a nested, exhaustive family of well-posed problems
-(\cref{lem:box}), and for each fixed $\Gamma$ every quantity we report is
-consistently estimable. The analyst's job is not to estimate $\Gamma$ but to
-make the map from $\Gamma$ to conclusions explicit --- which is what the
-break-even analysis of \cref{sec:experiments} does.
+So $\Gamma$ must come from outside the data; it indexes a nested, exhaustive
+family of well-posed problems (\cref{lem:box}) within each of which every
+quantity we report is consistently estimable, and the analyst's job is to make
+the map from $\Gamma$ to conclusions explicit, which the break-even analysis of
+\cref{sec:experiments} does.
 
 \subsection{The constructive half: falsification from leniency}
 
-\Cref{cor:gamma-unidentified} is a statement about data of the form $(X,T,TY)$.
-Many of the applications that motivate this paper have more structure: several
-decision makers --- judges, clinicians, loan officers, moderation queues --- handle
-comparable cases and differ in leniency for reasons unrelated to the outcome
-\citep{kleinberg2018human, arnold2022measuring}. That variation is a classical
-instrument \citep{imbens1994identification}, and under it $\dcsm(\Gamma)$
-acquires testable content.
+Many applications have more structure: several decision makers --- judges,
+clinicians, loan officers --- handle comparable cases and differ in leniency
+for reasons unrelated to the outcome \citep{kleinberg2018human,
+arnold2022measuring}, a classical instrument \citep{imbens1994identification}
+under which $\dcsm(\Gamma)$ acquires testable content.
 
 \begin{assumption}[Leniency instrument]
 \label{ass:iv}
@@ -81,12 +78,10 @@ $\Gamma_{\min}(x)\le\Gamma_0$. $\dcsm(\Gamma)$ is \emph{refuted} for every
 $\Gamma < \sup_x \Gamma_{\min}(x)$.
 \end{proposition}
 
-\Cref{prop:falsify} converts \cref{thm:impossible} from a dead end into a
-workflow: leniency variation pins down how much hidden judgement there must be
-\emph{at least}, the analyst supplies a defensible upper value, and the
-break-even analysis reports which conclusions survive in between. In
-\cref{sec:experiments} the bound is valid in every one of 30 configurations, is
-exactly $1$ when the mechanism really is missing-at-random, and recovers
-$34$--$61\%$ of $\log\Gamma_0$ --- less when decision makers differ in \emph{how
-much} they rely on private information rather than only in how lenient they are,
-which is exactly what makes their identified sets overlap at a smaller $\Gamma$.
+\Cref{prop:falsify} turns \cref{thm:impossible} into a workflow: leniency
+variation pins down how much hidden judgement there must be \emph{at least},
+the analyst supplies a defensible upper value, and the break-even analysis
+reports which conclusions survive in between. In \cref{sec:experiments} the
+bound is valid in every one of $\nExpFourNCells$ configurations, is exactly $1$
+when the mechanism really is missing-at-random, and recovers
+$\nExpFourRecoverMin$--$\nExpFourRecoverMax$ of $\log\Gamma_0$.

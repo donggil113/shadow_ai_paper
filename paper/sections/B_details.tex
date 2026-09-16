@@ -8,27 +8,85 @@ Let $\mu$ be uniform on three points with scores $f=(0,1,2)$, so the mid-ranks
 \eqref{eq:midrank} are $R = (\tfrac16,\tfrac12,\tfrac56)$. Take the identified
 box
 \[
-  \plo = (0.59,\;0.85,\;0.48),
+  \plo = (\nCexPloOne,\;\nCexPloTwo,\;\nCexPloThree),
   \qquad
-  \pup = (0.98,\;0.98,\;0.97).
+  \pup = (\nCexPupOne,\;\nCexPupTwo,\;\nCexPupThree).
 \]
 Evaluating AUROC at the three natural corners gives
 \[
-  \AUC(\plo)=0.4470,\qquad \AUC(\tilde p)=0.4570,\qquad \AUC(\pup)=0.4512,
+  \AUC(\plo)=\nCexAucLo,\qquad \AUC(\tilde p)=\nCexAucMid,\qquad \AUC(\pup)=\nCexAucHi,
 \]
-so the corner recipe reports the interval $[0.4470,\,0.4570]$, of width $0.010$.
-But the sharp interval of \cref{thm:sharp-auc} is $[0.1341,\,0.8252]$, of width
-$0.691$. The witness for the upper end is the \emph{mixed} vertex
+so the corner recipe reports the interval $[\nCexAucLo,\,\nCexAucMid]$, of width $\nCexCornerWidth$.
+But the sharp interval of \cref{thm:sharp-auc} is $[\nCexSharpLo,\,\nCexSharpHi]$, of width
+$\nCexSharpWidth$. The witness for the upper end is the \emph{mixed} vertex
 \[
-  p^\star = (0.59,\;0.98,\;0.97) \in \I_\Gamma,
-  \qquad \AUC(p^\star) = 0.8252,
+  p^\star = (\nCexPStarOne,\;\nCexPStarTwo,\;\nCexPStarThree) \in \I_\Gamma,
+  \qquad \AUC(p^\star) = \nCexAucPStar,
 \]
 which takes $\plo$ at the lowest-ranked unit and $\pup$ at the two highest ---
 precisely the greedy pattern of \cref{thm:sharp-auc}(i), and a point no corner
 evaluation visits. The corner interval therefore misses an admissible law by
-$0.368$ in AUROC. This is the mechanism behind the $10\%$ coverage reported in
+$\nCexMiss$ in AUROC. This is the mechanism behind the $\nExpOneCovCorner$ coverage reported in
 \cref{sec:experiments}: corner evaluation is not a loose bound, it is not a
 bound at all.
+
+\subsection{Remarks on the learning objective}
+\label{app:learning-remarks}
+
+\begin{remark}[Contrast with distributional robustness]
+\label{rem:dro}
+In $f$-divergence and Wasserstein DRO \citep{namkoong2016stochastic,
+duchi2021learning, sagawa2020distributionally} the ambiguity set is a ball
+around the empirical distribution, chosen for analytical convenience, and the
+inner supremum is tractable only after a duality step. Here the ambiguity set is
+not chosen --- it is \emph{exactly what the data fail to determine} --- and the
+inner supremum has a closed form. \Cref{thm:dcl}(b) is therefore a stronger
+statement than "admits a convex relaxation": there is nothing to relax.
+\end{remark}
+
+\begin{corollary}[Validity of the certificate]
+\label{cor:validity}
+If the true law satisfies $\dcsm(\Gamma)$ then
+$R_{P}(f) \le \Rbar_\Gamma(f)$ for every $f$. The certified number is therefore
+an upper bound on the risk actually incurred at deployment --- something no
+observed-data metric provides.
+\end{corollary}
+
+\begin{remark}[Budgeted $\dcsm$]
+\label{rem:budget}
+Pointwise $\Gamma$ permits \emph{every} unit to be maximally tilted at once,
+which can be pessimistic. Adding an average-tilt budget
+$\E|\log a(X)|\le B$ breaks the decoupling; the supremum is then recovered by
+its one-dimensional dual,
+$\min_{\lambda\ge0}\{\lambda B + \E[\sup_t\{r(X,t)-\lambda|t|\}]\}$, with
+$\lambda$ found by bisection. Strong duality holds ($a\equiv 1$ is a Slater
+point). The resulting risk interpolates smoothly between $\Gamma=1$ and
+pointwise $\Gamma$; see \cref{app:budget}.
+\end{remark}
+
+\subsection{The unified class of \cref{thm:sharp-auc}}
+\label{app:unified}
+
+\begin{proposition}[A unified class]
+\label{prop:unified}
+\Cref{thm:sharp-auc} holds verbatim for every functional of the form
+\[
+  M(p) \;=\;
+  \frac{\E_\mu[p\,\phi] + c_0 + c_1\pi + c_2\pi^{2}}
+       {d_0 + d_1\pi + d_2\pi^{2}},
+\]
+with $\phi$ identified, the stationary condition becoming
+$A\pi^2+B\pi+C=0$ with $A=c_2d_1-c_1'd_2$, $B=2(c_2d_0-c_0'd_2)$,
+$C=c_1'd_0-c_0'd_1$ where $c_0'=\alpha+c_0$, $c_1'=\beta+c_1$. Taking
+$\phi=R,\,c_2=-\tfrac12,\,d_1=1,\,d_2=-1$ gives AUROC; $\phi=\one\{f>\tau\}$,
+$d_1=1$ gives sensitivity at threshold $\tau$; $\phi=-\one\{f\le\tau\}$,
+$c_0=\mu(f\le\tau)$, $d_0=1,d_1=-1$ gives specificity; $\phi=\one\{f>\tau\}$,
+$d_0=\mu(f>\tau)$ gives PPV. The known fixed-threshold results are thus special
+cases, and AUROC is the new member.
+\end{proposition}
+
+The proof is that of \cref{thm:sharp-auc} with $R$ replaced by $\phi$ and the
+quadratic/denominator coefficients carried through the stationary condition.
 
 \subsection{Budgeted \texorpdfstring{$\dcsm$}{DCSM}}
 \label{app:budget}
@@ -89,8 +147,8 @@ Two implementation points, both learned the hard way. Best-responding to the
 latest adversary rather than to the running average diverges: the exact inner
 argmin sets $p=\plo$ where the current score ranks units high and $p=\pup$ where
 it ranks them low, so the learner flips its ranking, the adversary flips back,
-and the objective \emph{decreases} monotonically (in an early version, from
-$0.467$ to $0.420$). Fictitious-play averaging fixes this. Second, the
+and the objective \emph{decreases} monotonically, as an early version of the
+code did. Fictitious-play averaging fixes this. Second, the
 normalisation $\|\theta\|=1$ is not cosmetic: AUROC is scale-invariant, so
 without it the surrogate's effective temperature drifts with $\|\theta\|$ and the
 gradient signal decays.
@@ -143,7 +201,7 @@ numerical reason.
 \label{app:repro}
 
 All public data are fetched by \texttt{scripts/download\_data.py} from the
-Rdatasets archive and ProPublica's repository; the script prints SHA-256 digests.
+Rdatasets archive and ProPublica's repository; the script prints SHA256 digests.
 MIMIC-IV is credentialed and is not redistributed: \texttt{dcl/data/mimic.py}
 implements the full cohort-building pipeline against the real PhysioNet file
 layout and documents the download, and \texttt{make\_mimic\_sim} provides the

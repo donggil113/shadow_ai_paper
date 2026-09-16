@@ -1,28 +1,18 @@
 \section{Uncertainty quantification is biased, and the bias is invisible}
 \label{sec:uncertainty}
 
-Modern predictive systems report uncertainty, usually split into an
-\emph{aleatoric} part (irreducible noise) and an \emph{epistemic} part (reducible
-by more data) \citep{depeweg2018decomposition, hullermeier2021aleatoric}. For an
-ensemble or posterior $\{p_m(x)\}_{m\le M}$ the standard decomposition is
-\[
-  \underbrace{H\big(\bar p(x)\big)}_{\text{total}}
-  \;=\;
-  \underbrace{\tfrac1M\sum_m H\big(p_m(x)\big)}_{\text{aleatoric}}
-  \;+\;
-  \underbrace{H(\bar p) - \tfrac1M\textstyle\sum_m H(p_m)}_{\text{epistemic}},
-  \qquad \bar p = \tfrac1M\textstyle\sum_m p_m .
-\]
-Under decision censoring every term is computed from models fit to the
-\emph{selected} units, so they concentrate on $p_1(x)$, not on $p(x)$. The
-quantity that measures what this omits is the entropy range over the identified
-set,
+Modern systems split uncertainty into an \emph{aleatoric} part and an
+\emph{epistemic} part \citep{depeweg2018decomposition,
+hullermeier2021aleatoric}: for an ensemble $\{p_m\}_{m\le M}$ with mean
+$\bar p$, total $H(\bar p)$ equals aleatoric $\tfrac1M\sum_mH(p_m)$ plus
+epistemic $H(\bar p)-\tfrac1M\sum_mH(p_m)$. Under decision censoring every
+term is computed from models fit to the \emph{selected} units, so they
+concentrate on $p_1(x)$, not $p(x)$. What this omits is the entropy range over
+the identified set, the \emph{censoring term}
 \begin{equation}
-  \mathrm{Cens}(x)\;=\;\max_{q\in[\plo(x),\pup(x)]}H(q)\;-\;\min_{q\in[\plo(x),\pup(x)]}H(q),
+  \mathrm{Cens}(x)=\max_{q\in[\plo(x),\pup(x)]}H(q)-\min_{q\in[\plo(x),\pup(x)]}H(q).
   \label{eq:cens}
 \end{equation}
-the \emph{censoring term}. Two things follow, and the second is the
-uncomfortable one.
 
 \begin{corollary}[The two-way decomposition is biased by at least the censoring term]
 \label{cor:uq}
@@ -42,26 +32,20 @@ $p(x)$ under every law compatible with $\dcsm(\Gamma)$ and $P_{\mathrm{obs}}$.
 \item[(ii)] \textup{(Honest floor.)} $C$ is valid iff $C\supseteq[\plo,\pup]$;
   the smallest epistemic term any valid set can report is $\mathrm{Cens}(x)$,
   and for every $n$
-  \[
-    \mathrm{Bias}_n(x)\;:=\;\mathrm{EU}\big(\mathrm{hull}(C_n(x)\cup[\plo,\pup])\big)-\mathrm{Epi}_n(x)
-    \;\ge\;\mathrm{Cens}(x)-\mathrm{Epi}_n(x),
-  \]
+  $\mathrm{Bias}_n(x):=\mathrm{EU}\big(\mathrm{hull}(C_n(x)\cup[\plo,\pup])\big)-\mathrm{Epi}_n(x)
+  \ge\mathrm{Cens}(x)-\mathrm{Epi}_n(x)$,
   where $\mathrm{EU}(C)=\max_C H-\min_C H$ is the credal epistemic term.
 \item[(iii)] \textup{(Asymptotic overconfidence.)} If $C_n(x)$ contracts to
   $\{p_1(x)\}$ with Hausdorff radius $\varepsilon_n\to0$ --- a consistent
   posterior, or a converged ensemble of a well-specified class --- then
-  $\mathrm{Epi}_n(x)\le H(\min\{2\varepsilon_n,\tfrac12\})\to0$ while
+  $\mathrm{Epi}_n(x)\le H(\min\{2\varepsilon_n,\tfrac12\})$ $\to0$ while
   $\mathrm{Bias}_n(x)\to\mathrm{Cens}(x)>0$: the reported epistemic term ends up
   $\mathrm{Cens}(x)-o(1)$ below that of \emph{every} valid credal set, and
   $\mathrm{Cens}(x)$ does not depend on $n$.
 \item[(iv)] \textup{(Size of the floor.)} With
-  $m(x)=\min_{q\in[\plo,\pup]}|\logit q|$,
-  \[
-    \mathrm{Cens}(x)\;\ge\;\delta(x)\,m(x)+\tfrac12\,\delta(x)^2,
-    \qquad
-    \delta(x)=\big(1-e(x)\big)\frac{\odds(p_1(x))\,(\Gamma^2-1)}
-      {\big(1+\Gamma\odds(p_1(x))\big)\big(\Gamma+\odds(p_1(x))\big)}>0,
-  \]
+  $m(x)=\min_{q\in[\plo,\pup]}|\logit q|$ and $o=\odds(p_1(x))$,
+  $\mathrm{Cens}(x)\ge\delta(x)\,m(x)+\tfrac12\,\delta(x)^2$ with
+  $\delta(x)=\frac{(1-e(x))\,o\,(\Gamma^2-1)}{(1+\Gamma o)(\Gamma+o)}>0$,
   and $\E_\mu[\mathrm{Cens}(X)]$ equals the width of the sharp identified
   interval for the population aleatoric entropy $\E_\mu[H(p(X))]$.
 \end{enumerate}
@@ -69,24 +53,15 @@ The full statement, a plug-in version with cross-fitted nuisances
 (\cref{prop:cens-plugin}), and proofs are in \cref{app:uq}.
 \end{corollary}
 
-\paragraph{A three-way decomposition.} The fix is to build the credal set from
-the union of sampling spread and the identified box and to use the
-imprecise-probability decomposition \citep{abellan2005difference}, splitting the
-epistemic term into the part that shrinks with data and the part that does not:
-\[
-  \underbrace{\max_{p\in C}H(p)}_{\text{total}}
-  \;=\;
-  \underbrace{\min_{p\in C}H(p)}_{\text{aleatoric}}
-  \;+\;
-  \underbrace{\mathrm{Cens}(x)}_{\text{censoring}}
-  \;+\;
-  \underbrace{\big[\text{epistemic} - \mathrm{Cens}(x)\big]_{+}}_{\text{sampling}},
-  \qquad
-  C = \mathrm{hull}\big(\{p_m\}\cup[\plo,\pup]\big).
-\]
-In our experiments (\cref{sec:experiments}) the reported epistemic term falls by
-$23\times$ as $n$ grows from $2{,}000$ to $70{,}000$ while the censoring term
-moves by $13\%$ with no trend, so their ratio falls from $0.13$ to $0.005$. By
-the largest sample essentially all of the uncertainty that matters at deployment
-is the component the standard decomposition omits --- and, unlike the epistemic
-term, it will not shrink with more data.
+\paragraph{A three-way decomposition.} The fix is to build the credal set
+$C=\mathrm{hull}(\{p_m\}\cup[\plo,\pup])$ from sampling spread \emph{and} the
+identified box and to use the imprecise-probability decomposition
+\citep{abellan2005difference}: total $\max_CH$ equals aleatoric $\min_CH$ plus
+the censoring term $\mathrm{Cens}(x)$ plus a sampling term
+$[\text{epistemic}-\mathrm{Cens}(x)]_+$ that shrinks with data. In our
+experiments (\cref{sec:experiments}) the reported epistemic term falls by
+$\nExpThreeEpiDrop\times$ as $n$ grows from $2{,}000$ to $70{,}000$ while the
+censoring term moves by $\nExpThreeCensChangePct$ with no trend, so their
+ratio falls from $\nExpThreeRatioTwoK$ to $\nExpThreeRatioLast$: at the
+largest sample essentially all of the uncertainty that matters at deployment
+is the component the standard decomposition omits.

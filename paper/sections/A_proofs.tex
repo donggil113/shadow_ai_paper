@@ -20,12 +20,13 @@ of admissible observed-data-compatible laws. So assume
 \end{equation}
 By Bayes' rule,
 \[
+\begin{aligned}
   \odds\big(p_1(x)\big)
-  = \frac{\Prb(Y=1\mid x)\,e(x,1)}{\Prb(Y=0\mid x)\,e(x,0)}
-  = \odds\big(p(x)\big)\cdot\frac{e(x,1)}{e(x,0)},
-  \qquad
+  &= \frac{\Prb(Y=1\mid x)\,e(x,1)}{\Prb(Y=0\mid x)\,e(x,0)}
+  = \odds\big(p(x)\big)\cdot\frac{e(x,1)}{e(x,0)},\\
   \odds\big(p_0(x)\big)
-  = \odds\big(p(x)\big)\cdot\frac{1-e(x,1)}{1-e(x,0)} .
+  &= \odds\big(p(x)\big)\cdot\frac{1-e(x,1)}{1-e(x,0)} .
+\end{aligned}
 \]
 Dividing,
 \[
@@ -536,10 +537,11 @@ Assume $\dcsm(\Gamma)$ and fix $x$ with $e(x)<1$, $p_1(x)\in(0,1)$ and $\Gamma>1
   (almost surely, or in probability; the conclusions then hold in the same mode) --- as for a
   consistent posterior or a converged ensemble of a well-specified class. Then
   \[
-    \mathrm{Epi}_n(x)\;\le\;H\big(\min\{2\varepsilon_n(x),\tfrac12\}\big)\;\longrightarrow\;0,
-    \qquad
+  \begin{gathered}
+    \mathrm{Epi}_n(x)\;\le\;H\big(\min\{2\varepsilon_n(x),\tfrac12\}\big)\;\longrightarrow\;0,\\
     \mathrm{Cens}(x)-\mathrm{Epi}_n(x)\;\le\;\mathrm{Bias}_n(x)\;\le\;
     \mathrm{Cens}(x)+2H\big(\min\{\varepsilon_n(x),\tfrac12\}\big)-\mathrm{Epi}_n(x),
+  \end{gathered}
   \]
   so $\mathrm{Bias}_n(x)\to\mathrm{Cens}(x)>0$. Precisely: \emph{``asymptotically
   overconfident by at least $\mathrm{Cens}(x)$'' means}

@@ -2,88 +2,60 @@
 \label{sec:intro}
 
 A credit model is trained on loans that were granted, a diagnostic model on
-patients who were tested, a recidivism model on defendants who were released, a
-moderation model on posts that were reviewed, a hiring model on candidates who
-were interviewed. In each case a decision maker chose who would be labelled,
-using information $S$ --- demeanour, presentation, the case file --- absent
-from the training set. Because $S$ drives both the decision $T$ and the outcome
-$Y$, the labelled units are not a random sample of the deployment population,
-and every reported test-set metric describes a population the model will never
-face. This is the \emph{selective labels} problem
-\citep{lakkaraju2017selective, kleinberg2018human}. Deployment risk is then not
-merely hard to estimate but \emph{not identified}: the labels are missing for
-reasons the data cannot see.
+patients who were tested, a recidivism model on defendants who were released.
+In each case a decision maker chose who would be labelled, using information
+$S$ --- demeanour, presentation, the case file --- absent from the training
+set. Because $S$ drives both the decision $T$ and the outcome $Y$, the labelled
+units are not a random sample of the deployment population, and every reported
+test-set metric describes a population the model will never face. This is the
+\emph{selective labels} problem \citep{lakkaraju2017selective,
+kleinberg2018human}; deployment risk is not merely hard to estimate but
+\emph{not identified}. Current practice assumes the problem away: empirical
+risk minimisation on labelled units optimises the wrong risk; inverse-propensity
+and doubly-robust weighting \citep{robins1994estimation,
+chernozhukov2018double} assume $S$ does not exist; parametric selection models
+\citep{heckman1979sample} buy identification with an untestable
+joint-normality assumption; Manski bounds \citep{manski1990nonparametric} are
+assumption-free and, as we confirm, too wide to support any decision.
 
-Current practice assumes the problem away. Empirical risk minimisation on
-labelled units optimises the wrong risk. Inverse-propensity and doubly-robust
-weighting \citep{robins1994estimation, chernozhukov2018double} correct for
-selection on \emph{observables}, i.e.\ assume $S$ does not exist. Parametric
-selection models \citep{heckman1979sample} admit unobservables but buy identification with an untestable joint-normality assumption indexed by
-no interpretable notion of strength. Manski bounds
-\citep{manski1990nonparametric} are assumption-free and, as we confirm, too wide
-to support any decision.
-
-\paragraph{This paper.} We take the middle road of causal sensitivity analysis
-and build the learning theory around it. Our model $\dcsm(\Gamma)$ says the
+\paragraph{This paper} takes the middle road of causal sensitivity analysis and
+builds the learning theory around it. The model $\dcsm(\Gamma)$ says the
 censored units' outcome log-odds differ from the labelled units' by at most
-$\log\Gamma$ at every covariate value; $\Gamma=1$ is selection on observables
-and $\Gamma=\infty$ is Manski. In between, the identified set is an axis-aligned
-box and everything becomes computable. Figure~\ref{fig:compas} is the representative result: on COMPAS, real release
-decisions whose censored labels were nevertheless recorded, so the bounds can be
-checked against the truth. There, coverage is $0\%$ under
-missing-at-random, and $100\%$ exactly at the $\Gamma$ implied by the data's own
+$\log\Gamma$ at every covariate value; $\Gamma=1$ is selection on observables,
+$\Gamma=\infty$ is Manski, and in between the identified set is an axis-aligned
+box and everything becomes computable. \Cref{fig:compas} is the representative
+result: on COMPAS, real release decisions whose censored labels were
+nevertheless recorded, coverage is $\nCompasCovAtOne$ under missing-at-random
+and $\nCompasCovAtOR$ at the $\Gamma$ implied by the data's own
 detained-versus-released odds ratio. Our contributions:
-
 \begin{itemize}
 \item \textbf{Sharp bounds for a ranking metric} (\cref{sec:ranking}).
-  Fixed-threshold metrics are linear-fractional and easy to bound; AUROC is
-  neither convex nor concave over the identified set.
-  \Cref{thm:rank-identity} gives the exact identity, for mid-ranks $R$ and
-  $\pi = \E[p]$,
-  \[
-    \AUC(p) = \frac{\langle p, R\rangle - \pi^2/2}{\pi(1-\pi)},
-  \]
-  so \emph{given the prevalence, AUROC is linear}; \cref{thm:sharp-auc} turns
-  this into an exact $O(n\log n)$ algorithm for the sharp interval,
-  \cref{prop:unified} extends it to a class containing every fixed-threshold
-  metric, and evaluating at the corners of the identified set is \emph{not
-  valid} because it ignores the coupling through the prevalence.
-
+  For mid-ranks $R$ and prevalence $\pi$, \cref{thm:rank-identity} gives
+  $\AUC(p)=(\langle p,R\rangle-\pi^2/2)/(\pi-\pi^2)$, so \emph{given $\pi$,
+  AUROC is linear}; \cref{thm:sharp-auc} turns this into an exact
+  $O(n\log n)$ algorithm for the sharp interval, \cref{prop:unified} extends it
+  to every fixed-threshold metric, and \cref{prop:corner} shows that evaluating
+  at the corners of the identified set is \emph{not valid}.
 \item \textbf{A learning algorithm, not an audit} (\cref{sec:learning}).
   \Cref{thm:dcl} minimises worst-case risk over the identified set: the inner
-  supremum is the risk at the midpoint model plus a margin penalty weighted by
-  the local identification width, so the exact objective is convex with
-  \emph{no relaxation} (unlike divergence-ball DRO), and the Bayes act is an
-  \emph{interval-shrunk logit} with an abstention band. \Cref{prop:regret}
-  gives the companion minimax-\emph{regret} rule in closed form as a difference
-  quotient of the binary entropy.
-
+  supremum is the midpoint risk plus a width-weighted margin penalty, exactly
+  convex with no relaxation, with an \emph{interval-shrunk logit} Bayes act;
+  \cref{prop:regret} gives the minimax-\emph{regret} rule in closed form;
+  \cref{prop:midrank} settles when the plug-in ranking is minimax-optimal.
+\item \textbf{What estimated nuisances leave intact} (\cref{sec:nuisance}).
+  \Cref{thm:nuisance} shows aggregate endpoints are $\sqrt n$-estimable with
+  second-order bias, while per-unit intervals need explicit nuisance
+  intervals, and identifies the outcome model as the binding term.
 \item \textbf{$\Gamma$ is unavoidable, but falsifiable}
-  (\cref{sec:impossibility}). \Cref{thm:impossible} is a finite-sample
-  two-point argument: for \emph{every} $n$, no estimator of deployment risk is
-  accurate uniformly over censoring mechanisms, and $\Gamma$ is not identified
-  from $(X, T, TY)$. \Cref{prop:falsify} is the converse: when
-  decision makers of differing leniency handle comparable cases, a \emph{lower}
-  bound $\Gamma_{\min}$ is identified; across 30 benchmark configurations it is
-  valid without exception, never refutes a missing-at-random mechanism, and
-  recovers $34$--$61\%$ of $\log\Gamma_0$.
-
-\item \textbf{Generalisation, linear in $\log\Gamma$}
-  (\cref{sec:generalization}). \Cref{thm:generalization} bounds the excess
-  worst-case risk of the empirical minimiser with a complexity term growing like
-  $\log\Gamma$, not $\Gamma$, because $\Gamma$ is a \emph{translation} on the
-  log-odds scale. The empirical scaling matches.
-
-\item \textbf{Uncertainty quantification is biased, undetectably}
-  (\cref{sec:uncertainty}). \Cref{cor:uq} shows the observed-data regression
-  $p_1(x)$ always lies \emph{inside} the identified set, so no calibration or
-  goodness-of-fit check can refute the naive aleatoric/epistemic split. The
-  epistemic term vanishes with $n$ while the identification width does not, so
-  every two-way decomposition is asymptotically overconfident.
+  (\cref{sec:impossibility}). \Cref{thm:impossible}: for every $n$, no
+  estimator of deployment risk is accurate uniformly over censoring
+  mechanisms. \Cref{prop:falsify}: leniency variation identifies a lower bound
+  $\Gamma_{\min}$, valid in all $\nExpFourNCells$ benchmark configurations,
+  recovering $\nExpFourRecoverMin$--$\nExpFourRecoverMax$ of $\log\Gamma_0$.
+\item \textbf{Generalisation linear in $\log\Gamma$} (\cref{sec:generalization})
+  and \textbf{undetectably biased uncertainty} (\cref{sec:uncertainty}):
+  the naive aleatoric/epistemic split cannot be refuted from observed data and
+  is asymptotically overconfident by a censoring term more data cannot shrink.
 \end{itemize}
-
-A further result\ifdefined\nuisancesectionready{}
-(Section~\ref{sec:nuisance})\fi{} gives intervals that remain coverage-valid
-when the nuisances are \emph{estimated} rather than known.
-\Cref{sec:experiments} verifies sharpness against quadrature-exact oracles and
-validity on real decisions.
+Three claims made during this work were refuted by our own checks and are
+recorded in \cref{sec:discussion} rather than dropped.

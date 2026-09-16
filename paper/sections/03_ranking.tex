@@ -2,11 +2,10 @@
 \label{sec:ranking}
 
 Existing sensitivity analysis handles functionals that are
-\emph{linear-fractional} in the outcome regression --- sensitivity and
-specificity at a threshold, predictive values, treatment effects
-\citep{zhao2019sensitivity, dorn2023sharp, yadlowsky2018bounds} --- for which
-sharp bounds follow from a one-dimensional search. AUROC, the metric that
-governs model selection in our applications, is not of that form. Write
+\emph{linear-fractional} in the outcome regression --- threshold metrics,
+predictive values, treatment effects \citep{zhao2019sensitivity,
+dorn2023sharp} --- for which sharp bounds follow from a one-dimensional
+search. AUROC is not of that form. Write
 $\psi(u,v) = \one\{u>v\} + \tfrac12\one\{u=v\}$ and $\mu = P_X$. For a score
 $f$, regression $p$ and prevalence $\pi = \E_\mu[p]$,
 \begin{equation}
@@ -36,25 +35,23 @@ is \emph{identified}: it depends only on the score and on $P_X$.
 \label{thm:rank-identity}
 For every measurable $p:\X\to[0,1]$ with $\pi=\E_\mu[p]\in(0,1)$,
 \begin{equation}
-  \boxed{\;
   \AUC(p)
   \;=\;
-  \frac{\E_\mu\!\big[\,p(X)\,R(X)\,\big] \;-\; \pi^{2}/2}{\pi\,(1-\pi)} \; }
+  \frac{\E_\mu\!\big[\,p(X)\,R(X)\,\big] \;-\; \pi^{2}/2}{\pi\,(1-\pi)}
   \label{eq:rank-identity}
 \end{equation}
 In particular, \emph{at fixed prevalence $\pi$, AUROC is an affine functional of
 the outcome regression.}
 \end{theorem}
 
-The proof (\cref{app:ranking}) is two lines: because
-$\psi(u,v)+\psi(v,u)=1$ identically, the kernel operator
-$(\mathcal{K}h)(x) = \E_\mu[\psi(f(x),f(X'))\,h(X')]$ satisfies
-$\mathcal{K}+\mathcal{K}^{*} = \one\otimes\one$, so the quadratic term
-$\langle p, \mathcal{K}p\rangle$ equals $\pi^2/2$ for \emph{every} $p$ and
-collapses into a function of prevalence alone. \Cref{eq:rank-identity} is a
-population form of the Mann--Whitney representation
-\citep{mann1947test, hanley1982meaning}; we have not seen it used to linearise
-AUROC in the outcome regression.
+The proof (\cref{app:ranking}) is two lines: $\psi(u,v)+\psi(v,u)=1$
+identically, so the integral operator $\mathcal{K}$ with kernel
+$\psi(f(x),f(x'))$ satisfies $\mathcal{K}+\mathcal{K}^{*}=\one\otimes\one$,
+and the quadratic term $\langle p,\mathcal{K}p\rangle$ equals $\pi^2/2$ for
+\emph{every} $p$.
+\Cref{eq:rank-identity} is a population form of the Mann--Whitney
+representation \citep{mann1947test}, not previously used to linearise AUROC
+in the outcome regression.
 
 \subsection{The sharp interval, exactly, in \texorpdfstring{$O(n\log n)$}{O(n log n)}}
 
@@ -73,10 +70,10 @@ $\pi\in[\pi_-,\pi_+]$ define
 \]
 Then
 \begin{equation}
-  \Big[\;\inf_{p\in\I_\Gamma}\AUC(p),\ \sup_{p\in\I_\Gamma}\AUC(p)\;\Big]
-  \;=\;
-  \Big[\;\min_{\pi\in[\pi_-,\pi_+]}\frac{V^{-}(\pi)-\pi^2/2}{\pi(1-\pi)},\ \
-          \max_{\pi\in[\pi_-,\pi_+]}\frac{V^{+}(\pi)-\pi^2/2}{\pi(1-\pi)}\;\Big],
+\begin{aligned}
+  \inf_{p\in\I_\Gamma}\AUC(p) &= \min_{\pi\in[\pi_-,\pi_+]}\frac{V^{-}(\pi)-\pi^2/2}{\pi(1-\pi)},\\
+  \sup_{p\in\I_\Gamma}\AUC(p) &= \max_{\pi\in[\pi_-,\pi_+]}\frac{V^{+}(\pi)-\pi^2/2}{\pi(1-\pi)},
+\end{aligned}
   \label{eq:sharp-auc}
 \end{equation}
 and both endpoints are \emph{attained} by members of $\I_\Gamma$. Moreover:
@@ -94,24 +91,10 @@ and both endpoints are \emph{attained} by members of $\I_\Gamma$. Moreover:
 \end{enumerate}
 \end{theorem}
 
-\begin{proposition}[A unified class]
-\label{prop:unified}
-\Cref{thm:sharp-auc} holds verbatim for every functional of the form
-\[
-  M(p) \;=\;
-  \frac{\E_\mu[p\,\phi] + c_0 + c_1\pi + c_2\pi^{2}}
-       {d_0 + d_1\pi + d_2\pi^{2}},
-\]
-with $\phi$ identified, the stationary condition becoming
-$A\pi^2+B\pi+C=0$ with $A=c_2d_1-c_1'd_2$, $B=2(c_2d_0-c_0'd_2)$,
-$C=c_1'd_0-c_0'd_1$ where $c_0'=\alpha+c_0$, $c_1'=\beta+c_1$. Taking
-$\phi=R,\,c_2=-\tfrac12,\,d_1=1,\,d_2=-1$ gives AUROC; $\phi=\one\{f>\tau\}$,
-$d_1=1$ gives sensitivity at threshold $\tau$; $\phi=-\one\{f\le\tau\}$,
-$c_0=\mu(f\le\tau)$, $d_0=1,d_1=-1$ gives specificity; $\phi=\one\{f>\tau\}$,
-$d_0=\mu(f>\tau)$ gives PPV. The known fixed-threshold results are thus special
-cases, and AUROC is the new member.
-\end{proposition}
-
+The same argument covers every functional that is linear-fractional in
+$p$ with an identified numerator kernel --- sensitivity, specificity and
+predictive values at a threshold are special cases and AUROC is the new
+member (\cref{prop:unified}, \cref{app:unified}).
 \subsection{Why the obvious recipe is wrong}
 
 The natural move is to evaluate the metric at the corners of $[\plo,\pup]$ and
@@ -127,14 +110,11 @@ $\{x:\delta(x)>0\}$. Consequently there exist laws in $\I_\Gamma$ whose AUROC
 lies outside $\mathcal{C}$, and $\mathcal{C}$ fails to cover the truth.
 \end{proposition}
 
-The cause is exactly the coupling \cref{thm:rank-identity} exposes: the
-extremal member of $\I_\Gamma$ sets $p=\pup$ where the score ranks units
-\emph{high} and $p=\plo$ where it ranks them low, with a single fractional unit
-in between --- a mixed vertex no corner evaluation visits.
-Empirically (\cref{sec:experiments}) the corner interval covers the true
-deployment AUROC in $10\%$ of benchmark cells versus $100\%$ for the sharp
-interval, while being $14\times$ narrower --- narrow because it is wrong.
-
-A valid but loose alternative is to bound numerator and denominator of
-\eqref{eq:rank-identity} separately. That interval always contains the sharp one
-and in our benchmarks is $3.2\times$ wider, which quantifies what sharpness buys.
+The extremal member of $\I_\Gamma$ sets $p=\pup$ where the score ranks units
+high and $p=\plo$ where it ranks them low, with one fractional unit between: a
+mixed vertex no corner evaluation visits. Empirically the corner interval
+covers the deployment AUROC in $\nExpOneCovCorner$ of benchmark cells versus
+$\nExpOneCovSharp$ for the sharp interval, while being
+$\nExpOneWidthRatioCorner\times$ narrower; bounding numerator and denominator
+separately is valid but $\nExpOneWidthRatioSep\times$ wider
+(\cref{sec:experiments}).

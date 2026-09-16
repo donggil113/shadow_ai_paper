@@ -21,16 +21,19 @@ $\gamma\in\{\Gamma,1/\Gamma\}$ the endpoints of the identified prevalence
 interval, $\pi_\gamma=\E[TY]+\E[(1-T)\,g_\gamma(p_1(X))]$, have the one-step
 estimator
 \begin{equation}
-  \hat\pi_\gamma \;=\; \Prb_n\Big[\,TY+(1-T)\,g_\gamma(\hat p_1)
-  +(1-\hat e)\,g_\gamma'(\hat p_1)\,\tfrac{T(Y-\hat p_1)}{\hat e}\Big],
+\begin{aligned}
+  \hat\pi_\gamma = \Prb_n\Big[\,&TY+(1-T)\,g_\gamma(\hat p_1)\\
+  &+(1-\hat e)\,g_\gamma'(\hat p_1)\,\tfrac{T(Y-\hat p_1)}{\hat e}\Big],
+\end{aligned}
   \label{eq:onestep}
 \end{equation}
 whose bias obeys
 \begin{equation}
+\begin{aligned}
   \big|\E[\hat\pi_\gamma]-\pi_\gamma\big|
-  \;\le\;
-  \tfrac{\Gamma}{\varepsilon}\,\|\hat e-e\|_{2}\,\|\hat p_1-p_1\|_{2}
-  \;+\;\Gamma(\Gamma-1)\,\|\hat p_1-p_1\|_{2}^{2},
+  \le{}& \tfrac{\Gamma}{\varepsilon}\,\|\hat e-e\|_{2}\|\hat p_1-p_1\|_{2}\\
+  &+\Gamma(\Gamma-1)\,\|\hat p_1-p_1\|_{2}^{2},
+\end{aligned}
   \label{eq:dr-bias}
 \end{equation}
 whereas the plug-in $\Prb_n[TY+(1-T)g_\gamma(\hat p_1)]$ has bias of first order
@@ -38,17 +41,16 @@ in $\|\hat p_1-p_1\|_1$. If the right-hand side of \eqref{eq:dr-bias} is
 $o_P(n^{-1/2})$ then $\sqrt n(\hat\pi_\gamma-\pi_\gamma)\Rightarrow
 N(0,\operatorname{Var}\varphi_\gamma)$ with $\varphi_\gamma$ the influence
 function in \eqref{eq:onestep}, and the outer interval
-$[\hat\pi_{1/\Gamma}-z_{1-\alpha/2}\hat s_{1/\Gamma},\ \hat\pi_{\Gamma}+z_{1-\alpha/2}\hat s_{\Gamma}]$
-covers the whole identified interval $[\pi_{1/\Gamma},\pi_\Gamma]$ with
-asymptotic probability at least $1-\alpha$.
+$[\hat\pi_{1/\Gamma}-z\hat s_{1/\Gamma},\ \hat\pi_{\Gamma}+z\hat s_{\Gamma}]$,
+$z=z_{1-\alpha/2}$, covers the identified interval $[\pi_{1/\Gamma},\pi_\Gamma]$
+with asymptotic probability at least $1-\alpha$.
 \item[(b)] \textup{(Per-unit intervals: monotone inflation.)} $\plo$ is
 non-decreasing in $e$ and in $\eta_1$; $\pup$ is non-increasing in $e$ and
 non-decreasing in $\eta_1$. Hence for any intervals
 $[e_L(x),e_U(x)]\ni e(x)$ and $[\eta_L(x),\eta_U(x)]\ni\eta_1(x)$ the
 \emph{inflated box}
 \begin{equation}
-  \I^{\circ}(x)=\big[\plo(e_L,\eta_L),\ \pup(e_L,\eta_U)\big](x)
-  \;\supseteq\;[\plo(x),\pup(x)]
+  \I^{\circ}(x)=\big[\plo(e_L,\eta_L),\pup(e_L,\eta_U)\big](x)\supseteq[\plo(x),\pup(x)]
   \label{eq:inflated}
 \end{equation}
 contains the identified interval, so $\Prb\{p(x)\in\I^\circ(x)\}\ge
@@ -61,34 +63,32 @@ calibration split into bins of $\hat e$ and, among $T=1$ units, bins of
 $\hat p_1$; let $[e_L^k,e_U^k]$ and $[p_L^k,p_U^k]$ be exact binomial
 (Clopper--Pearson) intervals at level $1-\alpha/2$ for the bin means
 $e^k=\Prb(T=1\mid X\in B_k)$ and $p_1^k=\Prb(Y=1\mid X\in B_k,T=1)$. Then
-$\Prb\{e^k\in[e_L^k,e_U^k],\,p_1^k\in[p_L^k,p_U^k]\}\ge1-\alpha$ for every
-$k$, and the coverage in (b) holds \emph{pointwise} for every $x\in B_k$ if
-$e,p_1$ are constant on $B_k$, or after widening each interval by the
-within-bin oscillation $\omega_k=\sup_{x,x'\in B_k}|e(x)-e(x')|$
-(resp.\ for $p_1$). No assumption-free pointwise confidence interval for a
-regression function exists \citep{low1997nonparametric}, so some such
-condition is unavoidable, and (c) makes it explicit rather than implicit.
+both cover jointly with probability $\ge1-\alpha$ for every $k$, and the
+coverage in (b) holds \emph{pointwise} on $B_k$ if $e,p_1$ are constant on
+$B_k$, or after widening by the within-bin oscillation
+$\omega_k=\sup_{x,x'\in B_k}|e(x)-e(x')|$ (resp.\ for $p_1$). No
+assumption-free pointwise confidence interval for a regression function exists
+\citep{low1997nonparametric}, so some such condition is unavoidable; (c) makes
+it explicit.
 \end{enumerate}
 \end{theorem}
 
 Part (a) is the double-machine-learning product rate
-\citep{chernozhukov2018double} for the bound map: because the map is smooth in
-$p_1$ and the propensity enters only through the correction weight, the
-aggregate endpoints are estimable at $\sqrt n$ even when each nuisance
-converges slowly. Part (b) says that per-unit statements never enjoy this: the
-only way to certify a unit is to certify its nuisances. Part (c) says how, and
-at what price. The proofs are in \cref{app:nuisance}; the implementation is
-\texttt{dcl/intervals.py}.
+\citep{chernozhukov2018double} for the bound map: the aggregate endpoints are
+estimable at $\sqrt n$ even when each nuisance converges slowly. Part (b)
+says per-unit statements never enjoy this: the only way to certify a unit is
+to certify its nuisances. Part (c) says how, and at what price. Proofs are in
+\cref{app:nuisance}.
 
-\begin{table}[t]
+\begin{table*}[t]
 \centering\small
 \caption{\textbf{Coverage under estimated nuisances} (\cref{thm:nuisance};
 $\nExpEightSeeds$ seeds, mean $\pm$ 95\% CI; nominal $1-\alpha=\nExpEightAlphaPct\%$
 per unit). SL-Bench is synthetic (exact $p$), Lending Club semi-synthetic
 (real $X,Y$; oracle $p$ by quadrature), COMPAS real (recorded outcomes only, so
 per-unit coverage is measured on bin-level realised rates and on the realised
-AUROC). ``bins'' is (c) with 20 bins; ``+margin'' adds the within-bin
-oscillation; ``AUROC'' is coverage of the deployment AUROC by the interval
+AUROC). ``bins'' is (c) with 20 bins (variants in
+\cref{app:nuisance-variants}); ``AUROC'' is coverage of the deployment AUROC by the interval
 of \cref{thm:sharp-auc} computed on the plug-in box vs.\ the inflated box.}
 \label{tab:nuisance}
 \begin{tabular}{lccc}
@@ -98,7 +98,6 @@ of \cref{thm:sharp-auc} computed on the plug-in box vs.\ the inflated box.}
 \multicolumn{4}{l}{\emph{per-unit coverage of $p(x)$ (COMPAS: bin-level realised rate)}}\\
 plug-in box            & $\nExpEightSlBenchCovPlugin\pm\nExpEightSlBenchCovPluginCI$ & $\nExpEightLendingCovPlugin\pm\nExpEightLendingCovPluginCI$ & $\nExpEightCompasBinCovPlugin$\\
 inflated, bins         & $\nExpEightSlBenchCovBinsTwenty\pm\nExpEightSlBenchCovBinsTwentyCI$ & $\nExpEightLendingCovBinsTwenty\pm\nExpEightLendingCovBinsTwentyCI$ & $\nExpEightCompasBinCovBinsTwenty$\\
-inflated, bins+margin  & $\nExpEightSlBenchCovBinsTwentySmooth\pm\nExpEightSlBenchCovBinsTwentySmoothCI$ & $\nExpEightLendingCovBinsTwentySmooth\pm\nExpEightLendingCovBinsTwentySmoothCI$ & ---\\
 \midrule
 \multicolumn{4}{l}{\emph{mean width of the per-unit box}}\\
 plug-in / inflated     & $\nExpEightSlBenchWidthPlugin$ / $\nExpEightSlBenchWidthBinsTwenty$ & $\nExpEightLendingWidthPlugin$ / $\nExpEightLendingWidthBinsTwenty$ & $\nExpEightCompasWidthPlugin$ / $\nExpEightCompasWidthBinsTwenty$\\
@@ -115,18 +114,15 @@ oracle $e$, estimated $p_1$ & $\nExpEightSlBenchCovOracleE$ & $\nExpEightLending
 estimated $e$, oracle $p_1$ & $\nExpEightSlBenchCovOracleP$ & $\nExpEightLendingCovOracleP$ & ---\\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 \paragraph{What the table says.} The plug-in box is not a confidence set: it
 covers $p(x)$ for roughly half of the units. The inflated box of (b)--(c)
-reaches the nominal level with 20 bins on both benchmarks where $p(x)$ is
-known, at the cost of roughly doubling the width, and the same construction
-lifts the AUROC interval's coverage of the realised COMPAS AUROC to
-$\nExpEightCompasAucCovEmpBinsTwenty$. The aggregate route of (a) needs no
-inflation at all: the one-step outer interval covers the identified prevalence
-interval in every run while the plug-in never does. The diagnostic rows locate
-the bottleneck: replacing $\hat e$ by the oracle propensity barely moves
-coverage, replacing $\hat p_1$ by the oracle outcome model restores it. The
-outcome model, not the propensity, is the binding nuisance --- which is what
-\eqref{eq:dr-bias} predicts, since the propensity enters the bias only through
-the product term.
+reaches the nominal level with 20 bins where $p(x)$ is known, at roughly
+twice the width, and lifts the AUROC interval's coverage of the realised
+COMPAS AUROC to $\nExpEightCompasAucCovEmpBinsTwenty$. The aggregate route
+of (a) needs no inflation: the one-step outer interval covers the identified
+prevalence interval in every run while the plug-in never does. The diagnostic
+rows locate the bottleneck: an oracle propensity barely moves coverage, an
+oracle outcome model restores it --- as \eqref{eq:dr-bias} predicts, since
+the propensity enters the bias only through the product term.

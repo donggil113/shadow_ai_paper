@@ -2,6 +2,13 @@
  "removed": {},
  "changed": {
   "lem:msm": "T5 layout only (02_setup): the MSM(Lambda) inequality moved from inline math to a display so the first line fits the ICML column; every math token and word unchanged.",
-  "lem:box": "T5 layout only (02_setup): the two displays split into aligned rows (\\qquad -> line break) to fit the ICML column; every math token and word unchanged."
+  "lem:box": "T5 layout only (02_setup): the two displays split into aligned rows (\\qquad -> line break) to fit the ICML column; every math token and word unchanged.",
+  "thm:dcl": "T6 layout only (04_learning): the definition \\Rbar_\\Gamma(f):=\\sup_P R_P(f) moved from the display into the sentence introducing part (a); the display split into two aligned rows and the underbrace labels shortened; the vertex rule moved from a display to inline text. Every mathematical statement unchanged.",
+  "cor:uq": "T6 layout only (07_uncertainty): the two displays in (ii) and (iv) split into aligned rows, with o=odds(p_1(x)) introduced as an abbreviation inside the display; every mathematical statement unchanged.",
+  "thm:rank-identity": "T6 layout only (03_ranking): \\boxed{} and the surrounding \\; spacing removed from the rank-identity display so it fits the ICML column; every math token unchanged.",
+  "prop:regret": "T6 notation only (04_learning): the explicit argument (x) dropped inside the regret-rule display (\\plo, \\pup, q^\\star are functions of x as stated in the sentence before); no mathematical change.",
+  "cor:uq-full": "T6 layout only (A_proofs): one long display split into two rows to fit the page; every math token unchanged.",
+  "thm:sharp-auc": "T6 layout only (03_ranking): the two-endpoint interval equation rewritten as two aligned rows (inf = min ..., sup = max ...) so it fits the ICML column; every math token unchanged.",
+  "thm:impossible": "T6 layout only (05_impossibility): the display split into two aligned rows (the probability bound and the definition of Delta); every math token unchanged."
  }
 }

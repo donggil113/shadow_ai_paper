@@ -5,17 +5,14 @@ Each unit has covariates $X\in\X$, private decision-maker information
 $S\in\mathcal{S}$, a decision $T\in\{0,1\}$ with
 $T\mid X,S\sim\text{Bernoulli}(\pi(X,S))$, and an outcome $Y\in\{0,1\}$
 recorded \emph{only} when $T=1$. The analyst sees $n$ i.i.d.\ copies of
-$O=(X,\,T,\,T\cdot Y)$ --- never $S$, never $Y$ on $\{T=0\}$; $P$ is the
-law of $(X,S,T,Y)$ and $P_{\mathrm{obs}}$ that of $O$.
-
-\paragraph{Identification.} $P_{\mathrm{obs}}$ identifies
-$e(x)=\Prb(T=1\mid X=x)$ and $p_1(x)=\Prb(Y=1\mid X=x,\,T=1)$ but not the
-deployment target $p(x)=\Prb(Y=1\mid X=x) = e\,p_1 + (1-e)\,p_0$, because
-$p_0(x)=\Prb(Y=1\mid X=x,\,T=0)$ never enters $P_{\mathrm{obs}}$. We target the \emph{deployment risk}
-$R_P(f)=\E_P[\ell(f(X),Y)]$ of a score $f:\X\to\R$ over all units, not the
-\emph{observed risk} $\E_P[\ell(f(X),Y)\mid T=1]$ practitioners measure.
-
-\subsection{The decision-censoring sensitivity model}
+$O=(X,T,TY)$; $P$ is the law of $(X,S,T,Y)$ and $P_{\mathrm{obs}}$ that of
+$O$. $P_{\mathrm{obs}}$ identifies $e(x)=\Prb(T=1\mid X=x)$ and
+$p_1(x)=\Prb(Y=1\mid X=x,T=1)$ but not the deployment target
+$p(x)=\Prb(Y=1\mid X=x)=e\,p_1+(1-e)\,p_0$, because
+$p_0(x)=\Prb(Y=1\mid X=x,T=0)$ never enters $P_{\mathrm{obs}}$. We target the
+\emph{deployment risk} $R_P(f)=\E_P[\ell(f(X),Y)]$ of a score $f$ over all
+units, not the observed risk $\E_P[\ell(f(X),Y)\mid T=1]$ that practitioners
+measure.
 
 \begin{definition}[$\dcsm(\Gamma)$]
 \label{def:dcsm}
@@ -33,13 +30,12 @@ equivalently $\big|\logit p_0(x) - \logit p_1(x)\big| \le \log\Gamma$, where
 $\odds(u) = u/(1-u)$.
 \end{definition}
 
-Read: \emph{given everything the model sees, the decision maker's
-private information shifts the censored units' outcome log-odds by at most
-$\log\Gamma$.} $\Gamma=1$ is missing at random; $\Gamma=\infty$ recovers
-the Manski bounds. $\dcsm$ is the decision-censoring
-analogue of Rosenbaum's sensitivity analysis \citep{rosenbaum1983assessing,
-rosenbaum2002observational} and matches Tan's marginal sensitivity model
-\citep{tan2006distributional} on the propensity:
+Read: \emph{given everything the model sees, the decision maker's private
+information shifts the censored units' outcome log-odds by at most
+$\log\Gamma$.} $\Gamma=1$ is missing at random; $\Gamma=\infty$ recovers the
+Manski bounds. $\dcsm$ is the decision-censoring analogue of Rosenbaum's
+sensitivity analysis \citep{rosenbaum2002observational} and matches Tan's
+marginal sensitivity model \citep{tan2006distributional} on the propensity:
 
 \begin{lemma}[Equivalence with the marginal sensitivity model]
 \label{lem:msm}
@@ -53,20 +49,11 @@ attained: every value in $[\Lambda^{-2},\Lambda^{2}]$ is realised by some
 admissible $\pi$.
 \end{lemma}
 
-\Cref{lem:msm} (proof in \cref{app:setup}) lets us work in $\Gamma$
-($\Gamma=\Lambda^2$ on the propensity scale).
-
-\subsection{The identified set is a box}
-
 Write $\odds(p_0(x)) = a(x)\,\odds(p_1(x))$ with a \emph{tilt}
 $a:\X\to[\Gamma^{-1},\Gamma]$, inducing
 \begin{equation}
-\begin{aligned}
   p^{a}(x)
-  \;=\;{}&
-  e(x)\,p_1(x)\\
-  &+\big(1-e(x)\big)\,\sigma\!\big(\logit p_1(x) + \log a(x)\big),
-\end{aligned}
+  = e(x)\,p_1(x)+\big(1-e(x)\big)\,\sigma\!\big(\logit p_1(x) + \log a(x)\big),
 \label{eq:tilt}
 \end{equation}
 with $\sigma$ logistic. Since \eqref{eq:tilt} is strictly increasing in
@@ -96,12 +83,12 @@ increasing with $\I_1 = \{p_1\}$ and
 $\I_\infty = \{\,e p_1 \le p \le e p_1 + 1 - e\,\}$ (Manski).
 \end{lemma}
 
-First, the set is a \emph{product} of intervals, so separable optimisation
-decouples across $x$ (\cref{sec:learning}). Second, $\Gamma$ enters \eqref{eq:tilt} as a
-\emph{log-odds translation}, so error in $p_1$ reaches the bounds unamplified
---- hence $\log\Gamma$, not $\Gamma$, in \cref{sec:generalization}. Let
-$\tilde p = (\plo+\pup)/2$ and $\delta = \pup - \plo$ be the midpoint and the
-\emph{identification width}, a per-unit measure of what censoring hides.
+The set is a \emph{product} of intervals, so separable optimisation decouples
+across $x$, and $\Gamma$ enters \eqref{eq:tilt} as a log-odds
+\emph{translation}, so error in $p_1$ reaches the bounds unamplified --- hence
+$\log\Gamma$, not $\Gamma$, in \cref{sec:generalization}. Let
+$\tilde p=(\plo+\pup)/2$ and $\delta=\pup-\plo$ be the midpoint and the
+\emph{identification width}. Proofs are in \cref{app:setup}.
 
 \begin{remark}[Directional $\dcsm$]
 \label{rem:directional}
